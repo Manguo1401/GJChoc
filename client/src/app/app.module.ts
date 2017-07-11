@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core'
+import { HttpModule } from '@angular/http';
 
 //Import des bibliothèques annexes
 
@@ -26,6 +27,10 @@ import { CategoryListComponent } from './components/content/navigationTree/categ
 import { ProductListComponent } from './components/content/navigationTree/productList/productList.component'
 import { ProductDescriptionComponent } from './components/content/navigationTree/productDescription/productDescription.component'
 
+// Import des services
+
+import { TypesService } from './services/types.service'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,11 +50,14 @@ import { ProductDescriptionComponent } from './components/content/navigationTree
   imports: [
     BrowserModule,
     AppRoutes,
+    HttpModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD-28apoLg5KsGw9h4jAJ-IoEpN79HH42o'
     })
   ],
-  providers: [],
+  providers: [
+    TypesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

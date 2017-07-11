@@ -36,7 +36,11 @@ class Category
      */
     private $description;
 
-
+    /**
+     * @ORM\ManyToOne(targetEntity="Type", inversedBy="categories")
+     * @var Type
+     */
+    protected $type;
 
     /**
     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Product", cascade={"persist"}, inversedBy="categories")
@@ -105,6 +109,22 @@ class Category
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Type
+     * @param Type $type [description]
+     */
+    public function setType(Type $type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**

@@ -15,7 +15,7 @@ use AppBundle\Entity\Type;
 class TypeController extends Controller
 {
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"type"})
      * @Rest\Get("/types")
      */
     public function getTypesAction(Request $request)
@@ -29,7 +29,7 @@ class TypeController extends Controller
     }
 
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"type"})
      * @Rest\Get("/types/{id}")
      */
     public function getTypeAction(Request $request)
@@ -48,7 +48,7 @@ class TypeController extends Controller
 
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_CREATED)
+     * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"type"})
      * @Rest\Post("/types")
      */
     public function postTypeAction(Request $request)
@@ -86,7 +86,7 @@ class TypeController extends Controller
     }
 
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"type"})
      * @Rest\Put("/types/{id}")
      */
     public function updateTypeAction(Request $request)
@@ -95,7 +95,7 @@ class TypeController extends Controller
     }
 
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"type"})
      * @Rest\Patch("/types/{id}")
      */
     public function patchTypeAction(Request $request)

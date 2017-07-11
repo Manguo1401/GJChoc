@@ -8,14 +8,13 @@ use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les annotations
 use AppBundle\Form\Type\CategoryType;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Type;
+use AppBundle\Entity\Product;
 
-/** INFO dev: AUTO au lieu de @ permet d'indiquer que Rest fait deja le taf
-* Mais ici y se transforme en ie au pluriel, ce qui n'est pas le fonctionnement automatique de Rest, donc on garde les info routage
-*/
 class CategoryController extends Controller
 {
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"category"})
      * @Rest\Get("/categories")
      */
     public function getCategoriesAction(Request $request)
@@ -29,7 +28,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"category"})
      * @Rest\Get("/categories/{id}")
      */
     public function getCategoryAction(Request $request)
@@ -48,7 +47,7 @@ class CategoryController extends Controller
 
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_CREATED)
+     * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"category"})
      * @Rest\Post("/categories")
      */
     public function postCategoriesAction(Request $request)
@@ -106,7 +105,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"category"})
      * @Rest\Put("/categories/{id}")
      */
     public function updateCategoryAction(Request $request)
@@ -115,7 +114,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"category"})
      * @Rest\Patch("/categories/{id}")
      */
     public function patchCategoryAction(Request $request)
@@ -132,7 +131,7 @@ class CategoryController extends Controller
 
         if (empty($category)) {
             //return new JsonResponse(['message' => 'Product not found'], Response::HTTP_NOT_FOUND);
-            return categoryNotFound();
+            return categoryNotFound($request->get('id'));
         }
 
         $form = $this->createForm(CategoryType::class, $category);
@@ -151,8 +150,182 @@ class CategoryController extends Controller
         }
     }
 
-    private function categoryNotFound()
+    // DEFINIE DANS ProductController
+    // /**
+    //  * @Rest\View(serializerGroups={"category"})
+    //  * @Rest\Get("/categories/{id}/products")
+    //  */
+    // public function getProductsAction(Request $request)
+    // {
+    //     $category = $this->get('doctrine.orm.entity_manager')
+    //         ->getRepository('AppBundle:Category')
+    //         ->find($request->get('id')); // L'identifiant en tant que paramétre n'est plus nécessaire
+    //         /* @var $place Place */
+
+    //     if (empty($category)) {
+    //         return $this->categoryNotFound($request->get('id'));
+    //     }
+
+    //     return $category->getProducts();
+    // }
+
+
+    /**
+     * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"category"})
+     * @Rest\Post("/categories/{catid}/products/{prodid}/add")
+     */
+    public function addProductToCategoryAction(Request $request)
     {
-        return \FOS\RestBundle\View\View::create(['message' => 'Category not found'], Response::HTTP_NOT_FOUND);
+        $category = $this->get('doctrine.orm.entity_manager')
+                ->getRepository('AppBundle:Category')
+                ->find($request->get('catid'));
+        if (empty($category)) {
+            return categoryNotFound($request->get('catid'));
+        }
+
+        $product = $this->get('doctrine.orm.entity_manager')
+                ->getRepository('AppBundle:Product')
+                ->find($request->get('prodid'));
+
+        if (empty($product)) {
+            return productNotFound($category, $request->get('prodid'));
+        }
+
+        // Validation des données NOT needed
+        //Check if product is already added
+        //$products = $category->getProducts();
+
+        $linkExist = false;
+        foreach ($category->getProducts() as $index => $elem) {
+            if($elem->getId() == $product->getId())
+            {
+                $linkExist = true;
+                break;
+            }
+        }
+        if(!$linkExist)
+        {
+            $category->addProduct($product);
+            $em = $this->get('doctrine.orm.entity_manager');
+            $em->persist($category);
+            $em->flush();
+            return $category;
+        }
+        return $category; //new JsonResponse(['message' => 'Category has already this product'], Response::HTTP_NO_CONTENT);
+    }
+
+
+    /**
+     * @Rest\View(serializerGroups={"category"})
+     * @Rest\Post("/categories/{catid}/products/{prodid}/remove")
+     */
+    public function removeProductToCategoryAction(Request $request)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $category = $em->getRepository('AppBundle:Category')
+                ->find($request->get('catid'));
+        if (empty($category)) {
+            return categoryNotFound($request->get('catid'));
+        }
+
+        $product = $em->getRepository('AppBundle:Product')
+                ->find($request->get('prodid'));
+
+        if (empty($product)) {
+            return productNotFound($category, $request->get('prodid'));
+        }
+
+        $category->removeProduct($product);
+        $em->persist($category);
+        $em->flush();
+        return $category;
+
+    }
+
+    // /**
+    //  * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"category"})
+    //  * @Rest\Post("/categories/{catid}/types/{typeid}/add")
+    //  */
+    // public function addTypeToCategoryAction(Request $request)
+    // {
+    //     $category = $this->get('doctrine.orm.entity_manager')
+    //             ->getRepository('AppBundle:Category')
+    //             ->find($request->get('catid'));
+    //     if (empty($category)) {
+    //         return categoryNotFound($request->get('catid'));
+    //     }
+
+    //     $type = $this->get('doctrine.orm.entity_manager')
+    //             ->getRepository('AppBundle:Type')
+    //             ->find($request->get('typeid'));
+
+    //     if (empty($type)) {
+    //         return typeNotFound($category, $request->get('typeid'));
+    //     }
+
+    //     // Validation des données NOT needed
+    //     //Check if type is already added
+    //     //$products = $category->getProducts();
+
+    //     $linkExist = false;
+    //     foreach ($category->getProducts() as $index => $elem) {
+    //         if($elem->getId() == $type->getId())
+    //         {
+    //             $linkExist = true;
+    //             break;
+    //         }
+    //     }
+    //     if(!$linkExist)
+    //     {
+    //         $category->setType($type);
+    //         $em = $this->get('doctrine.orm.entity_manager');
+    //         $em->persist($category);
+    //         $em->flush();
+    //         return $category;
+    //     }
+    //     return $category; //new JsonResponse(['message' => 'Category has already this product'], Response::HTTP_NO_CONTENT);
+    // }
+
+
+    // /**
+    //  * @Rest\View(serializerGroups={"category"})
+    //  * @Rest\Post("/categories/{catid}/types/{prodid}/remove")
+    //  */
+    // public function removeTypeToCategoryAction(Request $request)
+    // {
+    //     $em = $this->get('doctrine.orm.entity_manager');
+    //     $category = $em->getRepository('AppBundle:Category')
+    //             ->find($request->get('catid'));
+    //     if (empty($category)) {
+    //         return categoryNotFound($request->get('catid'));
+    //     }
+
+    //     $type = $em->getRepository('AppBundle:Type')
+    //             ->find($request->get('typeid'));
+
+    //     if (empty($type)) {
+    //         return typeNotFound($category, $request->get('typeid'));
+    //     }
+
+    //     $category->setType(null);
+    //     $em->persist($category);
+    //     $em->flush();
+    //     return $category;
+
+    // }
+
+    private function categoryNotFound($catid)
+    {
+        return \FOS\RestBundle\View\View::create(['message' => 'Category id:'+$catid+' not found'], Response::HTTP_NOT_FOUND);
+    }
+
+    private function productNotFound($prodid)
+    {
+        return \FOS\RestBundle\View\View::create(['message' => 'Product id:'+$prodid+' not found'], Response::HTTP_NOT_FOUND);
+    }
+
+    private function typeNotFound($typeid)
+    {
+        return \FOS\RestBundle\View\View::create(['message' => 'Type id:'+$typeid+' not found'], Response::HTTP_NOT_FOUND);
     }
 }

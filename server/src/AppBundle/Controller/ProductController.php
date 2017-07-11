@@ -10,12 +10,11 @@ use AppBundle\Form\Type\ProductType;
 use AppBundle\Entity\Product;
 
 
-/** INFO dev: AUTO au lieu de @ permet d'indiquer que Rest fait deja le taf */
 class ProductController extends Controller
 {
     /**
-     * @Rest\View()
-     * AUTO Rest\Get("/products")
+     * @Rest\View(serializerGroups={"product"})
+     * @Rest\Get("/products")
      */
     public function getProductsAction(Request $request)
     {
@@ -28,7 +27,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"product"})
      * @Rest\Get("/products/{id}")
      */
     public function getProductAction(Request $request)
@@ -40,7 +39,7 @@ class ProductController extends Controller
 
         if (empty($product)) {
             //return new JsonResponse(['message' => 'Product not found'], Response::HTTP_NOT_FOUND);
-            return placeNotFound();
+            return productNotFound();
         }
 
         return $product;
@@ -48,8 +47,8 @@ class ProductController extends Controller
 
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_CREATED)
-     * AUTO Rest\Post("/products")
+     * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"product"})
+     * @Rest\Post("/products")
      */
     public function postProductsAction(Request $request)
     {
@@ -107,7 +106,7 @@ class ProductController extends Controller
 
 
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"product"})
      * @Rest\Put("/products/{id}")
      */
     public function updateProductAction(Request $request)
@@ -116,7 +115,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"product"})
      * @Rest\Patch("/products/{id}")
      */
     public function patchProductAction(Request $request)
@@ -153,7 +152,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"product"})
      * @Rest\Get("/categories/{id}/products")
      */
     public function getProductsbyCategoryAction(Request $request)

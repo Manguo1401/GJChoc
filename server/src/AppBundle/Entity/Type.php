@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Type
@@ -35,6 +36,33 @@ class Type
      */
     private $description;
 
+    /**
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Category", mappedBy="type")
+    */
+    private $categories;
+
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+    }
+
+    public function addCategory(Category $categorie)
+    {
+        $this->categories[] = $categorie;
+
+        return $this;
+    }
+
+    public function removeCategory(Category $categorie)
+    {
+        $this->categories->removeElement($categorie);
+    }
+
+    public function getCategories()
+    {
+        return $this->categories;
+    }
 
     /**
      * Get id

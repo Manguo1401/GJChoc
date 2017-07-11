@@ -1,0 +1,39 @@
+AppBundle\Entity\Type:
+    attributes:
+        id:
+            groups: ['type', 'category']
+        type:
+            groups: ['type', 'category']
+        description:
+            groups: ['type', 'category']
+        categories:
+            groups: ['type']
+
+AppBundle\Entity\Category:
+    attributes:
+        id:
+            groups: ['category', 'product', 'type']
+        category:
+            groups: ['category', 'product', 'type']
+        description:
+            groups: ['category', 'product', 'type']
+        type:
+            groups: ['category']
+        products:
+            groups: ['category', 'type']
+
+
+AppBundle\Entity\Product:
+    attributes:
+        id:
+            groups: ['product', 'category', 'type']
+        name:
+            groups: ['product', 'category', 'type']
+        description:
+            groups: ['product', 'category', 'type']
+        pricekg:
+            groups: ['product', 'category', 'type']
+        stock:
+            groups: ['product', 'category', 'type']
+        categories:
+            groups: ['product']

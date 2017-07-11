@@ -4,6 +4,7 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class CategoryType extends AbstractType
@@ -12,6 +13,11 @@ class CategoryType extends AbstractType
     {
         $builder->add('category')
             ->add('description');
+
+        $builder
+            ->add('type', EntityType::class, [
+                'class' => 'AppBundle:Type'
+                ]);
 
         // $builder
         //     ->add('products', CollectionType::class, [

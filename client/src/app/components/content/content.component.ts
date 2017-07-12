@@ -4,18 +4,13 @@ import { Type } from './../../objects/type'
 
 import { TypesService } from './../../services/types.service'
 
-const TYPES: Type[] = [
-	{id: 1, type: 'chocolats'},
-	{id: 2, type: 'confiseries'}
-];
-
 @Component ({
 	selector: 'my-content',
 	templateUrl: 'content.component.html'
 })
 
 export class ContentComponent {
-	types = TYPES;
+	types;
 
 	constructor(
 		private typesService: TypesService
@@ -24,7 +19,8 @@ export class ContentComponent {
 	ngOnInit(): void {
 		this.typesService.getTypes()
 		.then(types => {
-			this.types = types
+			this.types = types;
+			console.log(types)
 		});
 	}
 }

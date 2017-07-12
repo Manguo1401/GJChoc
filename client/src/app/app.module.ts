@@ -31,6 +31,10 @@ import { ProductDescriptionComponent } from './components/content/navigationTree
 
 import { TypesService } from './services/types.service'
 
+// Import des filtres et transformeurs (pipes)
+
+import { CapitalizePipe } from './pipes/capitalize.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +49,8 @@ import { TypesService } from './services/types.service'
     CategoryListComponent,
     ProductListComponent,
     ProductDescriptionComponent,
-    PageNotFound
+    PageNotFound,
+    CapitalizePipe
   ],
   imports: [
     BrowserModule,

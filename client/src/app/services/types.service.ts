@@ -14,10 +14,10 @@ export class TypesService {
   constructor(private http: Http) { }
 
   getTypes(): Promise<Type[]> {
-      return this.http.get('http://localhost/gjchoc/server/web/app_dev.php/types')
-      .toPromise()
-      .then(response => {response.json() as Type[]; console.log(response.json())})
-      .catch(this.handleError);
+       return this.http.get('http://localhost/gjchoc/server/web/app_dev.php/types')
+    .toPromise()
+    .then(response =>response.json() as Type[])
+    .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

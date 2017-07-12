@@ -5,11 +5,37 @@ app:
 products:
     type:     rest
     resource: AppBundle\Controller\ProductController
+    prefix: /api
 
 categories:
     type:     rest
     resource: AppBundle\Controller\CategoryController
+    prefix: /api
 
 types:
     type:     rest
     resource: AppBundle\Controller\TypeController
+    prefix: /api
+
+
+  # get_products                 GET      ANY      ANY    /api/products
+  # get_product                  GET      ANY      ANY    /api/products/{id}
+  # post_products                POST     ANY      ANY    /api/products
+  # remove_product               DELETE   ANY      ANY    /api/products/{id}
+  # update_product               PUT      ANY      ANY    /api/products/{id}
+  # patch_product                PATCH    ANY      ANY    /api/products/{id}
+  # get_productsby_category      GET      ANY      ANY    /api/categories/{id}/products
+  # get_categories               GET      ANY      ANY    /api/categories
+  # get_category                 GET      ANY      ANY    /api/categories/{id}
+  # post_categories              POST     ANY      ANY    /api/categories
+  # remove_category              DELETE   ANY      ANY    /api/categories/{id}
+  # update_category              PUT      ANY      ANY    /api/categories/{id}
+  # patch_category               PATCH    ANY      ANY    /api/categories/{id}
+  # add_product_to_category      POST     ANY      ANY    /api/categories/{catid}/products/{prodid}/add
+  # remove_product_to_category   POST     ANY      ANY    /api/categories/{catid}/products/{prodid}/remove
+  # get_types                    GET      ANY      ANY    /api/types
+  # get_type                     GET      ANY      ANY    /api/types/{id}
+  # post_type                    POST     ANY      ANY    /api/types
+  # remove_type                  DELETE   ANY      ANY    /api/types/{id}
+  # update_type                  PUT      ANY      ANY    /api/types/{id}
+  # patch_type                   PATCH    ANY      ANY    /api/types/{id}

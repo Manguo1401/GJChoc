@@ -19,12 +19,12 @@ class CategoryType extends AbstractType
                 'class' => 'AppBundle:Type'
                 ]);
 
-        // $builder
-        //     ->add('products', CollectionType::class, [
-        //         'entry_type' => ProductType::class,
-        //         'allow_add' => true,
-        //         'error_bubbling' => false
-        //         ]);
+        $builder
+            ->add('products', CollectionType::class, [
+                'entry_type' => ProductType::class,
+                'allow_add' => true,
+                'error_bubbling' => false
+                ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

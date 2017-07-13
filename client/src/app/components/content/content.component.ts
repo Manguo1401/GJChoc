@@ -20,7 +20,6 @@ export class ContentComponent {
 		this.typesService.getTypes()
 		.then(types => {
 			this.types = types;
-			console.log(types)
 		});
 	}
 }

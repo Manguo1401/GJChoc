@@ -16,10 +16,7 @@ import { BasketComponent} from './components/basket/basket.component'
 			path:'accueil/:type',
 			component: HomeComponent,
 		},{
-			path:'accueil/:type/:category',
-			component: HomeComponent,
-		},{
-			path:'accueil/:type/:category/:product',
+			path:'accueil/:type/:product',
 			component: HomeComponent,
 		},{
 			path: 'profil',

@@ -33,7 +33,7 @@ import { TypesService } from './services/types.service'
 
 // Import des filtres et transformeurs (pipes)
 
-import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { CapitalizePipe } from './pipes/capitalize.pipe'
 
 @NgModule({
   declarations: [

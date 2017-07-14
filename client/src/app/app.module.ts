@@ -48,7 +48,12 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     return new AuthHttp( new AuthConfig({}), http, options);
 }
 
+// Import des filtres et transformeurs (pipes)
+
+import { CapitalizePipe } from './pipes/capitalize.pipe';
+
 @NgModule({
+// <<<<<<< HEAD
 	declarations: [
 		AppComponent,
 		HomeComponent,
@@ -65,7 +70,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
 		PageNotFound,
 		AuthenticationComponent,
 		PostComponent,
-		AdminHomeComponent
+		AdminHomeComponent,
+		CapitalizePipe //Added from master
 	],
 	imports: [
 		BrowserModule,
@@ -89,5 +95,35 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
 		PostRepository
 	],
 	bootstrap: [AppComponent]
+// =======
+//   declarations: [
+//     AppComponent,
+//     HomeComponent,
+//     ProfileComponent,
+//     ContactComponent,
+//     BasketComponent,
+//     HeaderComponent,
+//     ContentComponent,
+//     FooterComponent,
+//     NavigationTreeComponent,
+//     CategoryListComponent,
+//     ProductListComponent,
+//     ProductDescriptionComponent,
+//     PageNotFound,
+//     CapitalizePipe
+//   ],
+//   imports: [
+//     BrowserModule,
+//     AppRoutes,
+//     HttpModule,
+//     AgmCoreModule.forRoot({
+//       apiKey: 'AIzaSyD-28apoLg5KsGw9h4jAJ-IoEpN79HH42o'
+//     })
+//   ],
+//   providers: [
+//     TypesService
+//   ],
+//   bootstrap: [AppComponent]
+// >>>>>>> refs/remotes/origin/master
 })
 export class AppModule { }

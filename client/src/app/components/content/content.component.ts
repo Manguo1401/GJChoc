@@ -4,11 +4,11 @@ import { Type } from './../../objects/type'
 
 import { TypesService } from './../../services/types.service'
 
-
 @Component ({
 	selector: 'my-content',
 	templateUrl: 'content.component.html'
 })
+
 
 export class ContentComponent implements OnInit{
 	types: any[];
@@ -19,6 +19,7 @@ export class ContentComponent implements OnInit{
 	) {}
 
 	ngOnInit(): void {
+
 
 		// this.typesService.getTypes()
 		// .then(types => {
@@ -31,5 +32,12 @@ export class ContentComponent implements OnInit{
                 data => {this.types = data;console.log(data);},
                 error => {this.error = error.message;console.log(error.message);}
             );
+
+		// this.typesService.getTypes()
+		// .then(types => {
+		// 	this.types = types;
+		// 	console.log(types)
+		// });
+
 	}
 }

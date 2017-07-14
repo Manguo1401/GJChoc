@@ -1,6 +1,6 @@
-<div class="grid-x grid-margin-x align-center grid-padding-x align-middle">
+<div class="grid-x align-center grid-padding-x align-middle">
 	<div class="shrink cell">
-		<small>Découvrez l'univers gourmand et raffiné de Julien Gayraud</small>
+		<p class="catcher">Découvrez l'univers gourmand et raffiné de Julien Gayraud</p>
 	</div>
 </div>
 
@@ -10,6 +10,6 @@
   {{ error }}
 </div>
 
-<div class="grid-xy">
-	<my-nav-tree *ngFor="let type of types" [parentType]="type.type"></my-nav-tree>
+<div class="grid-x grid-padding-x">
+	<my-nav-tree *ngFor="let type of types" [parentType]="type.type" class="cell small-6"></my-nav-tree>
 </div>

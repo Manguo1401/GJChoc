@@ -104,3 +104,4 @@ lexik_jwt_authentication:
 # jms_serializer:
 #     metadata:
 #         auto_detection: true
+

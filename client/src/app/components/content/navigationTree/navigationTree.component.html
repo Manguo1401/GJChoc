@@ -1,10 +1,34 @@
-<div class="box small-6" [ngStyle]="{'background-image': 'url(assets/img/types/'+parentType+'.jpg'}">
-	<h1>{{parentType}}</h1>
+<div class="small-6 cell box h-75" [ngStyle]="{'background-image': 'url(assets/img/types/'+parentType+'.jpg'}">
 	<div *ngIf="type !==parentType && type">
 		PETIT
 	</div>
 
-	<a routerLink="/accueil/{{parentType}}" *ngIf="type !== parentType" class="button">Vers les catégories de {{parentType}}</a>
+	<div class="black-filter"></div>
+
+	<div class="grid-y box-content">
+		<div class="cell small-2"></div>
+		<div class="cell small-2 align-self-middle">
+			<h1 class="white padding-left-2">{{parentType | capitalize}}</h1>
+		</div>
+		
+		<div class="cell small-1 align-self-middle">
+			<a routerLink="/accueil/{{parentType}}" *ngIf="type !== parentType" class="button large type-button">Découvrez les produits</a>
+		</div>
+		<div class="cell small-1"></div>
+		<div class="cell small-6 align-self-middle">
+			<div class="grid-x h-100">
+				<div class="cell small-2"></div>
+				<div class="cell small-8 light-grey">
+					<p class="padding-bottom-3">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur quasi ipsa facere provident, maxime reiciendis enim beatae necessitatibus maiores, praesentium! Eveniet aspernatur delectus fugit, repellat officia corrupti laudantium maiores quasi.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+
 
 	<my-category-list 
 		*ngIf="type == parentType && !category"

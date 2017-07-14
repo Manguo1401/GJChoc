@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router'
 
 @Component({
 	selector:'my-nav-tree',
-	templateUrl: 'navigationTree.component.html'
+	templateUrl: 'navigationTree.component.html',
+	styleUrls: ['navigationTree.style.scss']
 })
 
 export class NavigationTreeComponent implements OnInit {

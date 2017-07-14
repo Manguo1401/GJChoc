@@ -17,6 +17,7 @@ export class TypesService {
   constructor(private http: Http, private authHttp: AuthHttp) { }
 
 
+
   getTypes(): Promise<any> {
     return this.http.get('http://localhost/gjchoc/server/web/app_dev.php/api/typesOnly')
     .toPromise()

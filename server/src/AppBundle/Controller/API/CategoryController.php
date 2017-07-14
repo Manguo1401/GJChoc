@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\API;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,7 +48,7 @@ class CategoryController extends Controller
 
     /**
      * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"category"})
-     * @Rest\Post("/categories")
+     * @Rest\Post("/admin/categories")
      */
     public function postCategoriesAction(Request $request)
     {
@@ -89,7 +89,7 @@ class CategoryController extends Controller
 
     /**
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
-     * @Rest\Delete("/categories/{id}")
+     * @Rest\Delete("/admin/categories/{id}")
      */
     public function removeCategoryAction(Request $request)
     {
@@ -106,7 +106,7 @@ class CategoryController extends Controller
 
     /**
      * @Rest\View(serializerGroups={"category"})
-     * @Rest\Put("/categories/{id}")
+     * @Rest\Put("/admin/categories/{id}")
      */
     public function updateCategoryAction(Request $request)
     {
@@ -115,7 +115,7 @@ class CategoryController extends Controller
 
     /**
      * @Rest\View(serializerGroups={"category"})
-     * @Rest\Patch("/categories/{id}")
+     * @Rest\Patch("/admin/categories/{id}")
      */
     public function patchCategoryAction(Request $request)
     {
@@ -172,7 +172,7 @@ class CategoryController extends Controller
 
     /**
      * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"category"})
-     * @Rest\Post("/categories/{catid}/products/{prodid}/add")
+     * @Rest\Post("/admin/categories/{catid}/products/{prodid}/add")
      */
     public function addProductToCategoryAction(Request $request)
     {
@@ -225,7 +225,7 @@ class CategoryController extends Controller
 
     /**
      * @Rest\View(serializerGroups={"category"})
-     * @Rest\Post("/categories/{catid}/products/{prodid}/remove")
+     * @Rest\Post("/admin/categories/{catid}/products/{prodid}/remove")
      */
     public function removeProductToCategoryAction(Request $request)
     {

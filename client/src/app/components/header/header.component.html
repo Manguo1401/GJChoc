@@ -6,4 +6,7 @@
 	<a routerLink="/profil" class="clear button brown large">Profil</a>
 	<a routerLink="/contact" class="clear button brown large">Contact</a>
 	<a routerLink="/panier" class="clear button brown large">Votre panier</a>
+
+  <a *ngIf="!hasAuthToken()" routerLink="/login" class="clear button brown large">Login</a>
+  <a *ngIf="hasAuthToken()" (click)="logout()" href="#" class="clear button brown large">Logout</a>
 </div>

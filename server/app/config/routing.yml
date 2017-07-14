@@ -2,20 +2,33 @@ app:
     resource: '@AppBundle/Controller/DefaultController.php'
     type: annotation
 
-products:
-    type:     rest
-    resource: AppBundle\Controller\ProductController
+admin_login_check:
+    path: /admin/login_check
+
+api:
+    resource: "@AppBundle/Controller/API/"
+    type: rest
     prefix: /api
 
-categories:
+post:
     type:     rest
-    resource: AppBundle\Controller\CategoryController
-    prefix: /api
+    resource: AppBundle\Controller\Admin\CommandeController
+    prefix: /admin
 
-types:
-    type:     rest
-    resource: AppBundle\Controller\TypeController
-    prefix: /api
+# products:
+#     type:     rest
+#     resource: AppBundle\Controller\ProductController
+#     prefix: /api
+
+# categories:
+#     type:     rest
+#     resource: AppBundle\Controller\CategoryController
+#     prefix: /api
+
+# types:
+#     type:     rest
+#     resource: AppBundle\Controller\TypeController
+#     prefix: /api
 
 
   # get_products                 GET      ANY      ANY    /api/products
@@ -30,7 +43,7 @@ types:
   # post_categories              POST     ANY      ANY    /api/categories
   # remove_category              DELETE   ANY      ANY    /api/categories/{id}
   # update_category              PUT      ANY      ANY    /api/categories/{id}
-  # patch_category               PATCH    ANY      ANY    /api/categories/{id}
+  # patch_category               PATCH    ANY      ANY    /api/categories/{id}   => Ici possible de modifier le "type": id
   # add_product_to_category      POST     ANY      ANY    /api/categories/{catid}/products/{prodid}/add
   # remove_product_to_category   POST     ANY      ANY    /api/categories/{catid}/products/{prodid}/remove
   # get_types                    GET      ANY      ANY    /api/types

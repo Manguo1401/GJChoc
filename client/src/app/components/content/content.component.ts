@@ -4,27 +4,32 @@ import { Type } from './../../objects/type'
 
 import { TypesService } from './../../services/types.service'
 
-const TYPES: Type[] = [
-	{id: 1, type: 'chocolats'},
-	{id: 2, type: 'confiseries'}
-];
 
 @Component ({
 	selector: 'my-content',
 	templateUrl: 'content.component.html'
 })
 
-export class ContentComponent {
-	types = TYPES;
+export class ContentComponent implements OnInit{
+	types: any[];
+	error: string = '';
 
 	constructor(
 		private typesService: TypesService
 	) {}
 
 	ngOnInit(): void {
-		this.typesService.getTypes()
-		.then(types => {
-			this.types = types
-		});
+
+		// this.typesService.getTypes()
+		// .then(types => {
+		// 	this.types = types
+		// });
+
+		this.typesService
+            .getTypesOnly()
+            .subscribe(
+                data => {this.types = data;console.log(data);},
+                error => {this.error = error.message;console.log(error.message);}
+            );
 	}
 }

@@ -13,7 +13,7 @@ class LoadFixtures implements FixtureInterface
    public function load(ObjectManager $manager)
    {
       $typeChocolats = new Type();
-      $typeChocolats->setType('Chocolats');
+      $typeChocolats->setType('chocolats');
       $typeChocolats->setDescription('Description type Chocolats');
 
       // $typeChocolats = $manager//$this->get('doctrine.orm.entity_manager')
@@ -42,7 +42,7 @@ class LoadFixtures implements FixtureInterface
       $category4->setType($typeChocolats);
 
       $typeConfiseries = new Type();
-      $typeConfiseries->setType('Confiseries');
+      $typeConfiseries->setType('confiseries');
       $typeConfiseries->setDescription('Description type Confiseries');
 
       // $typeConfiseries = $manager//$this->get('doctrine.orm.entity_manager')

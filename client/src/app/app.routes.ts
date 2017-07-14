@@ -7,6 +7,15 @@ import { ProfileComponent} from './components/profile/profile.component'
 import { ContactComponent} from './components/contact/contact.component'
 import { BasketComponent} from './components/basket/basket.component'
 
+
+import { AuthenticationComponent } from './authentication/authentication.component';
+import { PostComponent } from './post/post.component';
+import { AuthGuard } from './_guard/index';
+
+
+import { AdminHomeComponent} from './admin/home/home.component'
+
+
 @NgModule({
 	imports: [
 		RouterModule.forRoot([{
@@ -23,7 +32,8 @@ import { BasketComponent} from './components/basket/basket.component'
 			component: HomeComponent,
 		},{
 			path: 'profil',
-			component: ProfileComponent
+			component: ProfileComponent,
+			//canActivate: [AuthGuard]
 		},{
 			path: 'contact',
 			component: ContactComponent
@@ -31,6 +41,17 @@ import { BasketComponent} from './components/basket/basket.component'
 			path: 'panier',
 			component: BasketComponent
 		},{
+        path: 'login',
+        component: AuthenticationComponent
+    },{
+        path: 'posts',
+        component: PostComponent,
+        canActivate: [AuthGuard]
+    },{
+        path: 'admin',
+        component: AdminHomeComponent,
+        canActivate: [AuthGuard]
+    },{
 			path: '',
 			redirectTo: '/accueil',
 			pathMatch: 'full'

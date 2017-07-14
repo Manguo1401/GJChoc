@@ -4,6 +4,12 @@
 	</div>
 </div>
 
+<div [hidden]="!error" class="alert alert-danger" role="alert">
+  <span class="glyficon glificon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+  {{ error }}
+</div>
+
 <div class="grid-xy">
 	<my-nav-tree *ngFor="let type of types" [parentType]="type.type"></my-nav-tree>
 </div>

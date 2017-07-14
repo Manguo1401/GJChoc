@@ -23,22 +23,4 @@
 			</div>
 		</div>
 	</div>
-</div>	
-
-
-	<my-category-list 
-		*ngIf="type == parentType && !category"
-	></my-category-list>
-
-	<my-product-list 
-		*ngIf="type == parentType && category && !product"
-		[category]="category"
-	></my-product-list>
-
-	<my-product-description 
-		*ngIf="type == parentType  && product"
-		[product]="product"
-	></my-product-description>
-
-
-
+</div>

@@ -1,4 +1,8 @@
-import {Component} from '@angular/core'
+import { Component, OnInit } from '@angular/core'
+
+import { Type } from './../../objects/type'
+
+import { TypesService } from './../../services/types.service'
 
 @Component ({
 	selector: 'my-accueil',
@@ -6,5 +10,16 @@ import {Component} from '@angular/core'
 })
 
 export class HomeComponent {
+	types;
 
+	constructor(
+		private typesService: TypesService
+	) {}
+
+	ngOnInit(): void {
+		this.typesService.getTypes()
+		.subscribe(types => {
+			this.types = types;
+		});
+	}
 }

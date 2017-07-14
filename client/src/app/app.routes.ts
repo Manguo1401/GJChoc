@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 
 import { PageNotFound } from './components/pageNotFound/page_not_found.component'
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './components/home/home.component'
+import { ShopComponent } from './components/shop/shop.component'
 import { ProfileComponent} from './components/profile/profile.component'
 import { ContactComponent} from './components/contact/contact.component'
 import { BasketComponent} from './components/basket/basket.component'
@@ -13,11 +14,8 @@ import { BasketComponent} from './components/basket/basket.component'
 			path:'accueil',
 			component: HomeComponent,
 		},{
-			path:'accueil/:type',
-			component: HomeComponent,
-		},{
-			path:'accueil/:type/:product',
-			component: HomeComponent,
+			path:'shop/:type',
+			component: ShopComponent
 		},{
 			path: 'profil',
 			component: ProfileComponent

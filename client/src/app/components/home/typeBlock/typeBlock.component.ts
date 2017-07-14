@@ -3,11 +3,11 @@ import { ActivatedRoute } from '@angular/router'
 
 @Component({
 	selector:'my-nav-tree',
-	templateUrl: 'navigationTree.component.html',
-	styleUrls: ['navigationTree.style.scss']
+	templateUrl: 'typeBlock.component.html',
+	styleUrls: ['typeBlock.style.scss']
 })
 
-export class NavigationTreeComponent implements OnInit {
+export class TypeBlockComponent implements OnInit {
 	private type: string;
 	private category: string;
 	private product: string;

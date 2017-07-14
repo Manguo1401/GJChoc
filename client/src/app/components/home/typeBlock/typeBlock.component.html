@@ -1,7 +1,4 @@
 <div class="small-6 cell box h-75" [ngStyle]="{'background-image': 'url(assets/img/types/'+parentType+'.jpg'}">
-	<div *ngIf="type !==parentType && type">
-		PETIT
-	</div>
 
 	<div class="black-filter"></div>
 
@@ -26,23 +23,4 @@
 			</div>
 		</div>
 	</div>
-
-	
-
-
-	<my-category-list 
-		*ngIf="type == parentType && !category"
-	></my-category-list>
-
-	<my-product-list 
-		*ngIf="type == parentType && category && !product"
-		[category]="category"
-	></my-product-list>
-
-	<my-product-description 
-		*ngIf="type == parentType  && product"
-		[product]="product"
-	></my-product-description>
-
 </div>
-

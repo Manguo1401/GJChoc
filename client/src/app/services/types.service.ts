@@ -25,7 +25,8 @@ export class TypesService {
 			// ...using get request
 			return this.http.get(this.url)
 			.map(res => res.json())
-			.do(data => this.types = data)
+			//.do(data => this.types = data)
+			.do(data => {this.types = data; console.log(data);})
 			.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
 		}
 	}

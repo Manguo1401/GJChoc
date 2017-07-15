@@ -1,5 +1,7 @@
+import {Category} from "./category"
+
 export class Type {
-	id: number;
-	type: string;
-	categories: any;
+  id: number;
+  type: string;
+  categories: Category[];
 }

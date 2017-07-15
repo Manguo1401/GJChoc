@@ -1,1 +1,18 @@
-ceci est le magasin
+<ul class="tab-list">
+	<li class="tab-box">
+		<a routerLink="/shop/chocolats"  class="tab" routerLinkActive="active-tab">Chocolats</a>
+	</li>
+	<li class="tab-box" >
+		<a routerLink="/shop/confiseries"  class="tab" routerLinkActive="active-tab">Confiseries</a>
+	</li>
+</ul>
+<br>
+
+<div class="grid-x grid-margin-x" style="margin: 0">
+	<div class="small-3 cell">
+		<my-category-list></my-category-list>
+	</div>
+	<div class="small-9 cell">
+		<my-product-list></my-product-list>
+	</div>
+</div>

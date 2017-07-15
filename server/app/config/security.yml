@@ -1,28 +1,6 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
 security:
-
-    # # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
-    # providers:
-    #     in_memory:
-    #         memory: ~
-
-    # firewalls:
-    #     # disables authentication for assets and the profiler, adapt it according to your needs
-    #     dev:
-    #         pattern: ^/(_(profiler|wdt)|css|images|js)/
-    #         security: false
-
-    #     main:
-    #         anonymous: ~
-    #         # activate different ways to authenticate
-
-    #         # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-    #         #http_basic: ~
-
-    #         # https://symfony.com/doc/current/security/form_login_setup.html
-    #         #form_login: ~
-
     encoders:
         FOS\UserBundle\Model\UserInterface: sha512
     acl:
@@ -40,6 +18,12 @@ security:
         fos_userbundle:
             id: fos_user.user_provider.username
 
+        in_memory:
+            memory:
+                users:
+                    apiadmin:
+                        password: pass
+                        roles: 'ROLE_USER'
 
 
     firewalls:
@@ -47,30 +31,6 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
-        login:
-            pattern:  ^/admin/login
-            stateless: true
-            anonymous: true
-            form_login:
-                check_path:               /admin/login_check
-                success_handler:          lexik_jwt_authentication.handler.authentication_success
-                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
-                require_previous_session: false
-                username_parameter: username
-                password_parameter: password
-
-        api:
-            pattern:   ^/api
-            stateless: true
-            anonymous: true
-
-        myadmin:
-            pattern:   ^/api/myadmin
-            stateless: true
-            guard:
-                authenticators:
-                    - lexik_jwt_authentication.jwt_token_authenticator
 
         # -> custom firewall for the admin area of the URL
         admin:
@@ -103,10 +63,34 @@ security:
             logout:             true
             anonymous:          true
 
+        login:
+            pattern:  ^/apiadmin/login
+            stateless: true
+            anonymous: true
+            form_login:
+                check_path:               /apiadmin/login_check
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
+                username_parameter: username
+                password_parameter: password
+
+        api:
+            pattern:   ^/api
+            stateless: true
+            anonymous: true
+
+        apiadmin:
+            pattern:   ^/apiadmin
+            stateless: true
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+
     access_control:
-        - { path: ^/api/myadmin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/apiadmin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api,       roles: IS_AUTHENTICATED_ANONYMOUSLY } #IS_AUTHENTICATED_FULLY
-        - { path: ^/api/myadmin,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/apiadmin,       roles: IS_AUTHENTICATED_FULLY }
 
         # URL of FOSUserBundle which need to be available to anonymous users
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }

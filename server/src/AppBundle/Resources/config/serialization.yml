@@ -18,7 +18,7 @@ AppBundle\Entity\Category:
         description:
             groups: ['category', 'product', 'type']
         type:
-            groups: ['category']
+            groups: ['category', 'product']
         products:
             groups: ['category', 'type']
 

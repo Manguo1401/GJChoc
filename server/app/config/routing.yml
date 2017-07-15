@@ -26,7 +26,7 @@ app:
     type: annotation
 
 admin_login_check:
-    path: /myadmin/login_check
+    path: /apiadmin/login_check
 
 api:
     resource: "@AppBundle/Controller/API/"
@@ -51,7 +51,7 @@ api:
 post:
     type:     rest
     resource: AppBundle\Controller\Admin\CommandeController
-    prefix: /myadmin
+    prefix: /apiadmin
 
 
 

@@ -8,6 +8,8 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Type;
 use AppBundle\Entity\Product;
 
+// commande: php bin/console doctrine:fixtures:load --fixtures=src/AppBundle/DataFixtures/ORM/LoadFixtures
+
 class LoadFixtures implements FixtureInterface
 {
    public function load(ObjectManager $manager)

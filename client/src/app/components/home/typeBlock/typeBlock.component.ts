@@ -19,8 +19,6 @@ export class TypeBlockComponent implements OnInit {
 	ngOnInit() {
 		this.route.params.subscribe((params: any) => {
 			this.type = params['type'];
-			this.category = params['category'];
-			this.product = params['product'];
 		});
 	}
 }

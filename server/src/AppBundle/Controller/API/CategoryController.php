@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\API;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,7 +48,7 @@ class CategoryController extends Controller
 
     /**
      * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"category"})
-     * @Rest\Post("/categories")
+     * @Rest\Post("/admin/categories")
      */
     public function postCategoriesAction(Request $request)
     {
@@ -89,7 +89,7 @@ class CategoryController extends Controller
 
     /**
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
-     * @Rest\Delete("/categories/{id}")
+     * @Rest\Delete("/admin/categories/{id}")
      */
     public function removeCategoryAction(Request $request)
     {
@@ -106,7 +106,7 @@ class CategoryController extends Controller
 
     /**
      * @Rest\View(serializerGroups={"category"})
-     * @Rest\Put("/categories/{id}")
+     * @Rest\Put("/admin/categories/{id}")
      */
     public function updateCategoryAction(Request $request)
     {
@@ -115,7 +115,7 @@ class CategoryController extends Controller
 
     /**
      * @Rest\View(serializerGroups={"category"})
-     * @Rest\Patch("/categories/{id}")
+     * @Rest\Patch("/admin/categories/{id}")
      */
     public function patchCategoryAction(Request $request)
     {
@@ -172,7 +172,7 @@ class CategoryController extends Controller
 
     /**
      * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"category"})
-     * @Rest\Post("/categories/{catid}/products/{prodid}/add")
+     * @Rest\Post("/admin/categories/{catid}/products/{prodid}/add")
      */
     public function addProductToCategoryAction(Request $request)
     {
@@ -209,15 +209,23 @@ class CategoryController extends Controller
             $em = $this->get('doctrine.orm.entity_manager');
             $em->persist($category);
             $em->flush();
-            return $category;
+            //return $category;
+            return \FOS\RestBundle\View\View::create(['message' => 'Product id:'+$request->get('prodid')+' added to products of category', 'data' => $category], Response::HTTP_OK);
         }
-        return $category; //new JsonResponse(['message' => 'Category has already this product'], Response::HTTP_NO_CONTENT);
+        $data = '{ "data": "Product id:'+1+' added to products of category" }';
+        $response = JsonResponse::fromJsonString($data.tostring());
+
+        return $response;
+        //return $category; //new JsonResponse(['message' => 'Category has already this product'], Response::HTTP_NO_CONTENT);
+        $message = 'Product id:'+$request->get('prodid')+' is already in products of this category';
+        return new JsonResponse(['message' => 'message', 'data' => $category], Response::HTTP_OK);
+        return new JsonResponse(['message' => 'Product id:'+$request->get('prodid')+' is already in products of this category', 'data' => $category], Response::HTTP_OK);
     }
 
 
     /**
      * @Rest\View(serializerGroups={"category"})
-     * @Rest\Post("/categories/{catid}/products/{prodid}/remove")
+     * @Rest\Post("/admin/categories/{catid}/products/{prodid}/remove")
      */
     public function removeProductToCategoryAction(Request $request)
     {
@@ -235,11 +243,23 @@ class CategoryController extends Controller
             return productNotFound($category, $request->get('prodid'));
         }
 
-        $category->removeProduct($product);
-        $em->persist($category);
-        $em->flush();
-        return $category;
-
+        $linkExist = false;
+        foreach ($category->getProducts() as $index => $elem) {
+            if($elem->getId() == $product->getId())
+            {
+                $linkExist = true;
+                break;
+            }
+        }
+        if($linkExist)
+        {
+            $category->removeProduct($product);
+            $em->persist($category);
+            $em->flush();
+            //return $category;
+            return new JsonResponse(['message' => 'Product id:'+$request->get('prodid')+' removed from list', 'data' => $category], Response::HTTP_OK);
+        }
+        return new JsonResponse(['message' => 'Product id:'+$request->get('prodid')+' not in products of this category', 'data' => $category], Response::HTTP_OK);
     }
 
     // /**

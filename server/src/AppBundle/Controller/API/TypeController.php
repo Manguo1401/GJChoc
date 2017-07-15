@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\API;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,12 +20,16 @@ class TypeController extends Controller
      */
     public function getTypesAction(Request $request)
     {
-        $types = $this->get('doctrine.orm.entity_manager')
-        ->getRepository('AppBundle:Type')
-        ->findAll();
-        /* @var $types Type[] */
+        return $this->getDoctrine()->getRepository('AppBundle:Type')->findAll();
+    }
 
-        return $types;
+    /**
+     * @Rest\View(serializerGroups={"typeonly"})
+     * @Rest\Get("/typesOnly")
+     */
+    public function getTypesOnlyAction(Request $request)
+    {
+        return $this->getDoctrine()->getRepository('AppBundle:Type')->findAll();
     }
 
     /**
@@ -49,7 +53,7 @@ class TypeController extends Controller
 
     /**
      * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"type"})
-     * @Rest\Post("/types")
+     * @Rest\Post("/admin/types")
      */
     public function postTypeAction(Request $request)
     {
@@ -70,7 +74,7 @@ class TypeController extends Controller
 
     /**
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
-     * @Rest\Delete("/types/{id}")
+     * @Rest\Delete("/admin/types/{id}")
      */
     public function removeTypeAction(Request $request)
     {
@@ -87,7 +91,7 @@ class TypeController extends Controller
 
     /**
      * @Rest\View(serializerGroups={"type"})
-     * @Rest\Put("/types/{id}")
+     * @Rest\Put("/admin/types/{id}")
      */
     public function updateTypeAction(Request $request)
     {
@@ -96,7 +100,7 @@ class TypeController extends Controller
 
     /**
      * @Rest\View(serializerGroups={"type"})
-     * @Rest\Patch("/types/{id}")
+     * @Rest\Patch("/admin/types/{id}")
      */
     public function patchTypeAction(Request $request)
     {

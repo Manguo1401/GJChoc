@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\API;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,7 +48,7 @@ class ProductController extends Controller
 
     /**
      * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"product"})
-     * @Rest\Post("/products")
+     * @Rest\Post("/admin/products")
      */
     public function postProductsAction(Request $request)
     {
@@ -89,7 +89,7 @@ class ProductController extends Controller
 
     /**
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
-     * @Rest\Delete("/products/{id}")
+     * @Rest\Delete("/admin/products/{id}")
      */
     public function removeProductAction(Request $request)
     {
@@ -107,7 +107,7 @@ class ProductController extends Controller
 
     /**
      * @Rest\View(serializerGroups={"product"})
-     * @Rest\Put("/products/{id}")
+     * @Rest\Put("/admin/products/{id}")
      */
     public function updateProductAction(Request $request)
     {
@@ -116,7 +116,7 @@ class ProductController extends Controller
 
     /**
      * @Rest\View(serializerGroups={"product"})
-     * @Rest\Patch("/products/{id}")
+     * @Rest\Patch("/admin/products/{id}")
      */
     public function patchProductAction(Request $request)
     {

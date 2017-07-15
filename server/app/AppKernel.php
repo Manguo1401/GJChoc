@@ -22,14 +22,18 @@ class AppKernel extends Kernel
             // new JMS\SerializerBundle\JMSSerializerBundle(),
             new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
 
-            // These are the other bundles the SonataAdminBundle relies on
+            // For Sonata Admin-Bundle:
             new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-
-            // And finally, the storage and SonataAdminBundle
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
+
+            // For Sonata User-bundle:
+            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new Sonata\UserBundle\SonataUserBundle(),
+            new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
 
             new AppBundle\AppBundle(),
         ];

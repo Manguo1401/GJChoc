@@ -18,7 +18,7 @@ export class TypesService {
 
 	constructor(private http: Http, private authHttp: AuthHttp) { }
 
-	getTypes() {
+	getTypesOnly() {
 		if (this.types) {
 			return Observable.of(this.types);
 		} else {

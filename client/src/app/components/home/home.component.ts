@@ -20,7 +20,7 @@ export class HomeComponent {
 	}
 
 	ngOnInit(): void {
-		this.typesService.getTypes()
+		this.typesService.getTypesOnly()
 		.subscribe(types => {
 			this.types = types;
 		});

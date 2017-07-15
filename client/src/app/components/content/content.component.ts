@@ -20,18 +20,22 @@ export class ContentComponent implements OnInit{
 
 	ngOnInit(): void {
 
+		this.typesService.getTypesOnly()
+		.subscribe(types => {
+			this.types = types;
+		});
 
 		// this.typesService.getTypes()
 		// .then(types => {
 		// 	this.types = types
 		// });
 
-		this.typesService
-            .getTypesOnly()
-            .subscribe(
-                data => {this.types = data;console.log(data);},
-                error => {this.error = error.message;console.log(error.message);}
-            );
+		// this.typesService
+  //           .getTypesOnly()
+  //           .subscribe(
+  //               data => {this.types = data;console.log(data);},
+  //               error => {this.error = error.message;console.log(error.message);}
+  //           );
 
 		// this.typesService.getTypes()
 		// .then(types => {

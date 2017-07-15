@@ -1,9 +1,9 @@
 AppBundle\Entity\Type:
     attributes:
         id:
-            groups: ['type', 'category']
+            groups: ['typeonly', 'type', 'category']
         type:
-            groups: ['type', 'category']
+            groups: ['typeonly', 'type', 'category']
         description:
             groups: ['type', 'category']
         categories:

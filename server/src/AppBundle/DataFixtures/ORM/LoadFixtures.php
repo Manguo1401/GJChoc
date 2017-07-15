@@ -6,14 +6,20 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Type;
+use AppBundle\Entity\Product;
 
-class LoadCategory implements FixtureInterface
+class LoadFixtures implements FixtureInterface
 {
    public function load(ObjectManager $manager)
    {
-      $typeChocolats = $this->get('doctrine.orm.entity_manager')
-        ->getRepository('AppBundle:Type')
-        ->findOneBy(array('type' => 'Chocolats'));
+      $typeChocolats = new Type();
+      $typeChocolats->setType('chocolats');
+      $typeChocolats->setDescription('Description type Chocolats');
+
+      // $typeChocolats = $manager//$this->get('doctrine.orm.entity_manager')
+      //   ->getRepository('AppBundle:Type')
+      //   ->find(3);
+      //   //->findOneBy(array('type' => 'Chocolats'));
 
       $category1 = new Category();
       $category1->setCategory('Les assortiments de chocolats');
@@ -35,9 +41,13 @@ class LoadCategory implements FixtureInterface
       $category4->setDescription('Description orangettes & citronettes');
       $category4->setType($typeChocolats);
 
-      $typeConfiseries = $this->get('doctrine.orm.entity_manager')
-        ->getRepository('AppBundle:Type')
-        ->findOneBy(array('type' => 'Confiseries'));
+      $typeConfiseries = new Type();
+      $typeConfiseries->setType('confiseries');
+      $typeConfiseries->setDescription('Description type Confiseries');
+
+      // $typeConfiseries = $manager//$this->get('doctrine.orm.entity_manager')
+      //   ->getRepository('AppBundle:Type')
+      //   ->findOneBy(array('type' => 'Confiseries'));
 
       $category5 = new Category();
       $category5->setCategory('Les berlingots');
@@ -59,6 +69,36 @@ class LoadCategory implements FixtureInterface
       $category8->setDescription('Description pâtes de fruits');
       $category8->setType($typeConfiseries);
 
+
+      $product1 = new Product();
+      $product1->setName("Produit chocolat 1");
+      $product1->setDescription("Chocolat 1 dans categorie: Assortiments de chocolats");
+      $product1->setPricekg(10);
+      $product1->setStock(100);
+      //$product1->addCategory($category1); //NOT working!
+      $category1->addProduct($product1);
+
+      $product2 = new Product();
+      $product2->setName("Produit chocolat 2");
+      $product2->setDescription("Chocolat 2 dans categorie: Assortiments de chocolats");
+      $product2->setPricekg(5);
+      $product2->setStock(8);
+      //$product2->addCategory($category1);
+      $category1->addProduct($product2);
+
+      $product3 = new Product();
+      $product3->setName("Produit guimauve orangette");
+      $product3->setDescription("Un peu de guimauve et un peu de chocolat orangé");
+      $product3->setPricekg(5);
+      $product3->setStock(8);
+      // $product3->addCategory($category6);
+      // $product3->addCategory($category4);
+      $category4->addProduct($product3);
+      $category6->addProduct($product3);
+
+
+      $manager->persist($typeChocolats);
+      $manager->persist($typeConfiseries);
       $manager->persist($category1);
       $manager->persist($category2);
       $manager->persist($category3);
@@ -67,6 +107,9 @@ class LoadCategory implements FixtureInterface
       $manager->persist($category6);
       $manager->persist($category7);
       $manager->persist($category8);
+      $manager->persist($product1);
+      $manager->persist($product2);
+      $manager->persist($product3);
 
       $manager->flush();
    }

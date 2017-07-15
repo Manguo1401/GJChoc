@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core'
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http, RequestOptions } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //Import des bibliothèques annexes
 
@@ -16,20 +17,39 @@ import { ContactComponent} from './components/contact/contact.component'
 import { BasketComponent} from './components/basket/basket.component'
 
 
-//Import des composants 
+//Import des composants
 
 import { PageNotFound } from './components/pageNotFound/page_not_found.component'
 import { AppRoutes } from './app.routes'
 import { HeaderComponent } from './components/header/header.component'
 import { FooterComponent } from './components/footer/footer.component'
+
+import { PostComponent } from './post/post.component'
+
+
 import { TypeBlockComponent } from './components/home/typeBlock/typeBlock.component'
 import { CategoryListComponent } from './components/shop/categoryList/categoryList.component'
 import { ProductListComponent } from './components/shop/productList/productList.component'
 import { ProductDetailsComponent } from './components/shop/productDetails/productDetails.component'
 
+
 // Import des services
 
-import { TypesService } from './services/types.service'
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
+import { TypesService } from './services/types.service';
+import { PostRepository } from './post/post-repository.service';
+
+// Import security
+import { AuthGuard } from './_guard/index';
+import { AuthenticationComponent } from './authentication/authentication.component';
+import { AuthenticationService } from './authentication/authentication.service';
+
+// Import admin components
+import { AdminHomeComponent} from './admin/home/home.component'
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+    return new AuthHttp( new AuthConfig({}), http, options);
+}
 
 // Import des filtres et transformeurs (pipes)
 
@@ -49,8 +69,12 @@ import { CapitalizePipe } from './pipes/capitalize.pipe'
     CategoryListComponent,
     ProductListComponent,
     ProductDetailsComponent,
+    CapitalizePipe,
+		AuthenticationComponent,
+		PostComponent,
+		AdminHomeComponent,
+
     PageNotFound,
-    CapitalizePipe
   ],
   imports: [
     BrowserModule,
@@ -58,10 +82,20 @@ import { CapitalizePipe } from './pipes/capitalize.pipe'
     HttpModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD-28apoLg5KsGw9h4jAJ-IoEpN79HH42o'
-    })
+    }),
+    FormsModule,
+		ReactiveFormsModule
   ],
   providers: [
-    TypesService
+  	{
+			provide: AuthHttp,
+			useFactory: authHttpServiceFactory,
+			deps: [ Http, RequestOptions ]
+		},
+    TypesService,
+    AuthGuard,
+		AuthenticationService,
+		PostRepository
   ],
   bootstrap: [AppComponent]
 })

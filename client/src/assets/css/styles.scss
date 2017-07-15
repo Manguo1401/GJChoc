@@ -1,4 +1,6 @@
 @import "node_modules/foundation-sites/scss/foundation";
+@import "shop/shop.style";
+@import "colors";
 
 .navbar {
 	width: 100%;
@@ -19,11 +21,11 @@ agm-map {
 }
 
 .button.brown {
-	color: #593821
+	color: $brown;
 }
 
 .button.brown:hover {
-	color: #8A7363
+	color: $light-brown;
 }
 
 .catcher {

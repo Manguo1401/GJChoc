@@ -1,36 +1,4 @@
-app:
-    resource: '@AppBundle/Controller/DefaultController.php'
-    type: annotation
-
-admin_login_check:
-    path: /admin/login_check
-
-api:
-    resource: "@AppBundle/Controller/API/"
-    type: rest
-    prefix: /api
-
-post:
-    type:     rest
-    resource: AppBundle\Controller\Admin\CommandeController
-    prefix: /admin
-
-# products:
-#     type:     rest
-#     resource: AppBundle\Controller\ProductController
-#     prefix: /api
-
-# categories:
-#     type:     rest
-#     resource: AppBundle\Controller\CategoryController
-#     prefix: /api
-
-# types:
-#     type:     rest
-#     resource: AppBundle\Controller\TypeController
-#     prefix: /api
-
-
+# debug:routing
   # get_products                 GET      ANY      ANY    /api/products
   # get_product                  GET      ANY      ANY    /api/products/{id}
   # post_products                POST     ANY      ANY    /api/products
@@ -52,3 +20,43 @@ post:
   # remove_type                  DELETE   ANY      ANY    /api/types/{id}
   # update_type                  PUT      ANY      ANY    /api/types/{id}
   # patch_type                   PATCH    ANY      ANY    /api/types/{id}
+
+app:
+    resource: '@AppBundle/Controller/DefaultController.php'
+    type: annotation
+
+admin_login_check:
+    path: /myadmin/login_check
+
+api:
+    resource: "@AppBundle/Controller/API/"
+    type: rest
+    prefix: /api
+
+# products:
+#     type:     rest
+#     resource: AppBundle\Controller\ProductController
+#     prefix: /api
+
+# categories:
+#     type:     rest
+#     resource: AppBundle\Controller\CategoryController
+#     prefix: /api
+
+# types:
+#     type:     rest
+#     resource: AppBundle\Controller\TypeController
+#     prefix: /api
+
+post:
+    type:     rest
+    resource: AppBundle\Controller\Admin\CommandeController
+    prefix: /myadmin
+
+admin_area:
+    resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
+    prefix: /admin
+
+
+
+

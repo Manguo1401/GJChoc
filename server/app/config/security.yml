@@ -51,14 +51,14 @@ security:
             stateless: true
             anonymous: true
 
-        admin:
-            pattern:   ^/api/admin
+        myadmin:
+            pattern:   ^/api/myadmin
             stateless: true
             guard:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
     access_control:
-        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/myadmin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api,       roles: IS_AUTHENTICATED_ANONYMOUSLY } #IS_AUTHENTICATED_FULLY
-        - { path: ^/admin,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/myadmin,       roles: IS_AUTHENTICATED_FULLY }

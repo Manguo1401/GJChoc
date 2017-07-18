@@ -12,7 +12,7 @@ class BasketController extends Controller
 {
     /**
      * @Rest\View()
-     * @Rest\Put("/basket/add/{productid}/{qte}, defaults={"qte" = 1}")
+     * @Rest\Put("/basket/add/{productid}/{qte}", defaults={"qte" = 1})
      */
     public function addAction(Request $request)
     {

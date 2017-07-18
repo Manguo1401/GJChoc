@@ -12,18 +12,23 @@ class TypeAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('name', 'text');
+        $formMapper
+        ->add('type', 'text')
+        ->add('description', 'textarea');
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('name');
+        $datagridMapper
+        ->add('description')
+        ->add('type');
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
             ->addIdentifier('id')
-            ->add('name');
+            ->addIdentifier('type')
+            ->add('description');
     }
 }

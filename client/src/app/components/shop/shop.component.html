@@ -1,18 +1,14 @@
 <ul class="tab-list">
 	<li class="tab-box">
-		<a routerLink="/shop/chocolats"  class="tab" routerLinkActive="active-tab">Chocolats</a>
+		<a routerLink="/shop/chocolats"  class="tab" routerLinkActive="active-tab" (click)="setType('chocolat')">Chocolats</a>
 	</li>
 	<li class="tab-box" >
-		<a routerLink="/shop/confiseries"  class="tab" routerLinkActive="active-tab">Confiseries</a>
+		<a routerLink="/shop/confiseries"  class="tab" routerLinkActive="active-tab" (click)="setType('confiseries')">Confiseries</a>
 	</li>
 </ul>
 <br>
 
-<div class="grid-x grid-margin-x" style="margin: 0">
-	<div class="small-3 cell">
-		<my-category-list></my-category-list>
-	</div>
-	<div class="small-9 cell">
-		<my-product-list></my-product-list>
-	</div>
+<div class="grid-x grid-margin-x" style="margin-left: 20px; margin-right: 20px">
+	<my-category-list class="small-4 large-2 cell"  [type]="selectedType" [data]="data"></my-category-list>
+	<my-product-list class="small-8 large-10 cell" ></my-product-list>
 </div>

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 
-import { Type } from './../../objects/type'
-
-import { TypesService } from './../../services/types.service'
+import { DataService } from './../../services/data.service'
 
 @Component ({
 	selector: 'my-accueil',
@@ -10,26 +8,25 @@ import { TypesService } from './../../services/types.service'
 })
 
 export class HomeComponent {
-	types;
+
+	data;
 	error: string = '';
 
 	constructor(
-		private typesService: TypesService
+		private dataService: DataService
 		) {
 
 	}
 
 	ngOnInit(): void {
-		this.typesService.getTypesOnly()
-		.subscribe(types => {
-			this.types = types;
+		this.dataService.getDataSubscribed()
+		.subscribe(data => {
+			this.data = data;
+			console.log(this.data)
 		});
 
-		// this.typesService
-		// .getTypesOnly()
-		// .subscribe(
-		// 	data => {this.types = data; console.log(data);},
-		// 	error => {this.error = error.message; console.log(error.message);}
-		// 	);
+		this.dataService.initData();
+
 	}
+
 }

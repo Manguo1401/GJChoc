@@ -1,1 +1,9 @@
-category list
+
+<ul class="vertical menu" >
+	<li><a href="#">Tous les {{type}}</a></li>
+	<li *ngFor="let category of categories">
+		<a href="#">{{category.category}}</a>
+	</li>
+</ul>
+
+<button (click)='checktype()'>click ici</button>

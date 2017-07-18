@@ -36,7 +36,7 @@ import { ProductDetailsComponent } from './components/shop/productDetails/produc
 // Import des services
 
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
-import { TypesService } from './services/types.service';
+import { DataService } from './services/data.service';
 import { PostRepository } from './post/post-repository.service';
 
 // Import security
@@ -92,7 +92,7 @@ import { CapitalizePipe } from './pipes/capitalize.pipe'
 			useFactory: authHttpServiceFactory,
 			deps: [ Http, RequestOptions ]
 		},
-    TypesService,
+    DataService,
     AuthGuard,
 		AuthenticationService,
 		PostRepository

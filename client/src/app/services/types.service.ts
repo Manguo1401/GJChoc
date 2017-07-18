@@ -13,7 +13,8 @@ import 'rxjs/add/operator/toPromise'
 export class TypesService {
 
 	private headers = new Headers({'Content-Type': 'application/json'});
-	private url = "http://localhost/gjchoc/server/web/app_dev.php/api/typesOnly"
+	private url = "http://localhost/gjchoc/server/web/app_dev.php/api/types"
+	/*private url = "http://localhost/gjchoc/server/web/app_dev.php/api/typesOnly"*/
 	private types : Type[];
 
 	constructor(private http: Http, private authHttp: AuthHttp) { }

@@ -32,14 +32,14 @@ export class DataService {
 	loadData() : Observable<Type[]> {
 
 
-		/*Au moment du chargement le l'App on recherche les données soit sur 
+		/*Au moment du chargement le l'App on recherche les données soit sur
 		le serveur soit dans le service si elles sont déjà téléchargées */
 		if (this.data) {
 			return Observable.of(this.data);
 
 		} else {
 			return this.http.get(this.url)
-			.map((res: Response) => 
+			.map((res: Response) =>
 				res.json())
 			.do(data => {
 				//On enregistre sur une variable localle toutes les données chargées
@@ -64,6 +64,29 @@ export class DataService {
     sendData(data) {
     	this.subject.next(data);
     }
+
+
+  // //@Rest\Post("/basket/add/{productid}/{qte}, defaults={"qte" = 1}")
+  // postBasket(productid, qte)
+  // {
+  //   let posturl = "http://localhost/gjchoc/server/web/app_dev.php/api/basket";
+  //   if(productid)
+  //     posturl = posturl+productid;
+  //   if(qte)
+  //     posturl = posturl+"/"+qte;
+
+  //   // let headers = new Headers({ 'Content-Type': 'application/json' });
+  //   // let options = new RequestOptions({ headers: headers });
+  //   return this.http.put(posturl, null)
+  //     .map(res => res.json())
+  //     .do(data => {this.data = data; console.log(data);})
+  //     .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  // }
+
+  // private handleError(error: any): Promise<any> {
+  //   console.error('An error occurred', error); // for demo purposes only
+  //   return Promise.reject(error.message || error);
+  // }
 
 	/*getDataAuth() {
 		if (this.data) {

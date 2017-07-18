@@ -172,7 +172,7 @@ class CategoryController extends Controller
 
     /**
      * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"category"})
-     * @Rest\Post("/admin/categories/{catid}/products/{prodid}/add")
+     * @Rest\Put("/admin/categories/{catid}/products/{prodid}")
      */
     public function addProductToCategoryAction(Request $request)
     {
@@ -225,7 +225,7 @@ class CategoryController extends Controller
 
     /**
      * @Rest\View(serializerGroups={"category"})
-     * @Rest\Post("/admin/categories/{catid}/products/{prodid}/remove")
+     * @Rest\Delete("/admin/categories/{catid}/products/{prodid}")
      */
     public function removeProductToCategoryAction(Request $request)
     {

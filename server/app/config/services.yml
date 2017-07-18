@@ -4,15 +4,16 @@ parameters:
     #parameter_name: value
 
 services:
+    # LES CONFIGS Par defaut proposées posent des problème pour l'appel des service
     # default configuration for services in *this* file
-    _defaults:
-        # automatically injects dependencies in your services
-        autowire: true
-        # automatically registers your services as commands, event subscribers, etc.
-        autoconfigure: true
-        # this means you cannot fetch services directly from the container via $container->get()
-        # if you need to do this, you can override this setting on individual services
-        public: false
+    # _defaults:
+    #     # automatically injects dependencies in your services
+    #     autowire: true
+    #     # automatically registers your services as commands, event subscribers, etc.
+    #     autoconfigure: true
+    #     # this means you cannot fetch services directly from the container via $container->get()
+    #     # if you need to do this, you can override this setting on individual services
+    #     public: false
 
     # makes classes in src/AppBundle available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -33,3 +34,21 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    admin.type:
+        class: AppBundle\Admin\TypeAdmin
+        arguments: [~, AppBundle\Entity\Type, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Type, group: Metier}
+
+    admin.category:
+        class: AppBundle\Admin\CategoryAdmin
+        arguments: [~, AppBundle\Entity\Category, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Category, group: Metier }
+
+    admin.product:
+        class: AppBundle\Admin\ProductAdmin
+        arguments: [~, AppBundle\Entity\Product, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Product, group: Metier }

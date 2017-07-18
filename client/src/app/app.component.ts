@@ -25,6 +25,7 @@ export class AppComponent {
 	}
 
 	ngOnInit(): void {
+		console.log('app ngOnInit')
 		this.dataService.loadData()
 		.subscribe(
 			data => {

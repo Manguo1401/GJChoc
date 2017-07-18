@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core'
+import { ActivatedRoute, Params } from '@angular/router'
 
 import { DataService } from './../../../services/data.service'
 
@@ -12,9 +12,41 @@ import { Type } from './../../../objects/type'
 
 export class CategoryListComponent {
 
-	@Input() type: string;
 	@Input() data: any;
-	private categories: string[];
-	private selectedType : string;
+	private categories: any;
+	private type : string;
+
+	constructor(
+		private activatedRoute: ActivatedRoute,
+		private dataService: DataService
+	) {}
+
+	ngOnChanges(changes: SimpleChanges) {
+		if(this.data) {
+			this.categories = this.getCategories(this.data, this.type);
+		}
+  	}
+
+  	ngOnInit() {
+  		this.activatedRoute.params.subscribe((params: Params) => {
+	        this.type = params['type'];
+	    	this.categories = this.getCategories(this.data, this.type)
+	    });
+  	}
+
+  	getCategories(data, selectedType) {
+        let categories = []
+        if(data) 
+        data.forEach((e) => {
+        	if (e.type === selectedType) {
+        		categories = e.categories
+        	}
+        })
+        return categories
+  	}
+
+  	filterCategory(category) {
+  		this.dataService.sendCategory(category);
+  	}
 
 }

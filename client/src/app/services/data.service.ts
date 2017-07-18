@@ -23,7 +23,8 @@ export class DataService {
 	private headers = new Headers({'Content-Type': 'application/json'});
 	private url = "http://localhost/gjchoc/server/web/app_dev.php/api/types"
 	private data : Type[];
-	private subject = new Subject<any>();
+	private data$ = new Subject<any>();
+	private category$ = new Subject<any>();
 
 
 
@@ -53,16 +54,24 @@ export class DataService {
 
 	//Permet à tous les components d'appeler le subscribe sur les data une fois le sendData lancé
     getDataSubscribed(): Observable<any> {
-        return this.subject.asObservable();
+        return this.data$.asObservable();
     }
 
     initData() {
-    	this.subject.next(this.data);
+    	this.data$.next(this.data);
     }
 
     //On envoit les données à tous les subscribes de l'observer "subject"
     sendData(data) {
-    	this.subject.next(data);
+    	this.data$.next(data);
+    }
+
+    getCategorySubscribed(): Observable<any> {
+    	return this.category$.asObservable();
+    }
+
+    sendCategory(category) {
+    	this.category$.next(category);
     }
 
 	/*getDataAuth() {

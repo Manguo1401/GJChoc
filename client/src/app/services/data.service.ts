@@ -24,7 +24,8 @@ export class DataService {
   private baseUrl = "http://localhost/gjchoc/server/web/app_dev.php/api/"
 	private urldatatypes = "types"
 	private data : Type[];
-	private subject = new Subject<any>();
+	private data$ = new Subject<any>();
+	private category$ = new Subject<any>();
 
 
 
@@ -53,6 +54,7 @@ export class DataService {
 	}
 
 	//Permet à tous les components d'appeler le subscribe sur les data une fois le sendData lancé
+<<<<<<< HEAD
   getDataSubscribed(): Observable<any> {
     return this.subject.asObservable();
   }
@@ -65,6 +67,14 @@ export class DataService {
   sendData(data) {
     this.subject.next(data);
   }
+
+    getCategorySubscribed(): Observable<any> {
+    	return this.category$.asObservable();
+    }
+
+    sendCategory(category) {
+    	this.category$.next(category);
+    }
 
 
 	/*getDataAuth() {

@@ -54,6 +54,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
 // Import des filtres et transformeurs (pipes)
 
 import { CapitalizePipe } from './pipes/capitalize.pipe'
+import { UniqueValuesPipe } from './pipes/uniqueValues.pipe'
 
 @NgModule({
   declarations: [
@@ -69,12 +70,14 @@ import { CapitalizePipe } from './pipes/capitalize.pipe'
     CategoryListComponent,
     ProductListComponent,
     ProductDetailsComponent,
-    CapitalizePipe,
+    
 		AuthenticationComponent,
 		PostComponent,
 		AdminHomeComponent,
-
     PageNotFound,
+
+    CapitalizePipe,
+    UniqueValuesPipe
   ],
   imports: [
     BrowserModule,

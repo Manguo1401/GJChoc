@@ -21,7 +21,8 @@ import { Type } from './../objects/type'
 export class DataService {
 
 	private headers = new Headers({'Content-Type': 'application/json'});
-	private url = "http://localhost/gjchoc/server/web/app_dev.php/api/types"
+  private baseUrl = "http://localhost/gjchoc/server/web/app_dev.php/api/"
+	private urldatatypes = "types"
 	private data : Type[];
 	private subject = new Subject<any>();
 
@@ -38,7 +39,7 @@ export class DataService {
 			return Observable.of(this.data);
 
 		} else {
-			return this.http.get(this.url)
+			return this.http.get(this.baseUrl+this.urldatatypes)
 			.map((res: Response) =>
 				res.json())
 			.do(data => {
@@ -52,41 +53,19 @@ export class DataService {
 	}
 
 	//Permet à tous les components d'appeler le subscribe sur les data une fois le sendData lancé
-    getDataSubscribed(): Observable<any> {
-        return this.subject.asObservable();
-    }
+  getDataSubscribed(): Observable<any> {
+    return this.subject.asObservable();
+  }
 
-    initData() {
-    	this.subject.next(this.data);
-    }
+  initData() {
+    this.subject.next(this.data);
+  }
 
-    //On envoit les données à tous les subscribes de l'observer "subject"
-    sendData(data) {
-    	this.subject.next(data);
-    }
+  //On envoit les données à tous les subscribes de l'observer "subject"
+  sendData(data) {
+    this.subject.next(data);
+  }
 
-
-  // //@Rest\Post("/basket/add/{productid}/{qte}, defaults={"qte" = 1}")
-  // postBasket(productid, qte)
-  // {
-  //   let posturl = "http://localhost/gjchoc/server/web/app_dev.php/api/basket";
-  //   if(productid)
-  //     posturl = posturl+productid;
-  //   if(qte)
-  //     posturl = posturl+"/"+qte;
-
-  //   // let headers = new Headers({ 'Content-Type': 'application/json' });
-  //   // let options = new RequestOptions({ headers: headers });
-  //   return this.http.put(posturl, null)
-  //     .map(res => res.json())
-  //     .do(data => {this.data = data; console.log(data);})
-  //     .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-  // }
-
-  // private handleError(error: any): Promise<any> {
-  //   console.error('An error occurred', error); // for demo purposes only
-  //   return Promise.reject(error.message || error);
-  // }
 
 	/*getDataAuth() {
 		if (this.data) {
@@ -105,4 +84,34 @@ export class DataService {
 		console.error('An error occurred', error); // for demo purposes only
 		return Promise.reject(error.message || error);
 	}
+
+
+  //*************************
+  //Avec une gestion du Panier dans la $Session côté server
+  // A CHANGER POUR UNE GESTION DU BASKET COTE CLIENT UNIQUEMENT
+  postBasket(productid, qte)
+  {
+    //@Rest\Post("/basket/add/{productid}/{qte}, defaults={"qte" = 1}")
+    let postAddBascket = this.baseUrl +"/basket/add";
+    if(productid)
+    {
+      postAddBascket = postAddBascket+'/'+productid;
+
+      if(qte)
+        postAddBascket = postAddBascket+"/"+qte;
+      return this.http.put(postAddBascket, null)
+      .map(res => res.json())
+      .do(data => {this.data = data; console.log(data);})
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    // let headers = new Headers({ 'Content-Type': 'application/json' });
+    // let options = new RequestOptions({ headers: headers });
+
+  }
+
+  getType()
+  {
+    return this.data;
+  }
 }

@@ -20,13 +20,14 @@ class ProductAdmin extends AbstractAdmin
                 ->add('pricekg','number')
                 ->add('stock','integer')
             ->end()
-            ->with('Category', array('class' => 'col-md-9'))
-                ->add('categories', 'entity', array(
-                    'class' => 'AppBundle\Entity\Category',
-                    'choice_label' => 'category',
-                    'multiple' => true
-                ))
-            ->end()
+            // NOT Work on edit liste of categories
+            // ->with('Category', array('class' => 'col-md-9'))
+            //     ->add('categories', 'entity', array(
+            //         'class' => 'AppBundle\Entity\Category',
+            //         'choice_label' => 'category',
+            //         'multiple' => true
+            //     ))
+            // ->end()
         ;
     }
 

@@ -1,6 +1,9 @@
 @import "node_modules/foundation-sites/scss/foundation";
 @import "shop/shop.style";
 @import "colors";
+@import "contact/contact";
+@import "profile/profile";
+@import "typo";
 
 .navbar {
 	width: 100%;
@@ -9,10 +12,28 @@
 	display: inline-block;
 }
 
-agm-map {
-	width: 100%;
-  	height: 75vh;
+h1 {
+	padding: 10px;
+	text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+	font-family: $titles;
+	margin: 0px;
 }
+
+h2 {
+	color: $brown;
+	font-family: $titles;
+	font-size: 36px;
+}
+
+p {
+	text-align: justify;
+	font-size: 16px;
+}
+
+body {
+	font-family: $text !important;
+}
+
 
 .logo {
 	height:100px;
@@ -34,10 +55,45 @@ agm-map {
 .catcher {
 	text-align: center;
 	margin-top: 10px;
+	margin-bottom: 20px;
 	font-size: 17px;
-	font-family: "Playfair Display",Georgia,serif;
+	font-family: $titles;
 }
 
 .header {
-	margin-bottom: 20px;
+	margin-bottom: 10px;
+}
+
+.menu-link {
+	font-family: $text;
+	font-weight: bold;
+}
+
+.type-button-container {
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	height: 100%
+}
+
+.type-button {
+	color: white;
+	font-family: $text;
+	font-size: 20px;
+	padding: 10px;
+	font-family: $text !important;
+	background-color: transparent;
+	cursor: pointer;
+	transition: all ease-in-out 300ms;
+
+	border: solid 2px white;
+	border-radius: 5px;
+}
+
+.type-button:hover {
+	color: white;
+}
+
+.type-presentation {
+	padding-top: 25px;
 }

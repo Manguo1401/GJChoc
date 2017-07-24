@@ -44,63 +44,21 @@
 	color: $light-brown;
 	background-color: white;
 	border-top-color: $brown;
-	border-top: solid 4px;
+	border-top: solid 2px;
 	border-bottom-width: 1px;
 	background: white;
-	padding-top: 13px;
-	border-bottom: solid 2px white;
+	padding-top: 15px;
+	border-bottom: solid 4px white;
 }
 
-/* .tab-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    padding-left: 13px;
-    background-color:black;
+.menu-item {
+    color: $brown;
 }
 
-#categories-tabs::after {
-	border-width:1px;
-	border-style: solid;
-	width: 100%;
+.menu-item:hover {
+    color: $light-brown;
 }
 
-.tab-box {
-	float: left;
-	background-color: $light-grey;
+.menu-item-clicked {
+    color: $light-brown;
 }
-
-.tab {
-    display: block;
-    color: white;
-    text-align: center;
-    padding-top:16px;
-    padding-bottom: 16px;
-    padding-right: 50px;
-    padding-left: 50px;
-    text-decoration: none;
-    font-family: 'Raleway', Arial, sans-serif;
-	font-size: 16px;
-	font-weight: bold;
-	color: $brown;
-	border-style: solid;
-	border-width: 1px;
-    border-color: $light-borders;
-margin-top: -2px;
-}
-
-.tab:focus, .tab:hover {
-	color: $light-brown;
-
-}
-
-.active-tab {
-	color: $light-brown;
-	background-color: white;
-	border-top-color: $brown;
-	border-top: solid 4px;
-	border-bottom-width: 0;
-	padding-top: 13px;
-}
- */
-

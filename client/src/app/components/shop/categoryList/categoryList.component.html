@@ -1,7 +1,18 @@
 
 <ul class="vertical menu" >
-	<li><a (click)="filterCategory(undefined)">Tous</a></li>
+	<li><a 
+	class="menu-item" 
+	(click)="filterCategory(undefined, 9999)"
+	[ngClass]="{'menu-item-clicked': filteredCategory === 9999}"
+	>
+		Tous</a></li>
 	<li *ngFor="let category of categories">
-		<a (click)="filterCategory(category.category)" >{{category.category}}</a>
+		<a 
+		class="menu-item" 
+		(click)="filterCategory(category.category, category.id)" 
+		[ngClass]="{'menu-item-clicked': filteredCategory === category.id}"
+		>
+			{{category.category}}
+		</a>
 	</li>
 </ul>

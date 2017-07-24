@@ -34,37 +34,10 @@
 	padding-right: 20px;
 }
 
-.type-button {
-	background-color: transparent;
-	cursor: pointer;
-	transition: all ease-in-out 300ms;
-	border: 2px;
-	font-family: "Open Sans",sans-serif;
-	border: solid 2px transparent;
-	border-radius: 5px;
-}
-
-.type-button:hover {
-	border-radius: 5px;
-	border: solid 2px;
-}
-
-p {
-	font-size: 18px;
-	text-align: justify;
-}
-
 .black-filter {
-	
 	position: absolute;
 	height: 100%;
 	width: 100%;
 	z-index: 1;
 
-}
-
-h1 {
-	padding: 10px;
-	text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
-	font-family: "Playfair Display",Georgia,serif;
 }

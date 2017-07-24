@@ -1,13 +1,15 @@
-<div class="grid-x grid-margin-x" style="margin-left: 20px; margin-right: 20px">
-	<div class="small-3 cell">
-		<strong>Julien Gayraud </strong> <br>
-		<strong>Email :</strong> julien_gayraud@hotmail.fr <br>
-		<strong>Tél :</strong> 06.41.77.00.54 <br/>
-		<strong>Adresse de la boutique :</strong> La rouquette 81440 Peyregoux <br/>
-	</div>
-	<div class="small-9 cell">
-		<agm-map [latitude]="lat" [longitude]="lng" [zoom]="13">
-		  	<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-		</agm-map>
+<div class="grid-container">
+	<div class="grid-x grid-margin-x">
+		<div class="small-12 large-6 cell">
+			<span class="contact-title">Julien Gayraud </span> <hr>
+			<span class="contact-title">Email :</span> julien_gayraud@hotmail.fr <hr>
+			<span class="contact-title">Tél :</span> 06.41.77.00.54 <hr>
+			<span class="contact-title">Adresse de la boutique :</span> La rouquette 81440 Peyregoux 
+		</div>
+		<div class="map-container small-12 large-6 cell">
+			<agm-map [latitude]="lat" [longitude]="lng" [zoom]="13">
+			  	<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+			</agm-map>
+		</div>
 	</div>
 </div>

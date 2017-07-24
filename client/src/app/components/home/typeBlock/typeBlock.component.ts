@@ -11,6 +11,7 @@ export class TypeBlockComponent implements OnInit {
 	private type: string;
 	private category: string;
 	private product: string;
+	private hoveredType: boolean;
 
 	@Input('parentType') parentType: string;
 
@@ -20,5 +21,13 @@ export class TypeBlockComponent implements OnInit {
 		this.route.params.subscribe((params: any) => {
 			this.type = params['type'];
 		});
+	}
+
+	clickableLink() {
+		this.hoveredType = true;
+	}
+
+	noLink() {
+		this.hoveredType = false;
 	}
 }

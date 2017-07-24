@@ -1,4 +1,8 @@
-<div class="small-6 cell box h-75" [ngStyle]="{'background-image': 'url(assets/img/types/'+parentType+'.jpg'}">
+<div class="small-6 cell box h-75"
+	[ngStyle]="{'background-image': 'url(assets/img/types/'+parentType+'.jpg'}"
+	on-mouseenter="clickableLink()"
+	on-mouseleave="noLink()" 
+>
 
 	<div class="black-filter"></div>
 
@@ -7,16 +11,25 @@
 		<div class="cell small-2 align-self-middle">
 			<h1 class="white padding-left-2">{{parentType | capitalize}}</h1>
 		</div>
-		
-		<div class="cell small-1 align-self-middle">
-			<a routerLink="/shop/{{parentType}}" *ngIf="type !== parentType" class="button large type-button">Découvrez les produits</a>
+
+		<!-- bouton du milieu -->
+
+		<div class="cell small-3 align-self-middle ">
+			<div class="type-button-container">
+				<a 
+				routerLink="/shop/{{parentType}}" 
+				class="type-button"
+				*ngIf="hoveredType"
+				>
+					Découvrez les produits
+				</a>
+			</div>
 		</div>
-		<div class="cell small-1"></div>
 		<div class="cell small-6 align-self-middle">
 			<div class="grid-x h-100">
 				<div class="cell small-2"></div>
 				<div class="cell small-8 light-grey">
-					<p class="padding-bottom-3">
+					<p class="type-presentation">
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur quasi ipsa facere provident, maxime reiciendis enim beatae necessitatibus maiores, praesentium! Eveniet aspernatur delectus fugit, repellat officia corrupti laudantium maiores quasi.
 					</p>
 				</div>

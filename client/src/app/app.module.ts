@@ -31,6 +31,7 @@ import { TypeBlockComponent } from './components/home/typeBlock/typeBlock.compon
 import { CategoryListComponent } from './components/shop/categoryList/categoryList.component'
 import { ProductListComponent } from './components/shop/productList/productList.component'
 import { ProductDetailsComponent } from './components/shop/productDetails/productDetails.component'
+import { CreationsComponent } from './components/creations/creations.component'
 
 
 // Import des services
@@ -70,6 +71,7 @@ import { UniqueValuesPipe } from './pipes/uniqueValues.pipe'
     CategoryListComponent,
     ProductListComponent,
     ProductDetailsComponent,
+    CreationsComponent,
     
 		AuthenticationComponent,
 		PostComponent,

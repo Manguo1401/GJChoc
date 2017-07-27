@@ -7,11 +7,11 @@ import { ShopComponent } from './components/shop/shop.component'
 import { ProfileComponent} from './components/profile/profile.component'
 import { ContactComponent} from './components/contact/contact.component'
 import { BasketComponent} from './components/basket/basket.component'
+import { CreationsComponent } from './components/creations/creations.component'
 
-
-import { AuthenticationComponent } from './authentication/authentication.component';
-import { PostComponent } from './post/post.component';
-import { AuthGuard } from './_guard/index';
+import { AuthenticationComponent } from './authentication/authentication.component'
+import { PostComponent } from './post/post.component'
+import { AuthGuard } from './_guard/index'
 
 
 import { AdminHomeComponent} from './admin/home/home.component'
@@ -28,7 +28,11 @@ import { AdminHomeComponent} from './admin/home/home.component'
 		},{
 			path: 'profil',
 			component: ProfileComponent,
+
 			//canActivate: [AuthGuard]
+		},{
+			path: 'creations',
+			component: CreationsComponent
 		},{
 			path: 'contact',
 			component: ContactComponent

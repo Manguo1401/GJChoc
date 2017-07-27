@@ -13,6 +13,7 @@ export class ProductListComponent {
 	private products: any;
 	private type : string;
 	private category: string;
+  private overlay: number;
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
@@ -65,4 +66,14 @@ export class ProductListComponent {
     {
       this.dataService.addProductBasket(productId,qte);
     }
+
+    //Gestion du overlay sur les iamges des produits
+    revealOverlay(product) {
+      this.overlay = product
+    }
+
+    hideOverlay() {
+      this.overlay = undefined
+    }
 }
+

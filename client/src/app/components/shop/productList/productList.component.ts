@@ -42,7 +42,7 @@ export class ProductListComponent {
   	getProducts(data, selectedType) {
         let categories = []
         let products = []
-        if(data) 
+        if(data)
         data.forEach((e) => {
         	if (e.type === selectedType) {
         		categories = e.categories
@@ -60,4 +60,9 @@ export class ProductListComponent {
         })
         return products
   	}
+
+    addProduct(productId, qte)
+    {
+      this.dataService.addProductBasket(productId,qte);
+    }
 }

@@ -24,9 +24,23 @@ class Commande
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255)
+     * @ORM\Column(name="firstname", type="string", length=255)
      */
-    private $username;
+    private $firstname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lastname", type="string", length=255)
+     */
+    private $lastname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=255)
+     */
+    private $phone;
 
     /**
      * @var string
@@ -43,11 +57,32 @@ class Commande
     private $adresse;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="postalcode", type="integer")
+     */
+    private $postalcode;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="city", type="string", length=255)
+     */
+    private $city;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comment", type="text")
+     */
+    private $comment;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
      */
-    private $date;
+    private $date = datetime.now();
 
 
     /**
@@ -76,28 +111,53 @@ class Commande
     }
 
     /**
-     * Set username
+     * Set firstname
      *
-     * @param string $username
+     * @param string $firstname
      *
      * @return Commande
      */
-    public function setUsername($username)
+    public function setFirstname($firstname)
     {
-        $this->username = $username;
+        $this->firstname = $firstname;
 
         return $this;
     }
 
     /**
-     * Get username
+     * Get firstname
      *
      * @return string
      */
-    public function getUsername()
+    public function getFirstname()
     {
-        return $this->username;
+        return $this->firstname;
     }
+
+    /**
+     * Set lastname
+     *
+     * @param string $lastname
+     *
+     * @return Commande
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Get lastname
+     *
+     * @return string
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
 
     /**
      * Set email
@@ -114,13 +174,37 @@ class Commande
     }
 
     /**
-     * Get username
+     * Get email
      *
      * @return string
      */
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     *
+     * @return Commande
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
     }
 
     /**
@@ -145,6 +229,78 @@ class Commande
     public function getAdresse()
     {
         return $this->adresse;
+    }
+
+    /**
+     * Set postalcode
+     *
+     * @param string $postalcode
+     *
+     * @return Commande
+     */
+    public function setPostalcode($postalcode)
+    {
+        $this->postalcode = $postalcode;
+
+        return $this;
+    }
+
+    /**
+     * Get postalcode
+     *
+     * @return string
+     */
+    public function getPostalcode()
+    {
+        return $this->postalcode;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     *
+     * @return Commande
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param string $comment
+     *
+     * @return Commande
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
     }
 
     /**

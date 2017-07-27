@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core'
-import { Http, Headers } from '@angular/http'
+import { Http, Headers, RequestOptions } from '@angular/http'
 import { Response } from '@angular/http'
 import { AuthHttp } from 'angular2-jwt'
 
 import { Observable } from 'rxjs/Rx'
+//import 'rxjs/add/observable/throw';
 
 // Import RxJs required methods
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/catch'
+//import 'rxjs/add/operator/map'
+//import 'rxjs/add/operator/catch'
 
 import { Subject } from 'rxjs/Subject'
 
 
 import { Type } from './../objects/type'
-
+import { Product } from './../objects/product'
 /*import 'rxjs/add/operator/toPromise'
 */
 @Injectable()
@@ -22,16 +23,16 @@ export class DataService {
 
 	private headers = new Headers({'Content-Type': 'application/json'});
   private baseUrl = "http://localhost/gjchoc/server/web/app_dev.php/api/"
-	private urldatatypes = "types"
-	private data : Type[];
-	private data$ = new Subject<any>();
-	private category$ = new Subject<any>();
+  private urldatatypes = "types"
+  private data : Type[];
+  private subject = new Subject<any>();
+  private category$ = new Subject<any>();
+  private basketProducts : Product[];
 
 
+  constructor(private http: Http/*, private authHttp: AuthHttp*/) { }
 
-	constructor(private http: Http/*, private authHttp: AuthHttp*/) { }
-
-	loadData() : Observable<Type[]> {
+  loadData() : Observable<Type[]> {
 
 
 		/*Au moment du chargement le l'App on recherche les données soit sur
@@ -54,7 +55,6 @@ export class DataService {
 	}
 
 	//Permet à tous les components d'appeler le subscribe sur les data une fois le sendData lancé
-<<<<<<< HEAD
   getDataSubscribed(): Observable<any> {
     return this.subject.asObservable();
   }
@@ -68,15 +68,18 @@ export class DataService {
     this.subject.next(data);
   }
 
-    getCategorySubscribed(): Observable<any> {
-    	return this.category$.asObservable();
-    }
+  getCategorySubscribed(): Observable<any> {
+    return this.category$.asObservable();
+  }
 
-    sendCategory(category) {
-    	this.category$.next(category);
-    }
+  sendCategory(category) {
+    this.category$.next(category);
+  }
 
-
+  getType()
+  {
+    return this.data;
+  }
 	/*getDataAuth() {
 		if (this.data) {
 			return Observable.of(this.data);
@@ -102,26 +105,76 @@ export class DataService {
   postBasket(productid, qte)
   {
     //@Rest\Post("/basket/add/{productid}/{qte}, defaults={"qte" = 1}")
-    let postAddBascket = this.baseUrl +"/basket/add";
+    let postAddBasket = this.baseUrl +"basket/add";
     if(productid)
     {
-      postAddBascket = postAddBascket+'/'+productid;
+      postAddBasket = postAddBasket+'/'+productid;
 
       if(qte)
-        postAddBascket = postAddBascket+"/"+qte;
-      return this.http.put(postAddBascket, null)
+        postAddBasket = postAddBasket+"/"+qte;
+      return this.http.put(postAddBasket, null)
       .map(res => res.json())
-      .do(data => {this.data = data; console.log(data);})
+      .do(data => {this.basketProducts = data; console.log(data);})
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }
 
     // let headers = new Headers({ 'Content-Type': 'application/json' });
     // let options = new RequestOptions({ headers: headers });
-
   }
 
-  getType()
+  addProductBasket(productId, qte)
   {
-    return this.data;
+    //console.log("addProduct("+productId+","+qte+")")
+    //let types = this.dataService.getType()
+    let basket;
+
+
+    basket = JSON.parse(localStorage.getItem('basket'));
+    if(basket==undefined) basket=[];
+    if(qte == undefined) qte = 1;
+    if(qte!=undefined && qte>=0)
+    {
+      basket[productId] = qte;
+      localStorage.setItem('basket', JSON.stringify(basket))
+      //console.log(basket)
+    }
+    return basket;
+  }
+
+  getBasketProducts(basketSession)
+  {
+    let getBasketUrl = this.baseUrl +"basket/products";
+    console.log(basketSession)
+    //let params: URLSearchParams = new URLSearchParams();
+    //let requestOptions = new RequestOptionsArgs();
+    let params = new URLSearchParams();
+
+    //let tabPid = Object.keys(basketSession);
+    let paramsStr = ""
+    if(basketSession)
+    {
+      paramsStr = "?productsid=";
+      basketSession.forEach((val, i) => {
+        if(val) paramsStr = paramsStr + i +';';
+      })
+    }
+    //console.log(basketSession.toString()+" toString = "+paramsStr)
+    //params.set("productsid", paramsStr)
+    // let options = new RequestOptions({
+    //   search: params
+    // });
+    // console.log(getBasketUrl)
+    return this.http.get(getBasketUrl+paramsStr)
+    .map(res => res.json())
+    .do(data => {this.basketProducts = data; console.log(data);})
+    .catch(this.handleServerError);
+  }
+
+  private handleServerError(error: Response) {
+    console.log('sever error:', error)
+    if(error instanceof Response) {
+      return Observable.throw(error.json().error || 'backend server error');
+    }
+    return Observable.throw(error || 'backend server error2');
   }
 }

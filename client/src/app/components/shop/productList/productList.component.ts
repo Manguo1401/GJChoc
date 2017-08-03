@@ -71,8 +71,6 @@ export class ProductListComponent {
 		return products
 	}
 
-}
-
     addProduct(productId, qte)
     {
       this.dataService.addProductBasket(productId,qte);

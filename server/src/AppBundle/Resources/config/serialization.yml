@@ -37,3 +37,7 @@ AppBundle\Entity\Product:
             groups: ['product', 'category', 'type']
         categories:
             groups: ['product']
+        order:
+            groups: ['product', 'category', 'type']
+        unity:
+            groups: ['product', 'category', 'type']

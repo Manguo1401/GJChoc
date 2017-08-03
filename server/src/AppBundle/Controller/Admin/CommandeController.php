@@ -2,14 +2,14 @@
 
 namespace AppBundle\Controller\Admin;
 
-use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Entity\Commande;
 
-class CommandeController extends FOSRestController
+class CommandeController extends Controller
 {
     /**
      * @Rest\View()

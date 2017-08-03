@@ -25,13 +25,12 @@ export class DataService {
 	private data : Type[];
 	private data$ = new Subject<any>();
 	private category$ = new Subject<any>();
-
+	private product$ = new Subject<any>();
 
 
 	constructor(private http: Http/*, private authHttp: AuthHttp*/) { }
 
 	loadData() : Observable<Type[]> {
-
 
 		/*Au moment du chargement le l'App on recherche les données soit sur
 		le serveur soit dans le service si elles sont déjà téléchargées */
@@ -45,7 +44,7 @@ export class DataService {
 			.do(data => {
 				//On enregistre sur une variable localle toutes les données chargées
 				this.data = data
-				//On envoit les données à tous les subscribes de l'observer "subject"
+				//On envoie les données à tous les subscribes de l'observer "subject"
 				this.sendData(data)
 			})
 			.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
@@ -63,7 +62,9 @@ export class DataService {
 
     //On envoit les données à tous les subscribes de l'observer "subject"
     sendData(data) {
-    	this.data$.next(data);
+
+		this.data$.next(data);
+
     }
 
     getCategorySubscribed(): Observable<any> {
@@ -72,8 +73,21 @@ export class DataService {
 
     sendCategory(category) {
     	this.category$.next(category);
-    }
+	}
 
+	getProduct(id) {
+		if(this.data) {
+			for( let type of this.data) {
+				for( let category of type.categories) {
+					for( let product of category.products) {
+						if (id == product.id) {
+							return product
+						}
+					}
+				}
+			}
+		}
+	}
 
   // //@Rest\Post("/basket/add/{productid}/{qte}, defaults={"qte" = 1}")
   // postBasket(productid, qte)

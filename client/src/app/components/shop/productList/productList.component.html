@@ -1,16 +1,21 @@
-<div class="grid-x grid-margin-x">
+<div class="grid-x grid-margin-x" [@openingAnimation]="products.length">
 	<div class="small-6 medium-4 large-3 cell" *ngFor="let product of products | filterUnique">
 		<div class="card card-gj">
 		<div class="img-header">
 			
 				<img  
 				src="https://upload.wikimedia.org/wikipedia/commons/7/78/Chocolat.png"
-				on-mouseenter='revealOverlay(product.id)'
-				
 				>
 
-				<div *ngIf="overlay == product.id" class="overlayer" on-mouseleave='hideOverlay()'>
-				    <button class="overlayer-text">
+				<div 
+				class="overlayer" 
+				routerLink="/shop/{{type}}/{{product.id}}"
+				on-mouseleave="visibility[product.id] = 'false'"
+				on-mouseenter="visibility[product.id] = 'true'"
+				[@visibilityChanged]="visibility[product.id]"
+				style = "opacity: 0"
+				>
+				    <button class="overlayer-text" routerLink="/shop/{{type}}/{{product.id}}" >
 				    	<i class="fa fa-plus" aria-hidden="true"></i> Détails
 				    </button>
 				</div>
@@ -28,5 +33,9 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+<div class="loader" [@visibilityChanged]="loader" >
+	<div class="spinner pulse-spinner"></div>
 </div>
 

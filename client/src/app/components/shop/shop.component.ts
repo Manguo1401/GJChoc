@@ -1,12 +1,18 @@
 import { Component, OnInit } from '@angular/core'
 
+import { fadeInAnimation } from './../../animations/routerFader.component'
+
 import { DataService } from './../../services/data.service'
 
 import { Type } from './../../objects/type'
 
+import { Fader } from './../../animations/fader.animation'
+
 @Component ({
 	selector: 'my-shop',
-	templateUrl: 'shop.component.html'
+	templateUrl: 'shop.component.html',
+    animations: [fadeInAnimation, Fader()],
+    host: { '[@fadeInAnimation]': '' }
 })
 
 export class ShopComponent {

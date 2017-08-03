@@ -1,7 +1,10 @@
 <div class="small-6 cell box h-75"
 	[ngStyle]="{'background-image': 'url(assets/img/types/'+parentType+'.jpg'}"
-	on-mouseenter="clickableLink()"
-	on-mouseleave="noLink()" 
+	on-mouseenter="cache = 'true'"
+	on-mouseleave="cache = 'false'" 
+	routerLink="/shop/{{parentType}}"
+	[@visibilityChanged]="visibility"
+	style="opacity: 0"
 >
 
 	<div class="black-filter"></div>
@@ -14,12 +17,13 @@
 
 		<!-- bouton du milieu -->
 
-		<div class="cell small-3 align-self-middle ">
+		<div class="cell small-3 align-self-middle">
 			<div class="type-button-container">
 				<a 
 				routerLink="/shop/{{parentType}}" 
 				class="type-button"
-				*ngIf="hoveredType"
+				[@visibilityChanged]="cache"
+				style="opacity: 0"
 				>
 					Découvrez les produits
 				</a>

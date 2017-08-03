@@ -5,5 +5,6 @@ export class Product {
   name: string;
   pricekg: number;
   stock: number;
+  description: string;
   categories: Category[]
 }

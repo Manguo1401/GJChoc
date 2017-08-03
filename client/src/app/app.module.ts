@@ -1,7 +1,9 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
-import { HttpModule, Http, RequestOptions } from '@angular/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule, Http, RequestOptions } from '@angular/http'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
 
 //Import des bibliothèques annexes
 
@@ -9,9 +11,9 @@ import { AgmCoreModule } from '@agm/core'
 
 //Import des pages
 
-import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
-import { ShopComponent } from './components/shop/shop.component';
+import { AppComponent } from './app.component'
+import { HomeComponent } from './components/home/home.component'
+import { ShopComponent } from './components/shop/shop.component'
 import { ProfileComponent} from './components/profile/profile.component'
 import { ContactComponent} from './components/contact/contact.component'
 import { BasketComponent} from './components/basket/basket.component'
@@ -83,6 +85,7 @@ import { UniqueValuesPipe } from './pipes/uniqueValues.pipe'
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutes,
     HttpModule,
     AgmCoreModule.forRoot({

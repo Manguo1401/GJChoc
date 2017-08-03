@@ -1,4 +1,10 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
+
+import { ActivatedRoute, Params } from '@angular/router'
+
+import { DataService } from './../../../services/data.service'
+
+import { Product } from './../../../objects/product'
 
 @Component ({
 	selector: 'my-productList',
@@ -6,5 +12,26 @@ import { Component } from '@angular/core'
 })
 
 export class ProductDetailsComponent {
-	
+	private product: Product;
+	private searchedProductID;
+
+	constructor(
+		private activatedRoute: ActivatedRoute,
+		private dataService: DataService
+	) {}
+
+	ngOnInit() {
+		this.activatedRoute.params.subscribe((params: Params) => {
+			this.searchedProductID = parseInt(params['id'])
+		})
+
+		this.dataService.getDataSubscribed().subscribe(() => {
+			
+			this.product = this.dataService.getProduct(this.searchedProductID)					
+		})
+		
+		this.dataService.initData()
+	}
+
+
 }

@@ -1,1 +1,7 @@
-product details here
+<div *ngIf="product">
+    <img src="assets/img/profile/profile_pic.jpg" alt="" class="profile-pic">
+
+    <h1>{{product.name}}</h1>
+
+    <p>{{product.description}} </p>
+</div>

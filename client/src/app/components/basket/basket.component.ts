@@ -53,7 +53,6 @@ export class BasketComponent {
   //preferer un tableau de clé/valeur:
   addProduct(productId, qte) {
     this.basket = this.basketService.addProductBasket(productId,qte);
-
   }
 
   getBasket() {

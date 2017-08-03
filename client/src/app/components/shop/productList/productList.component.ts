@@ -4,6 +4,8 @@ import { Fader } from './../../../animations/fader.animation'
 import { TranslaterX } from './../../../animations/translateX.animation'
 
 import { DataService } from './../../../services/data.service'
+import { BasketService } from './../../../services/basket.service'
+
 
 @Component ({
 	selector: 'my-product-list',
@@ -25,8 +27,10 @@ export class ProductListComponent {
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
-		private dataService: DataService
-		) {}
+		private dataService: DataService,
+    private basketService: BasketService
+	) {}
+
 
 	ngOnChanges(changes: SimpleChanges) {
 		if(this.data) {
@@ -73,6 +77,6 @@ export class ProductListComponent {
 
     addProduct(productId, qte)
     {
-      this.dataService.addProductBasket(productId,qte);
+      this.basketService.addProductBasket(productId,qte);
     }
 }

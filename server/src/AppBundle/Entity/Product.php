@@ -46,7 +46,6 @@ class Product
      */
     private $stock;
 
-
     /**
      * @var string
      *
@@ -58,6 +57,21 @@ class Product
     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Category", mappedBy="products")
     */
     private $categories;
+
+    // soit = 1 pour des selections à l'unité, soit = quantité de gramme (50 ou 100 ou...) qui définit le pas.
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="unity", type="integer")
+     */
+    private $unity = 1;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="order", type="integer")
+     */
+    private $order = 100;
 
 
     public function __construct()
@@ -191,6 +205,53 @@ class Product
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Set unity
+     *
+     * @param string $unity
+     *
+     * @return Product
+     */
+    public function setUnity($unity)
+    {
+        $this->unity = $unity;
+        return $this;
+    }
+
+    /**
+     * Get unity
+     *
+     * @return string
+     */
+    public function getUnity()
+    {
+        return $this->unity;
+    }
+
+    /**
+     * Set order
+     *
+     * @param integer $order
+     *
+     * @return Product
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    /**
+     * Get order
+     *
+     * @return int
+     */
+    public function getOrder()
+    {
+        return $this->order;
     }
 }
 

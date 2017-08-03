@@ -82,7 +82,7 @@ class Commande
      *
      * @ORM\Column(name="date", type="datetime")
      */
-    private $date = datetime.now();
+    private $date;
 
 
     /**
@@ -99,6 +99,11 @@ class Commande
      */
     private $reference;
 
+
+    public function __construct()
+    {
+        $this->date = new \DateTime('now');
+    }
 
     /**
      * Get id

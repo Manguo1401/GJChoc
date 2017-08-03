@@ -10,6 +10,7 @@ import { BasketComponent} from './components/basket/basket.component'
 import { CreationsComponent } from './components/creations/creations.component'
 import { ProductDetailsComponent } from './components/shop/productDetails/productDetails.component'
 import { CommandeComponent} from './components/commande/commande.component'
+import { PaymentComponent} from './components/payment/payment.component'
 
 import { AuthenticationComponent } from './authentication/authentication.component'
 import { PostComponent } from './post/post.component'
@@ -51,6 +52,9 @@ import { AdminHomeComponent} from './admin/home/home.component'
 		},{
       path: 'commande',
       component: CommandeComponent
+    },{
+      path: 'payment',
+      component: PaymentComponent
     },{
         path: 'login',
         component: AuthenticationComponent

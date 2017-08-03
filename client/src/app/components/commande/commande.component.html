@@ -1,3 +1,9 @@
+<script
+  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+  data-zip-code="true">
+</script>
+
 <div class="content">
   <div class="formulaire">
       <h4>Information à saisir</h4>
@@ -6,27 +12,27 @@
       <div class="form-group">
         <div class="d-flex justify-content-between">
           <label for="firstname">Prénom :</label>
-          <input type="text" [(ngModel)]="commande.firstname" name="firstname" minlength="3" placeholder="votre prénom" required #firstname="ngModel">
+          <input type="text" [(ngModel)]="commande.firstname" name="firstname" minlength="3" placeholder="votre prénom" required #firstname="ngModel" (focus)="firstname_finishchanged=false" (focusout)="firstname_finishchanged=true">
         </div>
-        <div *ngIf="!firstname.valid && (firstname.dirty || formCommande.submitted )">
+        <div *ngIf="!firstname.valid && (firstname.dirty || formCommande.submitted ) && firstname_finishchanged"><!-- && firstname.getClass('finishchanged') -->
           Prénom requis (3 caractères minimum)
         </div>
       </div>
       <div class="form-group">
         <div class="d-flex justify-content-between">
           <label for="lastname">Nom :</label>
-          <input type="text" [(ngModel)]="commande.lastname" name="lastname" minlength="3" placeholder="votre nom" required #lastname="ngModel">
+          <input type="text" [(ngModel)]="commande.lastname" name="lastname" minlength="3" placeholder="votre nom" required #lastname="ngModel" (focus)="lastname_finishchanged=false" (focusout)="lastname_finishchanged=true">
         </div>
-        <div *ngIf="!lastname.valid && (lastname.dirty || formCommande.submitted )">
+        <div *ngIf="!lastname.valid && (lastname.dirty || formCommande.submitted ) && lastname_finishchanged">
           Nom requis (3 caractères minimum)
         </div>
       </div>
       <div class="form-group">
         <div class="d-flex justify-content-between">
           <label for="email">Email :</label>
-          <input type="text" [(ngModel)]="commande.email" name="email" minlength="3" placeholder="votre email" required #email="ngModel">
+          <input type="email" [(ngModel)]="commande.email" name="email" minlength="3" placeholder="votre email" required #email="ngModel" (focus)="email_finishchanged=false" (focusout)="email_finishchanged=true">
         </div>
-        <div *ngIf="!email.valid && (email.dirty || email.touched || formCommande.submitted )">
+        <div *ngIf="!email.valid && (email.dirty || email.touched || formCommande.submitted ) && email_finishchanged">
           Email incorrect (@ et . obligatoire)
         </div>
       </div>
@@ -43,27 +49,27 @@
       <div class="form-group">
         <div class="d-flex justify-content-between">
           <label for="adresse">Adresse :</label>
-          <input type="text" [(ngModel)]="commande.adresse" name="adresse" minlength="3" placeholder="n°, rue" required #adresse="ngModel">
+          <input type="text" [(ngModel)]="commande.adresse" name="adresse" minlength="3" placeholder="n°, rue" required #adresse="ngModel" (focus)="adresse_finishchanged=false" (focusout)="adresse_finishchanged=true" >
         </div>
-        <div *ngIf="!adresse.valid && (adresse.dirty || formCommande.submitted )" class="alert alert-danger">
+        <div *ngIf="!adresse.valid && (adresse.dirty || formCommande.submitted ) && adresse_finishchanged" class="alert alert-danger">
           Adresse requise.
         </div>
       </div>
       <div class="form-group">
         <div class="d-flex justify-content-between">
           <label for="postalcode">Code postal :</label>
-          <input type="text" [(ngModel)]="commande.postalcode" name="postalcode" minlength="5" placeholder="votre code postal" required #postalcode="ngModel">
+          <input type="text" [(ngModel)]="commande.postalcode" name="postalcode" minlength="5" placeholder="votre code postal" required #postalcode="ngModel" (focus)="postalcode_finishchanged=false" (focusout)="postalcode_finishchanged=true" value="12345">
         </div>
-        <div *ngIf="!postalcode.valid && (postalcode.dirty || formCommande.submitted )" class="alert alert-danger">
+        <div *ngIf="!postalcode.valid && (postalcode.dirty || formCommande.submitted ) && postalcode_finishchanged" class="alert alert-danger">
           Code postal requis.
         </div>
       </div>
       <div class="form-group">
         <div class="d-flex justify-content-between">
           <label for="city">Ville :</label>
-          <input type="text" [(ngModel)]="commande.city" name="city" minlength="3" placeholder="votre ville" required #city="ngModel">
+          <input type="text" [(ngModel)]="commande.city" name="city" minlength="3" placeholder="votre ville" required #city="ngModel" (focus)="city_finishchanged=false" (focusout)="city_finishchanged=true"  value="MaVille">
         </div>
-        <div *ngIf="!city.valid && (city.dirty || formCommande.submitted )">
+        <div *ngIf="!city.valid && (city.dirty || formCommande.submitted ) && city_finishchanged">
           Ville requise dans l'adresse.
         </div>
       </div>
@@ -71,10 +77,10 @@
       <div class="form-group">
         <div class="d-flex justify-content-between">
           <label for="adresse">Vos commentaires :</label>
-          <input type="text" [(ngModel)]="commande.comment" name="comment"  #adresse="ngModel">
+          <input type="text" [(ngModel)]="commande.comment" name="comment"  #adresse="ngModel" value="Si je veux mettre des commentaires">
         </div>
       </div>
-      <button class="mx-auto" [disabled]="!formCommande.valid" (click)="onSubmitCommande(formCommande.value)">Valider la commande</button>
+      <button class="mx-auto"  (click)="onSubmitCommande(formCommande.value)">Valider la commande</button><!-- [disabled]="!formCommande.valid" -->
     </form>
   </div>
   <div class="table_recap">

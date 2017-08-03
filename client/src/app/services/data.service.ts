@@ -22,17 +22,23 @@ import { Type } from './../objects/type'
 export class DataService {
 
 	private headers = new Headers({'Content-Type': 'application/json'});
+
+	private data : Type[];
+	private data$ = new Subject<any>();
+	private category$ = new Subject<any>();
+	private product$ = new Subject<any>();
   private baseUrl = "http://localhost/gjchoc/server/web/app_dev.php/api/"
   private urldatatypes = "types"
-  private data : Type[];
   private subject = new Subject<any>();
-  private category$ = new Subject<any>();
+  //private basketProducts : Product[];
 
 
-
-  constructor(private http: Http/*, private authHttp: AuthHttp => A activer pour l'authentification Client pour accéder aux url server protégés*/) { }
+  constructor(private http: Http
+    //, private authHttp: AuthHttp //=> A activer pour l'authentification Client pour accéder aux url server protégés
+    ) { }
 
   loadData() : Observable<Type[]> {
+
 		/*Au moment du chargement le l'App on recherche les données soit sur
 		le serveur soit dans le service si elles sont déjà téléchargées */
 		if (this.data) {
@@ -45,7 +51,7 @@ export class DataService {
 			.do(data => {
 				//On enregistre sur une variable localle toutes les données chargées
 				this.data = data
-				//On envoit les données à tous les subscribes de l'observer "subject"
+				//On envoie les données à tous les subscribes de l'observer "subject"
 				this.sendData(data)
 			})
 			.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
@@ -53,17 +59,20 @@ export class DataService {
 	}
 
 	//Permet à tous les components d'appeler le subscribe sur les data une fois le sendData lancé
+
   getDataSubscribed(): Observable<any> {
-    return this.subject.asObservable();
+    return this.data$.asObservable();
   }
 
   initData() {
-    this.subject.next(this.data);
+    this.data$.next(this.data);
   }
 
-  //On envoit les données à tous les subscribes de l'observer "subject"
+  //On envoie les données à tous les subscribes de l'observer "subject"
   sendData(data) {
-    this.subject.next(data);
+
+    this.data$.next(data);
+
   }
 
   getCategorySubscribed(): Observable<any> {
@@ -74,10 +83,60 @@ export class DataService {
     this.category$.next(category);
   }
 
+  getProduct(id) {
+    if(this.data) {
+      for( let type of this.data) {
+        for( let category of type.categories) {
+          for( let product of category.products) {
+            if (id == product.id) {
+              return product
+            }
+          }
+        }
+      }
+    }
+  }
+
   getType()
   {
     return this.data;
   }
+
+
+  // //@Rest\Post("/basket/add/{productid}/{qte}, defaults={"qte" = 1}")
+  // postBasket(productid, qte)
+  // {
+    //   let posturl = "http://localhost/gjchoc/server/web/app_dev.php/api/basket";
+    //   if(productid)
+    //     posturl = posturl+productid;
+    //   if(qte)
+    //     posturl = posturl+"/"+qte;
+
+    //   // let headers = new Headers({ 'Content-Type': 'application/json' });
+    //   // let options = new RequestOptions({ headers: headers });
+    //   return this.http.put(posturl, null)
+    //     .map(res => res.json())
+    //     .do(data => {this.data = data; console.log(data);})
+    //     .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+    // }
+
+    // private handleError(error: any): Promise<any> {
+      //   console.error('An error occurred', error); // for demo purposes only
+      //   return Promise.reject(error.message || error);
+      // }
+
+	/*getDataAuth() {
+		if (this.data) {
+			return Observable.of(this.data);
+		} else {
+			// ...using get request
+			return this.authHttp.get(this.url)
+			.map(res => res.json())
+			//.do(data => this.data = data)
+			.do(data => {this.data = data; console.log(data);})
+			.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+		}
+	}*/
 
 /*
 //---------------------------Exemples à conserver -------------------------//
@@ -110,9 +169,9 @@ export class DataService {
   }
   */
 
-	private handleError(error: any): Promise<any> {
-		console.error('An error occurred', error); // for demo purposes only
-		return Promise.reject(error.message || error);
-	}
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
+  }
 
 }

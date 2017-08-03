@@ -1,8 +1,12 @@
 import {Component} from '@angular/core'
 
+import { fadeInAnimation } from './../../animations/routerFader.component';
+
 @Component ({
 	selector: 'my-contact',
-	templateUrl: 'contact.component.html'
+	templateUrl: 'contact.component.html',
+    animations: [fadeInAnimation],
+    host: { '[@fadeInAnimation]': '' }
 })
 
 export class ContactComponent {

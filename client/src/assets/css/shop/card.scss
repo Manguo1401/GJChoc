@@ -2,10 +2,8 @@
 @import '../colors';
 
 .card-img {
-	max-width: 300px;
-	max-height: 150px;
 	width: auto;
-	height: auto;
+	height: 150px;
 }
 
 .card-gj {
@@ -73,6 +71,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	cursor: pointer;
 }
 
 .overlayer-text {
@@ -83,10 +82,5 @@
 	border-radius: 5px;
 	padding: 10px;
 	transition: all 0.2s ease;
-}
-
-.overlayer-text:hover, .overlayer-text:focus {
-	color: $brown;
-	background-color: white;
-
+	cursor: pointer;
 }

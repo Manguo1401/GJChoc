@@ -21,13 +21,18 @@ class PaymentController extends Controller
     dump($request->request->all());
     $commande = $request->request->get('commande');
 
-    // Check Commande validity and save it
+    // Check Commande validity and save it with products links and customer ID (tokenStripe)
 
-    //
-    $product = new Product();
+
+    $commande = new Product();
     $form = $this->createForm(ProductType::class, $product);
 
     $form->submit($request->request->all());
+
+    // Send charge payment to Stripe
+
+
+    // if ok return commande reference, update commande to validated
     return $commande;
     // // Set your secret key: remember to change this to your live secret key in production
     // // See your keys here: https://dashboard.stripe.com/account/apikeys

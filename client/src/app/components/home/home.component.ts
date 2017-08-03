@@ -1,32 +1,45 @@
 import { Component, OnInit } from '@angular/core'
+import { fadeInAnimation } from './../../animations/routerFader.component'
+
+import { Fader } from './../../animations/fader.animation'
 
 import { DataService } from './../../services/data.service'
 
 @Component ({
 	selector: 'my-accueil',
-	templateUrl: 'home.component.html'
+	templateUrl: 'home.component.html',
+    animations: [
+		fadeInAnimation, 
+		Fader()
+	],
+    host: { '[@fadeInAnimation]': '' }
 })
 
 export class HomeComponent {
 
 	data;
-	error: string = '';
+	error: string = ''
+	private visibility = "false"
+	private loader = "true"
 
 	constructor(
 		private dataService: DataService
 		) {
 
-	}
-
-	ngOnInit(): void {
 		this.dataService.getDataSubscribed()
-		.subscribe(data => {
-			this.data = data;
-			console.log(this.data)
-		});
+			.subscribe(data => {
+				this.data = data
+				if(this.data) {
+					this.visibility = 'true'
+					this.loader = "false"
+				}
+			});
 
 		this.dataService.initData();
-
 	}
+
+		ngOnInit() {
+			
+		}
 
 }

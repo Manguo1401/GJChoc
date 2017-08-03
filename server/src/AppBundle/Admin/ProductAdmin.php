@@ -18,7 +18,9 @@ class ProductAdmin extends AbstractAdmin
                 ->add('name', 'text')
                 ->add('description', 'textarea')
                 ->add('pricekg','number')
+                ->add('unity','integer')
                 ->add('stock','integer')
+                ->add('order','integer')
             ->end()
             // NOT Work on edit liste of categories
             // ->with('Category', array('class' => 'col-md-9'))

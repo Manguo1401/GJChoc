@@ -17,6 +17,8 @@ import { ContactComponent} from './components/contact/contact.component'
 import { BasketComponent} from './components/basket/basket.component'
 import { CommandeComponent} from './components/commande/commande.component'
 
+import { PaymentComponent} from './components/payment/payment.component'
+
 //Import des composants
 
 import { PageNotFound } from './components/pageNotFound/page_not_found.component'
@@ -37,6 +39,8 @@ import { ProductDetailsComponent } from './components/shop/productDetails/produc
 
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { DataService } from './services/data.service';
+import { PaymentService } from './services/payment.service';
+import { BasketService } from './services/basket.service';
 import { PostRepository } from './post/post-repository.service';
 
 // Import security
@@ -71,6 +75,7 @@ import { UniqueValuesPipe } from './pipes/uniqueValues.pipe'
     ProductListComponent,
     ProductDetailsComponent,
     CommandeComponent,
+    PaymentComponent,
 		AuthenticationComponent,
 		PostComponent,
 		AdminHomeComponent,
@@ -98,7 +103,9 @@ import { UniqueValuesPipe } from './pipes/uniqueValues.pipe'
     DataService,
     AuthGuard,
 		AuthenticationService,
-		PostRepository
+		PostRepository,
+    PaymentService,
+    BasketService
   ],
   bootstrap: [AppComponent]
 })

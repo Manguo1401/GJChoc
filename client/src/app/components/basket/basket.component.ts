@@ -1,5 +1,5 @@
 import {Component} from '@angular/core'
-import { DataService } from './../../services/data.service'
+import { BasketService } from './../../services/basket.service'
 import { NgModule } from '@angular/core';
 // import { BrowserModule } from '@angular/platform-browser';
 // import { FormsModule } from '@angular/forms';
@@ -18,10 +18,11 @@ export class BasketComponent {
   tva = 0.2;
 
   constructor(
-    private dataService: DataService
+    private basketService: BasketService
     ) {
     this.getBasket();
   }
+
 
   //Function to check storage validity (1day)
   checkValidity () {
@@ -49,7 +50,7 @@ export class BasketComponent {
 
   addProduct(productId, qte)
   {
-    this.basket = this.dataService.addProductBasket(productId,qte);
+    this.basket = this.basketService.addProductBasket(productId,qte);
   }
 
   getBasket()
@@ -59,7 +60,7 @@ export class BasketComponent {
 
     this.basket = JSON.parse(localStorage.getItem('basket'))
     console.log("basket= "+this.basket)
-    this.dataService.getBasketProducts(this.basket)
+    this.basketService.getBasketProducts(this.basket)
     .subscribe(data => {
       if(data) {
         this.products = data;

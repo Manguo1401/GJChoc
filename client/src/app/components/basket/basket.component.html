@@ -36,9 +36,10 @@
 
     <div>TVA {{(tva*100)}}% :</div><div>{{ tva * totalHT }} €</div>
 
-    <div>Total TTC :</div><div>{{ totalHT + (totalHT * tva) }} €</div>
+    <div>Total TTC :</div><div>{{ totalTTC }} €</div>
   </div>
   <div class="clearfix"></div>
+
   <a routerLink="/commande" class="button type-button pull-right">Valider mon panier</a>
 
   <a routerLink="/accueil" class="button type-button">Continuer mes achats</a>

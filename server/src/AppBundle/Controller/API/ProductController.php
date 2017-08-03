@@ -57,6 +57,7 @@ class ProductController extends Controller
 
         $form->submit($request->request->all()); // Validation des données
 
+
         if ($form->isValid()) {
             $em = $this->get('doctrine.orm.entity_manager');
             $em->persist($product);

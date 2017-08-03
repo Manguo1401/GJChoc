@@ -2,6 +2,8 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/cor
 import { ActivatedRoute, Params } from '@angular/router'
 
 import { DataService } from './../../../services/data.service'
+import { BasketService } from './../../../services/basket.service'
+
 
 @Component ({
 	selector: 'my-product-list',
@@ -17,7 +19,8 @@ export class ProductListComponent {
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
-		private dataService: DataService
+		private dataService: DataService,
+    private basketService: BasketService
 	) {}
 
 	ngOnChanges(changes: SimpleChanges) {
@@ -64,7 +67,7 @@ export class ProductListComponent {
 
     addProduct(productId, qte)
     {
-      this.dataService.addProductBasket(productId,qte);
+      this.basketService.addProductBasket(productId,qte);
     }
 
     //Gestion du overlay sur les iamges des produits

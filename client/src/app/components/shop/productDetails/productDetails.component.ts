@@ -27,11 +27,15 @@ export class ProductDetailsComponent {
 
 		this.dataService.getDataSubscribed().subscribe(() => {
 			
-			this.product = this.dataService.getProduct(this.searchedProductID)					
+			this.product = this.dataService.getProduct(this.searchedProductID)
+			console.log(this.product)	
 		})
 		
 		this.dataService.initData()
 	}
 
+	addProduct(productId, qte) {
+      this.dataService.addProductBasket(productId,qte);
+    }
 
 }

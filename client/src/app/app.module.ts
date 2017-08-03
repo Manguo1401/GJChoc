@@ -17,7 +17,7 @@ import { ShopComponent } from './components/shop/shop.component'
 import { ProfileComponent} from './components/profile/profile.component'
 import { ContactComponent} from './components/contact/contact.component'
 import { BasketComponent} from './components/basket/basket.component'
-
+import { CommandeComponent} from './components/commande/commande.component'
 
 //Import des composants
 
@@ -74,7 +74,7 @@ import { UniqueValuesPipe } from './pipes/uniqueValues.pipe'
     ProductListComponent,
     ProductDetailsComponent,
     CreationsComponent,
-    
+    CommandeComponent,
 		AuthenticationComponent,
 		PostComponent,
 		AdminHomeComponent,

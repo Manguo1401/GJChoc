@@ -46,7 +46,6 @@ export class ProductListComponent {
 			this.category = category;
 			this.products = this.getProducts(this.data, this.type)
 		})
-
 	}
 
 	getProducts(data, selectedType) {
@@ -72,4 +71,10 @@ export class ProductListComponent {
 		return products
 	}
 
+}
+
+    addProduct(productId, qte)
+    {
+      this.dataService.addProductBasket(productId,qte);
+    }
 }

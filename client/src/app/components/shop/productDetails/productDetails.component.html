@@ -1,7 +1,25 @@
 <div *ngIf="product">
-    <img src="assets/img/profile/profile_pic.jpg" alt="" class="profile-pic">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x">
+            <div class="cell small-4">
+                <img src="assets/img/profile/profile_pic.jpg" alt="" class="product-pic" >
+            </div>
+            <div class="cell auto">
+                <h2>{{product.name}}</h2>
 
-    <h1>{{product.name}}</h1>
+                <p>{{product.description}} </p>
 
-    <p>{{product.description}} </p>
+                <p>Prix : {{product.pricekg}} euros/kg </p>
+
+                <p>Quantité disponible : {{product.stock}} kg</p> 
+
+                <span>Panier : </span>
+                <button class="button tiny quantity-button"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                <span>0g</span>
+                <button class="button tiny quantity-button" (click)="addProduct(product.id)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+				
+            </div>
+        </div>
+    </div>
+
 </div>

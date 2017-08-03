@@ -51,13 +51,11 @@ export class BasketComponent {
 
   //preferer un tableau de clé/valeur:
 
-  addProduct(productId, qte)
-  {
+  addProduct(productId, qte) {
     this.basket = this.dataService.addProductBasket(productId,qte);
   }
 
-  getBasket()
-  {
+  getBasket() {
     //console.log(productId)
     //let types = this.dataService.getType()
 
@@ -77,14 +75,12 @@ export class BasketComponent {
   }
 
 
-  quantityChange(product:Product,newQ)
-  {
+  quantityChange(product:Product,newQ) {
     this.addProduct(product.id, newQ);
     this.refreshTotal();
   }
 
-  refreshTotal()
-  {
+  refreshTotal() {
     this.totalHT = 0;
     for (var i = this.basket.length - 1; i >= 0; i--) {
       //console.log("this.basket[i "+i+"]= " + this.basket[i])

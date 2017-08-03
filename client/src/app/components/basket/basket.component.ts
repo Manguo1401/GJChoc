@@ -51,10 +51,8 @@ export class BasketComponent {
   //private oldbasket = [{"id":"2","qte":"1"},{"id":"3","qte":"3"}];
 
   //preferer un tableau de clé/valeur:
-
-
   addProduct(productId, qte) {
-    this.basket = this.dataService.addProductBasket(productId,qte);
+    this.basket = this.basketService.addProductBasket(productId,qte);
   }
 
   getBasket() {

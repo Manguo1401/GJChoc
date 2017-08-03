@@ -1,4 +1,4 @@
-<div class="grid-x align-center grid-padding-x align-middle">
+<div class="grid-x align-center grid-padding-x align-middle" [@visibilityChanged]="visibility" style="opacity:0" >
   <div class="shrink cell">
     <p class="catcher">Découvrez l'univers gourmand et raffiné de Julien Gayraud</p>
   </div>
@@ -10,6 +10,10 @@
   {{ error }}
 </div>
 
-<div class="grid-x grid-padding-x">
+<div class="grid-x grid-padding-x" [@visibilityChanged]="visibility" style="opacity:0">
   <my-nav-tree *ngFor="let type of data" [parentType]="type.type" class="cell small-6"></my-nav-tree>
+</div>
+
+<div class="loader" [@visibilityChanged]="loader" >
+	<div class="spinner pulse-spinner"></div>
 </div>

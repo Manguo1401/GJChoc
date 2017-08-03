@@ -1,11 +1,11 @@
-<div class="grid-x align-center align-middle header">
+<div class="grid-x align-center align-middle header" [@headerAnimation]="headerImg" style="opacity: 0">
 	<div class="small-4 text-right cell">
 		<a routerLink="/accueil" class="clear button brown large menu-link">Accueil</a>
 		<a routerLink="/shop/chocolats" class="clear button brown large menu-link">Chocolats</a>
 		<a routerLink="/shop/confiseries" class="clear button brown large menu-link">Confiseries</a>
 	</div>
 	<div class="shrink cell">
-		<img src="assets/img/logo.jpg" alt="Logo" class="logo">
+		<img src="assets/img/logo.jpg" alt="Logo" class="logo" (load)="headerImgLoaded()" >
 	</div>
 	<div class="small-4 cell">
 		<a routerLink="/profil" class="clear button brown large menu-link">Profil</a>

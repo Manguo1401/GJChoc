@@ -1,15 +1,20 @@
-<div class="grid-x grid-margin-x">
+<div class="grid-x grid-margin-x" [@openingAnimation]="products.length">
 	<div class="small-6 medium-4 large-3 cell" *ngFor="let product of products | filterUnique">
 
 		<div class="card card-gj">
 		<div class="img-header">
 				<img
 				src="https://upload.wikimedia.org/wikipedia/commons/7/78/Chocolat.png"
-				on-mouseenter='revealOverlay(product.id)'
-				>
 
-				<div *ngIf="overlay == product.id" class="overlayer" on-mouseleave='hideOverlay()'>
-				    <button class="overlayer-text">
+				<div 
+				class="overlayer" 
+				routerLink="/shop/{{type}}/{{product.id}}"
+				on-mouseleave="visibility[product.id] = 'false'"
+				on-mouseenter="visibility[product.id] = 'true'"
+				[@visibilityChanged]="visibility[product.id]"
+				style = "opacity: 0"
+				>
+				    <button class="overlayer-text" routerLink="/shop/{{type}}/{{product.id}}" >
 				    	<i class="fa fa-plus" aria-hidden="true"></i> Détails
 				    </button>
 				</div>
@@ -17,19 +22,25 @@
 
 			<div class="card-section">
 				<div>
-					<span class="product-name">{{product.name}}</span>
+					<span class="product-name">{{product.name}}</span> <span class="product-price">200 €/kilo</span>
 					<div class="product-quantity">
 						<button class="button tiny quantity-button"><i class="fa fa-minus" aria-hidden="true"></i></button>
 						<span>0g</span>
 						<button class="button tiny quantity-button" (click)="addProduct(product.id)"><i class="fa fa-plus" aria-hidden="true"></i></button>
 					</div>
 				</div>
-				<div class="product-price">
-					<span>200 €/kilo</span>
+				<div class="product-quantity">
+					<button class="button tiny quantity-button"><i class="fa fa-minus" aria-hidden="true"></i></button>
+					<span>0g</span>
+					<button class="button tiny quantity-button"><i class="fa fa-plus" aria-hidden="true"></i></button>
 				</div>
 			</div>
 
 		</div>
 	</div>
+</div>
+
+<div class="loader" [@visibilityChanged]="loader" >
+	<div class="spinner pulse-spinner"></div>
 </div>
 

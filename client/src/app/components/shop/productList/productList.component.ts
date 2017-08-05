@@ -22,8 +22,10 @@ export class ProductListComponent {
 	private type : string
 	private category: string
 	private overlay: number
-	private visibility= []
+	private visibility = []
 	private loader= "true"
+	private nbImages: number = 0;
+	private imagesLoaded: boolean = false;
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
@@ -50,6 +52,7 @@ export class ProductListComponent {
 			this.category = category;
 			this.products = this.getProducts(this.data, this.type)
 		})
+		
 	}
 
 	getProducts(data, selectedType) {
@@ -78,5 +81,5 @@ export class ProductListComponent {
     addProduct(productId, qte)
     {
       this.basketService.addProductBasket(productId,qte);
-    }
+	}
 }

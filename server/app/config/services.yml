@@ -58,3 +58,9 @@ services:
         arguments: [~, AppBundle\Entity\Commande, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Commandes, group: Achats }
+
+    admin.creation:
+        class: AppBundle\Admin\CreationAdmin
+        arguments: [~, AppBundle\Entity\Creation, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Creation, group: Metier }

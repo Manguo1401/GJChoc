@@ -37,9 +37,11 @@ AppBundle\Entity\Product:
             groups: ['product', 'category', 'type']
         categories:
             groups: ['product']
-        order:
+        placement:
             groups: ['product', 'category', 'type']
         unity:
+            groups: ['product', 'category', 'type']
+        imageName:
             groups: ['product', 'category', 'type']
 
 AppBundle\Entity\Commande:

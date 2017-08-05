@@ -6,7 +6,7 @@ import { Fader } from './animations/fader.animation'
 
 import { Type } from './objects/type'
 
-import { DataService } from './services/data.service'
+import { DataService } from './services/data.service' 
 
 
 

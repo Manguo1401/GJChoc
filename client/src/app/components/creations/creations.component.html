@@ -1,67 +1,27 @@
-<div class="grid-container">
-	<div class="grid-x grid-margin-x">
-		<div class="cell shrink">
-			<img src="assets/img/profile/profile_pic.jpg" alt="" class="creation-pic">
+<div class="grid-container" [@visibilityChanged]="visibility">
+	<div *ngFor="let creation of creations; let i = index; let last = last" >
+		<div *ngIf="i%2 == 0" class="grid-x grid-margin-x">
+			<div class="cell shrink">
+				<img src="assets/img/creation/{{creation.imageName}}" alt="" class="creation-pic">
+			</div>
+			<div class="cell auto">
+				<h2>{{creation.title}}</h2>
+				<p>{{creation.description}}</p>
+			</div>
 		</div>
-		<div class="cell auto">
-			<h2>Titre de la création</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae asperiores sit adipisci earum, alias, aliquid, provident dolorum ullam odio nostrum vero magni ipsa quos dolores debitis! Tempora quos rerum, totam <br>
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta tenetur debitis delectus reiciendis nesciunt nemo illo molestiae autem explicabo, porro aliquam dignissimos quasi laudantium vel corporis fugiat obcaecati sit facere!</p>
+		<div *ngIf="i%2 == 1" class="grid-x grid-margin-x">
+			<div class="cell auto">
+				<h2>{{creation.title}}</h2>
+				<p>{{creation.description}}</p>
+			</div>
+			<div class="cell shrink">
+				<img src="assets/img/creation/{{creation.imageName}}" alt="" class="creation-pic">
+			</div>
 		</div>
+		<hr *ngIf="!last">
 	</div>
-	<hr>
-	<div class="grid-x grid-margin-x">
-		<div class="cell auto">
-			<h2>Titre de la création</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae asperiores sit adipisci earum, alias, aliquid, provident dolorum ullam odio nostrum vero magni ipsa quos dolores debitis! Tempora quos rerum, totam <br>
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta tenetur debitis delectus reiciendis nesciunt nemo illo molestiae autem explicabo, porro aliquam dignissimos quasi laudantium vel corporis fugiat obcaecati sit facere!</p>
-		</div>
-		<div class="cell shrink">
-			<img src="assets/img/profile/profile_pic.jpg" alt="" class="creation-pic">
-		</div>
-	</div>
-	<hr>
-	<div class="grid-x grid-margin-x">
-		<div class="cell shrink">
-			<img src="assets/img/profile/profile_pic.jpg" alt="" class="creation-pic">
-		</div>
-		<div class="cell auto">
-			<h2>Titre de la création</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae asperiores sit adipisci earum, alias, aliquid, provident dolorum ullam odio nostrum vero magni ipsa quos dolores debitis! Tempora quos rerum, totam <br>
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta tenetur debitis delectus reiciendis nesciunt nemo illo molestiae autem explicabo, porro aliquam dignissimos quasi laudantium vel corporis fugiat obcaecati sit facere!</p>
-		</div>
-	</div>
-	<hr>
-	<div class="grid-x grid-margin-x">
-		<div class="cell auto">
-			<h2>Titre de la création</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae asperiores sit adipisci earum, alias, aliquid, provident dolorum ullam odio nostrum vero magni ipsa quos dolores debitis! Tempora quos rerum, totam <br>
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta tenetur debitis delectus reiciendis nesciunt nemo illo molestiae autem explicabo, porro aliquam dignissimos quasi laudantium vel corporis fugiat obcaecati sit facere!</p>
-		</div>
-		<div class="cell shrink">
-			<img src="assets/img/profile/profile_pic.jpg" alt="" class="creation-pic">
-		</div>
-	</div>
-	<hr>
-	<div class="grid-x grid-margin-x">
-		<div class="cell shrink">
-			<img src="assets/img/profile/profile_pic.jpg" alt="" class="creation-pic">
-		</div>
-		<div class="cell auto">
-			<h2>Titre de la création</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae asperiores sit adipisci earum, alias, aliquid, provident dolorum ullam odio nostrum vero magni ipsa quos dolores debitis! Tempora quos rerum, totam <br>
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta tenetur debitis delectus reiciendis nesciunt nemo illo molestiae autem explicabo, porro aliquam dignissimos quasi laudantium vel corporis fugiat obcaecati sit facere!</p>
-		</div>
-	</div>
-	<hr>
-	<div class="grid-x grid-margin-x">
-		<div class="cell auto">
-			<h2>Titre de la création</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae asperiores sit adipisci earum, alias, aliquid, provident dolorum ullam odio nostrum vero magni ipsa quos dolores debitis! Tempora quos rerum, totam <br>
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta tenetur debitis delectus reiciendis nesciunt nemo illo molestiae autem explicabo, porro aliquam dignissimos quasi laudantium vel corporis fugiat obcaecati sit facere!</p>
-		</div>
-		<div class="cell shrink">
-			<img src="assets/img/profile/profile_pic.jpg" alt="" class="creation-pic">
-		</div>
-	</div>
+</div>
+
+<div class="loader" [@visibilityChanged]="loader" >
+	<div class="spinner pulse-spinner"></div>
 </div>

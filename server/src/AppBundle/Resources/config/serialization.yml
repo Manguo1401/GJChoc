@@ -78,3 +78,4 @@ AppBundle\Entity\CommandeBasket:
         product:
             groups: ['commande']
         quantity:
+            groups: ['commande']

@@ -20,7 +20,8 @@ class ProductAdmin extends AbstractAdmin
                 ->add('pricekg','number')
                 ->add('unity','integer')
                 ->add('stock','integer')
-                ->add('order','integer')
+                ->add('placement','integer')
+                ->add('imageFile', 'file')
             ->end()
             // NOT Work on edit liste of categories
             // ->with('Category', array('class' => 'col-md-9'))

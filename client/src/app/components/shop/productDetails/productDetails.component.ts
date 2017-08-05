@@ -3,12 +3,17 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router'
 
 import { DataService } from './../../../services/data.service'
+import { BasketService } from './../../../services/basket.service'
 
 import { Product } from './../../../objects/product'
 
+import { fadeInAnimation } from './../../../animations/routerFader.component'
+
 @Component ({
 	selector: 'my-productList',
-	templateUrl: 'productDetails.component.html'
+	templateUrl: 'productDetails.component.html',
+	animations: [fadeInAnimation],
+    host: { '[@fadeInAnimation]': '' }
 })
 
 export class ProductDetailsComponent {
@@ -17,7 +22,8 @@ export class ProductDetailsComponent {
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
-		private dataService: DataService
+		private dataService: DataService,
+		private basketService: BasketService
 	) {}
 
 	ngOnInit() {
@@ -35,7 +41,7 @@ export class ProductDetailsComponent {
 	}
 
 	addProduct(productId, qte) {
-      this.dataService.addProductBasket(productId,qte);
+      this.basketService.addProductBasket(productId,qte);
     }
 
 }

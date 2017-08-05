@@ -3,6 +3,9 @@
 namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use AppBundle\Entity\Category;
 
@@ -13,6 +16,7 @@ use AppBundle\Entity\Category;
  *
  * @ORM\Table(name="product")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductRepository")
+ * @Vich\Uploadable
  */
 class Product
 {
@@ -69,9 +73,32 @@ class Product
     /**
      * @var int
      *
-     * @ORM\Column(name="order", type="integer")
+     * @ORM\Column(name="placement", type="integer")
      */
-    private $order = 100;
+    private $placement = 100;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imageName", type="string", length=255)
+     */
+    private $imageName;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated", type="datetime", nullable=true)
+     */
+    private $updated;
+
+    /**
+    * @Vich\UploadableField(mapping="product_image", fileNameProperty="imageName")
+    * @Assert\File(maxSize="10M", mimeTypes={"image/png","image/jpeg"}, mimeTypesMessage = "Entrez une image valide")
+    *
+    * @var File
+    */
+    protected $imageFile;
+
 
 
     public function __construct()
@@ -231,27 +258,79 @@ class Product
     }
 
     /**
-     * Set order
+     * Set placement
      *
-     * @param integer $order
+     * @param integer $placement
      *
      * @return Product
      */
-    public function setOrder($order)
+    public function setPlacement($placement)
     {
-        $this->order = $order;
+        $this->placement = $placement;
 
         return $this;
     }
 
     /**
-     * Get order
+     * Get placement
      *
      * @return int
      */
-    public function getOrder()
+    public function getPlacement()
     {
-        return $this->order;
+        return $this->placement;
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     *
+     * @return Product
+     */
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        if ($image) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updated = new \DateTimeImmutable();
+        }
+        
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param string $imageName
+     *
+     * @return Product
+     */
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+        
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImageName()
+    {
+        return $this->imageName;
     }
 }
 

@@ -23,9 +23,9 @@ export class PaymentService {
   postPayment(token, commande: Commande, basket: Array<any>, amount:number)
   {
     let postPayment = this.baseUrl +"payment";
-    console.log("commande"+ commande.firstname);
-    console.log(token);
-
+    //console.log("commande"+ commande.firstname);
+    //console.log("send to server the payment with token = ");
+    //console.log(token)
     let postdata = {
       token: token,
       commande: commande,
@@ -35,29 +35,21 @@ export class PaymentService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(postPayment, postdata, options)
-    .map(res => res.json())
-    .subscribe(
-      data => this.data = data,
-      //error:any => Observable.throw(error.json().error || 'Server error'));
-      error => {
-        console.log(error);
-        this.error = error;
-      }
-      )
-
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
 
   }
 
   // private handleErrorPromise (error: Response | any) {
-  // console.error(error.message || error);
-  // return Promise.reject(error.message || error);
-  //   }
+    // console.error(error.message || error);
+    // return Promise.reject(error.message || error);
+    //   }
 
 
 
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
-    return Promise.reject(error.message || error);
+    private handleError(error: any): Promise<any> {
+      console.error('An error occurred', error); // for demo purposes only
+      return Promise.reject(error.message || error);
+    }
+
   }
-
-}

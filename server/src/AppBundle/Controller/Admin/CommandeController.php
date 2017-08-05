@@ -11,18 +11,18 @@ use AppBundle\Entity\Commande;
 
 class CommandeController extends Controller
 {
-    /**
-     * @Rest\View()
-     * @Rest\Get("/posts")
-     */
-    public function getPostsAction()
-    {
-        return $this->getDoctrine()->getRepository('AppBundle:Post')->findAll();
-    }
+    // /**
+    //  * @Rest\View()
+    //  * @Rest\Get("/posts")
+    //  */
+    // public function getPostsAction()
+    // {
+    //     return $this->getDoctrine()->getRepository('AppBundle:Post')->findAll();
+    // }
 
     /**
-     * @Rest\View()
-     * @Rest\Get("/admin/commandes")
+     * @Rest\View(serializerGroups={"commande"})
+     * @Rest\Get("/commandes")
      */
     public function getCommandesAction(Request $request)
     {
@@ -34,8 +34,8 @@ class CommandeController extends Controller
     }
 
     /**
-     * @Rest\View()
-     * @Rest\Get("/admin/commandes/{id}")
+     * @Rest\View(serializerGroups={"commande"})
+     * @Rest\Get("/commandes/{id}")
      */
     public function getCommandeAction(Request $request)
     {
@@ -51,7 +51,7 @@ class CommandeController extends Controller
     }
 
     /**
-     * @Rest\View(statusCode=Response::HTTP_CREATED)
+     * @Rest\View(serializerGroups={"commande"},statusCode=Response::HTTP_CREATED)
      * @Rest\Post("/commandes")
      */
     public function postCommandesAction(Request $request)

@@ -22,9 +22,9 @@ class EcommerceConfig
     private $id;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="tva", type="integer")
+     * @ORM\Column(name="tva", type="float")
      */
     private $tva;
 
@@ -42,7 +42,7 @@ class EcommerceConfig
     /**
      * Set tva
      *
-     * @param integer $tva
+     * @param float $tva
      *
      * @return EcommerceConfig
      */
@@ -56,7 +56,7 @@ class EcommerceConfig
     /**
      * Get tva
      *
-     * @return int
+     * @return float
      */
     public function getTva()
     {

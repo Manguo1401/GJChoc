@@ -6,20 +6,24 @@ import { NgModule } from '@angular/core';
 import { Product } from '../../objects/product'
 
 import { fadeInAnimation } from './../../animations/routerFader.component';
+import { Fader } from './../../animations/fader.animation'
 
 @Component ({
 	selector: 'my-basket',
 	templateUrl: 'basket.component.html',
-    animations: [fadeInAnimation],
-    host: { '[@fadeInAnimation]': '' }
+  animations: [fadeInAnimation, Fader()],
+  host: { '[@fadeInAnimation]': '' }
 })
 
 export class BasketComponent {
+  loader = 'true';
+
   products;
   basket = [];
   counter = Array;
   totalHT = 0;
   tva = 0.2;
+  totalTTC = 0;
 
   constructor(
     private basketService: BasketService
@@ -60,16 +64,13 @@ export class BasketComponent {
     //let types = this.dataService.getType()
 
     this.basket = JSON.parse(localStorage.getItem('basket'))
-    console.log("basket= "+this.basket)
+    //console.log("basket= "+this.basket)
     this.basketService.getBasketProducts(this.basket)
     .subscribe(data => {
       if(data) {
-        this.products = data;
-        // this.products.forEach((p) =>{
-        //   console.log("product Name= "+p.name)
-        // })
-        // console.log("products= "+this.products)
+        this.products = data
         this.refreshTotal()
+        this.loader = 'false'
       }
     })
   }
@@ -97,6 +98,7 @@ export class BasketComponent {
         }
       }
     }
+    this.totalTTC = this.totalHT + (this.totalHT * this.tva);
     return this.totalHT;
   }
 

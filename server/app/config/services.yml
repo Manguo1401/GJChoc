@@ -52,3 +52,9 @@ services:
         arguments: [~, AppBundle\Entity\Product, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Product, group: Metier }
+
+    admin.creation:
+        class: AppBundle\Admin\CreationAdmin
+        arguments: [~, AppBundle\Entity\Creation, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Creation, group: Metier }

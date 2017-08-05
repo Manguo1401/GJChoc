@@ -35,6 +35,9 @@ class AppKernel extends Kernel
             new Sonata\UserBundle\SonataUserBundle(),
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
 
+            //For file management
+            new Vich\UploaderBundle\VichUploaderBundle(),
+
             new AppBundle\AppBundle(),
         ];
 

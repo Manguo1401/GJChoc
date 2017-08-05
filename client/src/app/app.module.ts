@@ -44,6 +44,7 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { DataService } from './services/data.service';
 import { PaymentService } from './services/payment.service';
 import { BasketService } from './services/basket.service';
+import { CreationService } from './services/creation.service';
 import { PostRepository } from './post/post-repository.service';
 
 // Import security
@@ -110,7 +111,8 @@ import { UniqueValuesPipe } from './pipes/uniqueValues.pipe'
 		AuthenticationService,
 		PostRepository,
     PaymentService,
-    BasketService
+    BasketService,
+    CreationService
   ],
   bootstrap: [AppComponent]
 })

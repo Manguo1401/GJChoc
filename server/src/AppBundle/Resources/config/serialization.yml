@@ -26,9 +26,9 @@ AppBundle\Entity\Category:
 AppBundle\Entity\Product:
     attributes:
         id:
-            groups: ['product', 'category', 'type']
+            groups: ['product', 'category', 'type', 'commande']
         name:
-            groups: ['product', 'category', 'type']
+            groups: ['product', 'category', 'type', 'commande']
         description:
             groups: ['product', 'category', 'type']
         pricekg:
@@ -41,3 +41,39 @@ AppBundle\Entity\Product:
             groups: ['product', 'category', 'type']
         unity:
             groups: ['product', 'category', 'type']
+
+AppBundle\Entity\Commande:
+    attributes:
+        id:
+            groups: ['commande']
+        firstname:
+            groups: ['commande']
+        lastname:
+            groups: ['commande']
+        email:
+            groups: ['commande']
+        phone:
+            groups: ['commande']
+        adresse:
+            groups: ['commande']
+        postalcode:
+            groups: ['commande']
+        city:
+            groups: ['commande']
+        comment:
+            groups: ['commande']
+        validated:
+            groups: ['commande']
+        reference:
+            groups: ['commande']
+        commandeBaskets:
+            groups: ['commande']
+
+AppBundle\Entity\CommandeBasket:
+    attributes:
+        id:
+            groups: ['commande']
+        product:
+            groups: ['commande']
+        quantity:
+            groups: ['commande']

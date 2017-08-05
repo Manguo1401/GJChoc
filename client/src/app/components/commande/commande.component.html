@@ -4,7 +4,7 @@
   data-zip-code="true">
 </script>
 
-<div class="content">
+<div class="content" style="opacity: 0" [@visibilityChanged]="loader == 'false'">
   <div class="formulaire">
       <h4>Information à saisir</h4>
     <form #formCommande="ngForm" novalidate class=""><!--  -->
@@ -132,3 +132,7 @@
 </div>
 
 
+
+<div class="loader" [@visibilityChanged]="loader == 'true'" >
+	<div class="spinner pulse-spinner"></div>
+</div>

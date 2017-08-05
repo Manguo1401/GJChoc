@@ -28,17 +28,17 @@ export class AppComponent {
 	constructor(
 		private dataService: DataService
 	) {
-
-	}
-
-	ngOnInit(): void {
-		this.dataService.loadData()
+    		this.dataService.loadData()
 			.subscribe(
 			data => {
 				this.data = data;
 			}
 			),
 			err => console.log(err);
+	}
+
+	ngOnInit(): void {
+
 	}
 
 	/* constructor(){

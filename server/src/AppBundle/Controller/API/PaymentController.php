@@ -8,47 +8,179 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les annotations
 use AppBundle\Entity\Commande;
+use AppBundle\Entity\CommandeBasket;
+use AppBundle\Form\Type\CommandeType;
+
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
 
 class PaymentController extends Controller
 {
 
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"commande"})
      * @Rest\Post("/payment")
      */
-  public function paymentAction(Request $request)
-  {
-    dump($request->request->all());
-    $commande = $request->request->get('commande');
+    public function paymentAction(Request $request)
+    {
+      $errorMessage = "";
+      // {
+      //   token: token,
+      //   commande: commande,
+      //   basket:basket,
+      //   amount:amount
+      // };
 
-    // Check Commande validity and save it with products links and customer ID (tokenStripe)
+      $amount = $request->request->get('amount');
+      if ((0+$amount)<=0)
+        return 'Montant à payer invalide';
+
+      $commandeReq = $request->request->get('commande');
+
+      // Check Commande validity and save it with products links and customer ID (tokenStripe)
+      $token = $request->request->get('token');
+      dump($token);
+      //if(!empty($token))
+      
+      $em = $this->get('doctrine.orm.entity_manager');
+
+      $commande = new Commande();
+      $form = $this->createForm(CommandeType::class, $commande);
+
+      //Amout calculer ici avec les produits du panier pour vérifier qu'il n'y a pas eu de changement ou erreur coté client
+      $amountCheck = 0;
+      $ecommerceConfig = $em->getRepository('AppBundle:EcommerceConfig')->find(1);
+      $tva = $ecommerceConfig->getTva();
+
+      $form->submit($commandeReq); // Validation des données
+      dump($commande);
+      if (!$form->isValid()) {
+        return $form;
+      }
+      else
+      {
+        //TEMPORAIRE: Doctrine n'accepte pas null dans le champ comment, par defaut:"";
+        if($commande->getComment() == null)
+          $commande->setComment("");
+        
+
+        $commande->setReference($token['id']);
+        $em->persist($commande);
+        
+        $basketReq = $request->request->get('basket');
+        $commandProduct = new CommandeBasket();
+        $commandProduct->setCommande($commande);
+        dump($commande);
+        dump($basketReq);
+
+        $em = $this->get('doctrine.orm.entity_manager');
+        if(count($basketReq) >0)
+        {
+          for ($id=0; $id < count($basketReq); $id++) {
+            if($basketReq[$id] != null)
+            {
+              $product = $em->getRepository('AppBundle:Product')->find($id);
+              if(!empty($product))
+              {
+                // dump($product);
+                // dump($product->getPricekg());
+                // dump(intval($basketReq[$id]));
+                $amountCheck = $amountCheck + $product->getPricekg()*intval($basketReq[$id]); 
+                $commandProduct->setProduct($product);
+                $commandProduct->setQuantity($basketReq[$id]);
+                $em->persist($commandProduct);
+                dump($commandProduct);
+                dump($amountCheck);
+              }
+            }
+          }
+        }
+
+        dump($amountCheck);
+        $amountCheck = ($amountCheck+$amountCheck*$tva)*100;
+        dump($amountCheck);
+        dump($amount);
+        if((int)$amountCheck != $amount)
+          return "Montant à payer demandé (".$amount.") différent du prix des produits du panier.(".$amountCheck.")";
+        dump($commande);
+        
+        $em->flush();
+      }
+
+      // Send charge payment to Stripe
+
+      //$commande2 = $em->getRepository('AppBundle:Commande')->find($commande->getId());
+
+      // if ok return commande reference, update commande to validated
+      
 
 
-    $commande = new Product();
-    $form = $this->createForm(ProductType::class, $product);
+      // Set your secret key: remember to change this to your live secret key in production
+      // See your keys here: https://dashboard.stripe.com/account/apikeys
+      \Stripe\Stripe::setApiKey("sk_test_2WXwdMC6Qwystzz38ht6kFck"); //TEST secret
 
-    $form->submit($request->request->all());
+      // Token is created using Stripe.js or Checkout!
+      // Get the payment token ID submitted by the form:
+      $token = $token['id'];//$_POST['stripeToken'];
 
-    // Send charge payment to Stripe
+      // Charge the user's card:
+      $err = null;
+      
+      try {
+        // Use Stripe's library to make requests...
+        $charge = \Stripe\Charge::create(array(
+        "amount" => $amount,
+        "currency" => "eur",
+        "description" => "Paiment en direct",
+        "source" => $token,
+        ));
+        dump($charge);
+        // PAIEMENT EFFECTUEE
+        //Save status validated
+        $commande->setValidated(true);
+        $em->persist($commande);
+        $em->flush();
+        return $commande;
 
+      // } catch(\Stripe\Error\Card $e) {
+      //   // Since it's a decline, \Stripe\Error\Card will be caught
+      //   $body = $e->getJsonBody();
+      //   $err  = $body['error'];
 
-    // if ok return commande reference, update commande to validated
-    return $commande;
-    // // Set your secret key: remember to change this to your live secret key in production
-    // // See your keys here: https://dashboard.stripe.com/account/apikeys
-    // \Stripe\Stripe::setApiKey("sk_test_2WXwdMC6Qwystzz38ht6kFck"); //TEST secret
-
-    // // Token is created using Stripe.js or Checkout!
-    // // Get the payment token ID submitted by the form:
-    // $token = $_POST['stripeToken'];
-
-    // // Charge the user's card:
-    // $charge = \Stripe\Charge::create(array(
-    //   "amount" => 1000,
-    //   "currency" => "usd",
-    //   "description" => "Example charge",
-    //   "source" => $token,
-    //   ));
+      //   print('Status is:' . $e->getHttpStatus() . "\n");
+      //   print('Type is:' . $err['type'] . "\n");
+      //   print('Code is:' . $err['code'] . "\n");
+      //   // param is '' in this case
+      //   print('Param is:' . $err['param'] . "\n");
+      //   print('Message is:' . $err['message'] . "\n");
+      // } catch (\Stripe\Error\RateLimit $e) {
+      //   // Too many requests made to the API too quickly
+      //   $err = $e;
+      // } catch (\Stripe\Error\InvalidRequest $e) {
+      //   // Invalid parameters were supplied to Stripe's API
+      //   $err = $e;
+      // } catch (\Stripe\Error\Authentication $e) {
+      //   // Authentication with Stripe's API failed
+      //   // (maybe you changed API keys recently)
+      //   $err = $e;
+      // } catch (\Stripe\Error\ApiConnection $e) {
+      //   // Network communication with Stripe failed
+      //   $err = $e;
+      // } catch (\Stripe\Error\Base $e) {
+      //   // Display a very generic error to the user, and maybe send
+      //   $err = $e;
+      //   // yourself an email
+      } catch (Exception $e) {
+        // Something else happened, completely unrelated to Stripe
+        $err = $e;
+         return $e;
+      }
+      if (!empty($err))
+      {
+        dump($err);
+        throw new HttpException($err->getCode(), $err->getMessage());
+      }
+        
+      return null;
+    }
   }
-
-}

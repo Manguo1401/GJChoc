@@ -1,6 +1,6 @@
 <?php
 
-// src/AppBundle/Admin/BlogPostAdmin.php
+// src/AppBundle/Admin/CommandeAdmin.php
 namespace AppBundle\Admin;
 
 use Sonata\AdminBundle\Admin\AbstractAdmin;
@@ -8,26 +8,32 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper; //pour configureDatagridFilters
 
-class ProductAdmin extends AbstractAdmin
+class CommandeAdmin extends AbstractAdmin
 {
     //Structure des blocks et définition des champs pour la création, l'affichage de l'element et son édition.
     protected function configureFormFields(FormMapper $formMapper)
     {
+        
         $formMapper
-            ->with('Content', array('class' => 'col-md-9'))
-                ->add('name', 'text')
-                ->add('description', 'textarea')
-                ->add('pricekg','number')
-                ->add('unity','integer')
-                ->add('stock','integer')
-                ->add('order','integer')
+            ->with("Informations de l'acheteur", array('class' => 'col-md-9'))
+                ->add('firstname', 'text')
+                ->add('lastname', 'text')
+                ->add('email', 'text')
+                ->add('phone', 'text')
+                ->add('adresse', 'text')
+                ->add('postalcode', 'integer')
+                ->add('city', 'text')
+            ->end()
+            ->with("Informations de la commande", array('class' => 'col-md-9'))
+                ->add('reference', 'text')
+                ->add('comment', 'textarea')
+                ->add('validated')
             ->end()
             // NOT Work on edit liste of categories
-            // ->with('Category', array('class' => 'col-md-9'))
-            //     ->add('categories', 'entity', array(
-            //         'class' => 'AppBundle\Entity\Category',
-            //         'choice_label' => 'category',
-            //         'multiple' => true
+            // ->with('Produits', array('class' => 'col-md-9'))
+            //     ->add('commandeBaskets', 'entity', array(
+            //         'class' => 'AppBundle\Entity\CommandeBaskets',
+            //         'choice_label' => 'quantity'
             //     ))
             // ->end()
         ;
@@ -37,13 +43,19 @@ class ProductAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-        ->addIdentifier('id')
-            ->addIdentifier('name')
-            ->add('pricekg')
-            ->add('stock')
-            ->add('categories', null, array(
-                    'associated_property' => 'category')
-            )
+            ->addIdentifier('id')
+            ->addIdentifier('reference', 'text')
+            ->add('firstname', 'text')
+            ->add('lastname', 'text')
+            ->add('email', 'text')
+            ->add('phone', 'text')
+            ->add('city', 'text')
+            ->add('validated', 'boolean')
+            ->add('comment', 'textarea')
+            
+            // ->add('commandeBaskets', null, array(
+            //         'associated_property' => 'product')
+            // )
             // ->add('categories', 'entity', array(
             //         'class' => 'AppBundle\Entity\Category',
             //         'choice_label' => 'category',
@@ -55,9 +67,13 @@ class ProductAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('name')
-            ->add('pricekg')
-            ->add('stock')
+            ->add('firstname')
+            ->add('lastname')
+            ->add('email')
+            ->add('city')
+            ->add('comment')
+            ->add('validated')
+            ->add('reference')
             // ->add('category', null, array(), 'entity', array(
             //     'class'    => 'AppBundle\Entity\Category',
             //     'choice_label' => 'category', // In Symfony2: 'property' => 'name'
@@ -83,7 +99,7 @@ class ProductAdmin extends AbstractAdmin
     {
         return $object instanceof Product
             ? $object->getTitle()
-            : 'Produit'; // shown in the breadcrumb on the create view
+            : 'Commande'; // shown in the breadcrumb on the create view
     }
 
 

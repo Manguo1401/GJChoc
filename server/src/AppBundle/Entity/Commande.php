@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Commande
@@ -95,14 +96,27 @@ class Commande
     /**
      * @var integer
      *
-     * @ORM\Column(name="reference", type="integer")
+     * @ORM\Column(name="reference", type="string")
      */
     private $reference;
 
+    /**
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\CommandeBasket", mappedBy="commande")
+    */
+    private $commandeBaskets;
 
     public function __construct()
     {
         $this->date = new \DateTime('now');
+        $this->commandeBaskets = new ArrayCollection();
+
+    }
+
+
+
+    public function getCommandeBaskets()
+    {
+        return $this->commandeBaskets;
     }
 
     /**
@@ -333,26 +347,26 @@ class Commande
     }
 
     /**
-     * Set valider
+     * Set validated
      *
-     * @param boolean $valider
+     * @param boolean $validated
      * @return Commandes
      */
-    public function setValider($valider)
+    public function setValidated($validated)
     {
-        $this->valider = $valider;
+        $this->validated = $validated;
 
         return $this;
     }
 
     /**
-     * Get valider
+     * Get validated
      *
      * @return boolean
      */
-    public function getValider()
+    public function getValidated()
     {
-        return $this->valider;
+        return $this->validated;
     }
 
     /**

@@ -1,4 +1,4 @@
-# debug:routing
+# debug:router
   # get_products                 GET      ANY      ANY    /api/products
   # get_product                  GET      ANY      ANY    /api/products/{id}
   # post_products                POST     ANY      ANY    /api/products
@@ -48,7 +48,7 @@ api:
 #     resource: AppBundle\Controller\TypeController
 #     prefix: /api
 
-post:
+commande:
     type:     rest
     resource: AppBundle\Controller\Admin\CommandeController
     prefix: /apiadmin

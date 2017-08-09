@@ -7,7 +7,7 @@ export class Commande {
   adresse: string;
   postalcode: number;
   city: string;
-  comments: string;
+  comment: string;
   date: Date;
   validated: boolean;
   reference: number;

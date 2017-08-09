@@ -8,6 +8,8 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper; //pour configureDatagridFilters
 
+use AppBundle\Form\Type\CommandeBasketType;
+
 class CommandeAdmin extends AbstractAdmin
 {
     //Structure des blocks et définition des champs pour la création, l'affichage de l'element et son édition.
@@ -16,18 +18,43 @@ class CommandeAdmin extends AbstractAdmin
         
         $formMapper
             ->with("Informations de l'acheteur", array('class' => 'col-md-9'))
-                ->add('firstname', 'text')
-                ->add('lastname', 'text')
-                ->add('email', 'text')
-                ->add('phone', 'text')
-                ->add('adresse', 'text')
-                ->add('postalcode', 'integer')
-                ->add('city', 'text')
+                ->add('firstname', 'text', array('disabled' => true))
+                ->add('lastname', 'text', array('disabled' => true))
+                ->add('email', 'text', array('disabled' => true))
+                ->add('phone', 'text', array('disabled' => true))
+                ->add('adresse', 'text', array('disabled' => true))
+                ->add('postalcode', 'integer', array('disabled' => true))
+                ->add('city', 'text', array('disabled' => true))
             ->end()
             ->with("Informations de la commande", array('class' => 'col-md-9'))
-                ->add('reference', 'text')
+                ->add('reference', 'text', array('disabled' => true))
                 ->add('comment', 'textarea')
                 ->add('validated')
+            ->end()
+            ->with("Contenu de la commande", array('class' => 'col-md-9'))
+                ->add('commandeBaskets', 'sonata_type_collection', array(
+                    'required' => false,
+                    'btn_add' => false,
+                    'disabled' => true,
+                    'type_options' => array(
+                        // Prevents the "Delete" option from being displayed
+                        'delete' => false,
+                        'delete_options' => array(
+                            // You may otherwise choose to put the field but hide it
+                            'type'         => 'hidden',
+                            // In that case, you need to fill in the options as well
+                            'type_options' => array(
+                                'mapped'   => false,
+                                'required' => false,
+                            )
+                        )
+                    )
+                ), array(
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                    'sortable' => 'position',
+                    'btn_add' => false,
+                ))
             ->end()
             // NOT Work on edit liste of categories
             // ->with('Produits', array('class' => 'col-md-9'))

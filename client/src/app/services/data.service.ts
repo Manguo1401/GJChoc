@@ -54,7 +54,10 @@ export class DataService {
 				//On envoie les données à tous les subscribes de l'observer "subject"
 				this.sendData(data)
 			})
-			.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+      .catch((error:any) => Observable.throw(
+        //console.log(error)
+        error.json().error || 'Server error in loadData() of data service'
+        ))
 		}
 	}
 

@@ -25,7 +25,7 @@ class CommandeBasket
     private $id;
 
     /**
-     * @var string
+     * @var Commande
      *
      * @ORM\ManyToOne(targetEntity="Commande", inversedBy="commandeBaskets")
      */

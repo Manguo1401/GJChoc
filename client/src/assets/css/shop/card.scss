@@ -1,9 +1,18 @@
 @import '../typo';
 @import '../colors';
 
+.img-header {
+	height: 250px;
+	position: relative;
+	display: flex;
+}
+
 .card-img {
+	max-width: 100%;
+	max-height: 100%;
+	height: auto;
 	width: auto;
-	height: 150px;
+	margin: auto;
 }
 
 .card-gj {
@@ -12,10 +21,6 @@
 
 .card-section {
 	display: inline-block;
-}
-
-.card-centered-item {
-
 }
 
 .product-name {
@@ -55,10 +60,6 @@
 .quantity-button:hover {
 	background-color: $brown;
 	color: white;
-}
-
-.img-header {
-	position: relative;
 }
 
 .overlayer {

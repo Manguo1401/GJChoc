@@ -67,9 +67,12 @@ export class BasketService {
 
 
     basket = JSON.parse(localStorage.getItem('basket'));
-    if(basket==undefined) basket=[];
-    if(qte == undefined) qte = 1;
-    if(qte!=undefined && qte>=0)
+
+    console.log(basket)
+
+    if( !basket ) basket=[];
+    if( !qte ) qte = 1;
+    if( qte && qte >=0 )
     {
       basket[productId] = qte;
       localStorage.setItem('basket', JSON.stringify(basket))

@@ -101,7 +101,7 @@ class Commande
     private $reference;
 
     /**
-    * @ORM\OneToMany(targetEntity="AppBundle\Entity\CommandeBasket", mappedBy="commande")
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\CommandeBasket", mappedBy="commande", cascade={"remove"})
     */
     private $commandeBaskets;
 

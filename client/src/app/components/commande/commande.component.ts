@@ -30,7 +30,7 @@ export class CommandeComponent {
   tva = 0.2;
   totalTTC = 0;
   public commande: Commande = new Commande();
-  finishchanged;
+  //finishchanged;
 
   submitted = false;
   errorMessage = "";
@@ -42,14 +42,14 @@ export class CommandeComponent {
     private router: Router
   ) {
 
-    this.commande.firstname = 'Louis'
-    this.commande.lastname = 'Watrin'
-    this.commande.email = "votre@email.fr"
-    this.commande.phone = "0115151501"
-    this.commande.adresse = "1 rue ou tabite"
+    // this.commande.firstname = 'Louis'
+    // this.commande.lastname = 'Watrin'
+    // this.commande.email = "votre@email.fr"
+    // this.commande.phone = "0115151501"
+    // this.commande.adresse = "1 rue ou tabite"
 
-    this.commande.postalcode = 12345
-    this.commande.city = "VILLE"
+    // this.commande.postalcode = 12345
+    // this.commande.city = "VILLE"
 
   }
 

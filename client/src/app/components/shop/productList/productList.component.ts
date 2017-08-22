@@ -60,16 +60,23 @@ export class ProductListComponent {
 		let products = []
 		if(data) {
 			data.forEach((e) => {
+				//On cherche le type sélectionné
+				
 				if (e.type === selectedType) {
+				//On parcourt les categories pour ajouter tous les produits associés
 					categories = e.categories
 					categories.forEach((e) => {
+				//On cherche si la personne a cliqué sur une categorie particulière pour filtrer les produits
 						if(this.category) {
 							if(this.category === e.category) {
+				//On réinitialise les produits si jamais il y en a qui avaient été ajoutés.
 								products = e.products
 								return products
 							}
+				//Sinon on ajoute tous les produits voulus
 						} else {
 							products = products.concat(e.products)
+							console.log(products)
 						}
 					})
 				}
@@ -77,6 +84,8 @@ export class ProductListComponent {
 		}
 		return products
 	}
+
+	
 
     addProduct(productId, qte)
     {

@@ -26,8 +26,7 @@ class CommandeType extends AbstractType
             ->add('adresse')
             ->add('postalcode')
             ->add('city')
-            ->add('comments')
-            ->add('date')
+            ->add('comment')
             ->add('validated')
             ->add('reference');
     }

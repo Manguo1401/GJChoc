@@ -1,16 +1,5 @@
-<h1>Default Stripe Form</h1>
-
-<!-- <form #formPayment="ngForm" (onSubmit)="submitPayment()" method="POST">
-   -->
-<script
-  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-  data-locale="auto"
-  data-zip-code="true"
-  data-currency="eur">
-</script>
-<!-- </form> -->
-
-<button class="button" (click)="openCheckout()">Purchase</button>
-Notice that we also added a click handler to the button. O
+<div class="contentpage">
+  <h2>Paiement Reference: {{ reference }}</h2>
+  <p> Le paiement a bien été pris en compte, je vous remercie.</p>
+  <p> Je vous tiens informé de l'avancement de votre commande dans les plus bref délais.</p>
 

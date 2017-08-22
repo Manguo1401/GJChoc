@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 //import { DataService } from './../../services/data.service'
 import { PaymentService } from './../../services/payment.service'
 import { BasketService } from './../../services/basket.service'
@@ -7,16 +7,23 @@ import { NgModule } from '@angular/core';
 // import { BrowserModule } from '@angular/platform-browser';
 // import { FormsModule } from '@angular/forms';
 import { Commande } from './../../objects/commande'
-import {Router} from '@angular/router'
+import { Router, NavigationExtras } from '@angular/router'
 
-@Component ({
+import { Observable } from 'rxjs/Rx'
+import { Subscription } from 'rxjs/Subscription';
+
+import { Fader } from './../../animations/fader.animation'
+
+@Component({
   selector: 'my-commande',
   templateUrl: 'commande.component.html',
-  styleUrls: ['commande.style.scss']
-
+  styleUrls: ['commande.style.scss'],
+  animations: [Fader()]
 })
 
-export class CommandeComponent{
+export class CommandeComponent {
+  loader = 'true';
+
   products;
   basket = [];
   totalHT = 0;
@@ -26,14 +33,14 @@ export class CommandeComponent{
   finishchanged;
 
   submitted = false;
-
+  errorMessage = "";
 
   constructor(
     //private dataService: DataService,
     private paymentService: PaymentService,
     private basketService: BasketService,
-    //, private router: Router
-    ) {
+    private router: Router
+  ) {
 
     this.commande.firstname = 'Louis'
     this.commande.lastname = 'Watrin'
@@ -53,7 +60,6 @@ export class CommandeComponent{
 
     // Demander le service checkout pour de paiement:
     this.openCheckout();
-    //this.router.navigateByUrl('./payment');
   }
 
   openCheckout() {
@@ -72,49 +78,71 @@ export class CommandeComponent{
         // Get the token ID to your server-side code for use.
 
         //ICI Enregister la commande, puis rediriger vers le service de paiement.
-        console.log(token);
-
+        //console.log(token);
+        _this.loader = 'true'
+        let resp: Observable<any>
         //_this.basketService.postBasket(10,3);
-        _this.paymentService.postPayment(token, _this.commande, _this.basket, _this.totalTTC*100);
+        resp = _this.paymentService.postPayment(token, _this.commande, _this.basket, _this.totalTTC * 100)
+
+        resp.subscribe(
+          data => {
+            //console.log("data :")
+            //console.log(data)
+            let ref = data.reference.substring(20);
+            let navigationExtras: NavigationExtras = {
+              queryParams: {
+                  "reference": ref
+              }
+            };
+            _this.router.navigate(['payment'],navigationExtras);
+          },
+          error => {
+            console.log("error :")
+            console.log(error)
+            console.log(error.exception.message)
+
+            //LOG ERROR
+            _this.errorMessage = "Une erreur est survenue, le paiement est annulé. \nErreur ="+error.exception.message;
+            _this.loader = 'false'
+          }
+        )
         //_this.sendPayment(token, _this.commande);
+
       }
     });
 
     handler.open({
-      amount: this.totalTTC*100 //en centimes: 100 = 1€
+      amount: this.totalTTC * 100 //en centimes: 100 = 1€
     });
 
   }
 
 
 
-  ngOnInit(){
+  ngOnInit() {
     this.getBasket();
   }
 
-  getBasket()
-  {
+  getBasket() {
     this.basket = JSON.parse(localStorage.getItem('basket'))
     this.basketService.getBasketProducts(this.basket)
-    .subscribe(data => {
-      if(data) {
-        this.products = data;
-        this.refreshTotal()
-      }
-    })
+      .subscribe(data => {
+        if (data) {
+          this.products = data;
+          this.refreshTotal()
+          this.loader = 'false'
+        }
+      })
   }
 
-  refreshTotal()
-  {
+  refreshTotal() {
     this.totalHT = 0;
     for (var i = this.basket.length - 1; i >= 0; i--) {
       //console.log("this.basket[i "+i+"]= " + this.basket[i])
-      if(this.basket[i] && this.basket[i] >= 0 && this.products)
-      {
+      if (this.basket[i] && this.basket[i] >= 0 && this.products) {
         for (var p = this.products.length - 1; p >= 0; p--) {
           //console.log("this.products[p "+p+"].id = " + this.products[p].id + " == i :"+i+" > "+(this.products[p].id == i));
-          if(this.products[p].id == i)
-          {
+          if (this.products[p].id == i) {
             //console.log(this.products[p]);
             this.totalHT = this.totalHT + (Number(this.products[p].pricekg) * Number(this.basket[i]));
             //console.log("this.products[p].priceKg "+this.products[p].pricekg+" * this.basket[i] "+this.basket[i]+"="+this.totalHT);
@@ -126,8 +154,7 @@ export class CommandeComponent{
     return this.totalHT;
   }
 
-  addclass(element, className)
-  {
+  addclass(element, className) {
 
     element.addClass(className);
 

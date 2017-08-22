@@ -4,6 +4,9 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use AppBundle\Entity\Commande;
+use AppBundle\Entity\Product;
+
 /**
  * CommandeBasket
  *
@@ -24,14 +27,14 @@ class CommandeBasket
     /**
      * @var string
      *
-     * @ORM\Column(name="commande", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Commande", inversedBy="commandeBaskets")
      */
     private $commande;
 
     /**
-     * @var string
+     * @var Product
      *
-     * @ORM\Column(name="product", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Product")
      */
     private $product;
 
@@ -56,7 +59,7 @@ class CommandeBasket
     /**
      * Set commande
      *
-     * @param string $commande
+     * @param Commande $commande
      *
      * @return CommandeBasket
      */
@@ -70,7 +73,7 @@ class CommandeBasket
     /**
      * Get commande
      *
-     * @return string
+     * @return Commande
      */
     public function getCommande()
     {
@@ -80,7 +83,7 @@ class CommandeBasket
     /**
      * Set product
      *
-     * @param string $product
+     * @param Product $product
      *
      * @return CommandeBasket
      */
@@ -94,7 +97,7 @@ class CommandeBasket
     /**
      * Get product
      *
-     * @return string
+     * @return Product
      */
     public function getProduct()
     {

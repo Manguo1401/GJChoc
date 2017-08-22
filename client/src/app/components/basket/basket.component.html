@@ -1,4 +1,4 @@
-<div class="contentpage">
+<div class="contentpage" style="opacity: 0" [@visibilityChanged]="loader == 'false'">
   <h2>Votre panier</h2>
   <table class="table table-striped table-hover">
     <thead>
@@ -11,13 +11,15 @@
     </thead>
     <tbody>
       <tr *ngIf="!products">
-        <td colspan="4"><div>Aucun articles dans votre panier</div></td>
+        <td colspan="4">
+          <div>Aucun articles dans votre panier</div>
+        </td>
       </tr>
 
       <tr *ngFor="let product of products">
         <td>{{ product.name }}</td>
         <td>
-          <select class="form-control" (change)="quantityChange(product,$event.target.value)" ng-model="selecteQte" >
+          <select class="form-control" (change)="quantityChange(product,$event.target.value)" ng-model="selecteQte">
             <option *ngFor='let lqte of counter(11) ;let i=index' value="{{i}}" [selected]="i == basket[product.id]">
               {{ i }}
             </option>
@@ -32,17 +34,26 @@
   </table>
 
   <div class="dl-horizontal pull-right">
-    <div>Total HT :</div><div>{{ totalHT }} €</div>
+    <div>Total HT :</div>
+    <div>{{ totalHT }} €</div>
 
-    <div>TVA {{(tva*100)}}% :</div><div>{{ tva * totalHT }} €</div>
+    <div>TVA {{(tva*100)}}% :</div>
+    <div>{{ tva * totalHT }} €</div>
 
-    <div>Total TTC :</div><div>{{ totalTTC }} €</div>
+    <div>Total TTC :</div>
+    <div>{{ totalTTC }} €</div>
   </div>
   <div class="clearfix"></div>
 
   <a routerLink="/commande" class="button type-button pull-right">Valider mon panier</a>
 
   <a routerLink="/accueil" class="button type-button">Continuer mes achats</a>
+
+</div>
+
+<div class="loader" [@visibilityChanged]="loader == 'true'">
+  <div class="spinner pulse-spinner"></div>
+</div>
 
 <!-- <div class="btn btn-primary" (click)="addProduct(1)">add product 1</div>
 <div class="btn btn-primary" (click)="addProduct(12,8)">add product 12 qte 8</div>

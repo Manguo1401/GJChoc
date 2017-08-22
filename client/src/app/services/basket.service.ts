@@ -51,7 +51,10 @@ export class BasketService {
         postAddBasket = postAddBasket+"/"+qte;
       return this.http.put(postAddBasket, null)
       .map(res => res.json())
-      .do(data => {this.basketProducts = data; console.log(data);})
+      .do(data => {
+        this.basketProducts = data;
+        //console.log(data);
+      })
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }
 
@@ -84,7 +87,7 @@ export class BasketService {
   getBasketProducts(basketSession)
   {
     let getBasketUrl = this.baseUrl +"basket/products";
-    console.log(basketSession)
+    //console.log(basketSession)
     //let params: URLSearchParams = new URLSearchParams();
     //let requestOptions = new RequestOptionsArgs();
     let params = new URLSearchParams();
@@ -106,7 +109,10 @@ export class BasketService {
     // console.log(getBasketUrl)
     return this.http.get(getBasketUrl+paramsStr)
     .map(res => res.json())
-    .do(data => {this.basketProducts = data; console.log(data);})
+    .do(data => {
+      this.basketProducts = data;
+      //console.log(data);
+    })
     .catch(this.handleServerError);
   }
 

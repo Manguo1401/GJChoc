@@ -77,7 +77,7 @@ class ProductController extends Controller
 //     {
 //         $product = new Product();
 //         $product->setName($request->get('name'))
-//             ->setPricekg($request->get('pricekg'))
+//             ->setPrice($request->get('price'))
 //             ->setStock($request->get('stock'))
 //             ->setDescription($request->get('description'));
 

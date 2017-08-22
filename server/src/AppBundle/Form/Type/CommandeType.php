@@ -15,6 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
   // validated: boolean;
   // reference: number;
 
+//// Permet de vérifier la validité du contenu lors d'un post ou patch rest
 class CommandeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

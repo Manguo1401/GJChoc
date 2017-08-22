@@ -25,6 +25,7 @@ export class CommandeComponent {
   loader = 'true';
 
   products;
+  basketlist = []
   basket = [];
   totalHT = 0;
   tva = 0.2;
@@ -55,9 +56,7 @@ export class CommandeComponent {
 
   onSubmitCommande(value: Commande) {
     this.submitted = true;
-
     //ici la Commande est enregistrée dans la variable commande via NgModel
-
     // Demander le service checkout pour de paiement:
     this.openCheckout();
   }
@@ -144,8 +143,8 @@ export class CommandeComponent {
           //console.log("this.products[p "+p+"].id = " + this.products[p].id + " == i :"+i+" > "+(this.products[p].id == i));
           if (this.products[p].id == i) {
             //console.log(this.products[p]);
-            this.totalHT = this.totalHT + (Number(this.products[p].pricekg) * Number(this.basket[i]));
-            //console.log("this.products[p].priceKg "+this.products[p].pricekg+" * this.basket[i] "+this.basket[i]+"="+this.totalHT);
+            this.totalHT = this.totalHT + (Number(this.products[p].price) * Number(this.basket[i]));
+            //console.log("this.products[p].price "+this.products[p].price+" * this.basket[i] "+this.basket[i]+"="+this.totalHT);
           }
         }
       }

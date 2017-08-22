@@ -76,7 +76,7 @@ class CategoryController extends Controller
 //     {
 //         $category = new Category();
 //         $category->setName($request->get('name'))
-//             ->setPricekg($request->get('pricekg'))
+//             ->setPrice($request->get('price'))
 //             ->setStock($request->get('stock'))
 //             ->setDescription($request->get('description'));
 

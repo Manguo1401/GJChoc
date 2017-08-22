@@ -36,9 +36,9 @@ export class BasketService {
   //     // .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
 
   // }
-  //*************************
+  //************************* NON utilisé
   //Avec une gestion du Panier dans la $Session côté server
-  // EXEMPLE, NOUS OPTONS PLUTOT POUR UNE GESTION DU BASKET COTE CLIENT UNIQUEMENT
+  // c'est un exemple, NOUS OPTONS PLUTOT POUR UNE GESTION DU BASKET COTE CLIENT, qui sera envoyé coté server dans la commande
   postBasket(productid, qte)
   {
     //@Rest\Post("/basket/add/{productid}/{qte}, defaults={"qte" = 1}")

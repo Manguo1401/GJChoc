@@ -39,9 +39,9 @@ class Product
     /**
      * @var float
      *
-     * @ORM\Column(name="pricekg", type="float")
+     * @ORM\Column(name="price", type="float")
      */
-    private $pricekg;
+    private $price;
 
     /**
      * @var int
@@ -58,7 +58,7 @@ class Product
     private $description;
 
     /**
-    * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Category", mappedBy="products")
+    * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Category", mappedBy="products", cascade={"persist"})
     */
     private $categories;
 
@@ -66,9 +66,9 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="unity", type="integer")
+     * @ORM\Column(name="unity", type="string", length=32)
      */
-    private $unity = 1;
+    private $unity;
 
     /**
      * @var int
@@ -141,27 +141,27 @@ class Product
     }
 
     /**
-     * Set pricekg
+     * Set price
      *
-     * @param float $pricekg
+     * @param float $price
      *
      * @return Product
      */
-    public function setPricekg($pricekg)
+    public function setprice($price)
     {
-        $this->pricekg = $pricekg;
+        $this->price = $price;
 
         return $this;
     }
 
     /**
-     * Get pricekg
+     * Get price
      *
      * @return float
      */
-    public function getPricekg()
+    public function getprice()
     {
-        return $this->pricekg;
+        return $this->price;
     }
 
     /**

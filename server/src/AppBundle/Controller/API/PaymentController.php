@@ -84,9 +84,9 @@ class PaymentController extends Controller
               if(!empty($product))
               {
                 // dump($product);
-                // dump($product->getPricekg());
+                // dump($product->getPrice());
                 // dump(intval($basketReq[$id]));
-                $amountCheck = $amountCheck + $product->getPricekg()*intval($basketReq[$id]); 
+                $amountCheck = $amountCheck + $product->getPrice()*intval($basketReq[$id]); 
                 $commandProduct->setProduct($product);
                 $commandProduct->setQuantity($basketReq[$id]);
                 $em->persist($commandProduct);

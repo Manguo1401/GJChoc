@@ -75,7 +75,7 @@ class LoadFixtures implements FixtureInterface
 	  $product1 = new Product();
 	  $product1->setName("Produit chocolat 1");
 	  $product1->setDescription("Chocolat 1 dans categorie: Assortiments de chocolats");
-	  $product1->setPricekg(10);
+	  $product1->setPrice(10);
 	  $product1->setStock(100);
 	  //$product1->addCategory($category1); //NOT working!
 	  $category1->addProduct($product1);
@@ -83,7 +83,7 @@ class LoadFixtures implements FixtureInterface
 	  $product2 = new Product();
 	  $product2->setName("Produit chocolat 2");
 	  $product2->setDescription("Chocolat 2 dans categorie: Assortiments de chocolats");
-	  $product2->setPricekg(5);
+	  $product2->setPrice(5);
 	  $product2->setStock(8);
 	  //$product2->addCategory($category1);
 	  $category1->addProduct($product2);
@@ -91,7 +91,7 @@ class LoadFixtures implements FixtureInterface
 	  $product3 = new Product();
 	  $product3->setName("Produit guimauve orangette");
 	  $product3->setDescription("Un peu de guimauve et un peu de chocolat orangé");
-	  $product3->setPricekg(5);
+	  $product3->setPrice(5);
 	  $product3->setStock(8);
 	  // $product3->addCategory($category6);
 	  // $product3->addCategory($category4);

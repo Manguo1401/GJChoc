@@ -8,7 +8,7 @@ AppBundle\Entity\Product:
         description:
             - NotBlank: ~
             - Type: string
-        pricekg:
+        price:
             - NotBlank: ~
             - Type: float
         stock:

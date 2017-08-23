@@ -68,8 +68,7 @@ class PaymentController extends Controller
         $em->persist($commande);
         
         $basketReq = $request->request->get('basket');
-        $commandProduct = new CommandeBasket();
-        $commandProduct->setCommande($commande);
+        
         dump($commande);
         dump($basketReq);
 
@@ -79,6 +78,8 @@ class PaymentController extends Controller
           for ($id=0; $id < count($basketReq); $id++) {
             if($basketReq[$id] != null)
             {
+              $commandProduct = new CommandeBasket();
+              $commandProduct->setCommande($commande);
               $product = $em->getRepository('AppBundle:Product')->find($id);
               if(!empty($product))
               {

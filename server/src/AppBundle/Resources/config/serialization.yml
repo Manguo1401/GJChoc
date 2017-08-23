@@ -31,7 +31,7 @@ AppBundle\Entity\Product:
             groups: ['product', 'category', 'type', 'commande']
         description:
             groups: ['product', 'category', 'type']
-        pricekg:
+        price:
             groups: ['product', 'category', 'type']
         stock:
             groups: ['product', 'category', 'type']

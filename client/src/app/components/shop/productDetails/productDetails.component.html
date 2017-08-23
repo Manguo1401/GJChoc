@@ -9,15 +9,15 @@
 
                 <p>{{product.description}} </p>
 
-                <p>Prix : {{product.pricekg}} euros/kg </p>
+                <p>Prix : {{product.price}} euros/kg </p>
 
-                <p>Quantité disponible : {{product.stock}} kg</p> 
+                <p>Quantité disponible : {{product.stock}} kg</p>
 
                 <span>Panier : </span>
                 <button class="button tiny quantity-button"><i class="fa fa-minus" aria-hidden="true"></i></button>
                 <span>0g</span>
                 <button class="button tiny quantity-button" (click)="addProduct(product.id)"><i class="fa fa-plus" aria-hidden="true"></i></button>
-				
+
             </div>
         </div>
     </div>

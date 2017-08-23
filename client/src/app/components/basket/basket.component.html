@@ -19,8 +19,8 @@
       <tr *ngFor="let product of products">
         <td>{{ product.name }}</td>
         <td>
-          <select class="form-control" (change)="quantityChange(product,$event.target.value)" ng-model="selecteQte">
-            <option *ngFor='let lqte of counter(11) ;let i=index' value="{{i}}" [selected]="i == basket[product.id]">
+          <select class="form-control" (change)="quantityChange(product,$event.target.value)">
+            <option *ngFor='let lqte of counter(11) ;let i=index' value="{{i}}" [(ngModel)]="product.qte" ><!-- basket = {id: , qte:}  [selected]="i == basket[product.id]" -->
               {{ i }}
             </option>
           </select>

@@ -60,15 +60,11 @@ export class BasketComponent {
   }
 
   getBasket() {
-    //console.log(productId)
-    //let types = this.dataService.getType()
-
-    this.basket = JSON.parse(localStorage.getItem('basketlist'))
-    //console.log("basket= "+this.basket)
     this.basketService.getBasketlistProducts()//this.basket)
       .subscribe(data => {
         if (data) {
-          this.products = data
+          this.products = data.products
+          this.basket = this.basketService.getBasket()
           this.refreshTotal()
           this.loader = 'false'
         }

@@ -15,7 +15,7 @@ export class BasketService {
 
   //private types;
   private basketProducts : Product[];
-
+  private basketlist: any[];
   constructor(private http: Http) { }
 
 
@@ -69,9 +69,9 @@ export class BasketService {
     // console.log(basket)
     // if( !basket ) basket=[];
 
-    let basketlist = JSON.parse(localStorage.getItem('basketlist'));
+    this.basketlist = JSON.parse(localStorage.getItem('basketlist'));
     //console.log(basketlist)
-    if( !basketlist ) basketlist=[];
+    if( !this.basketlist ) this.basketlist=[];
 
     if( !qte ) qte = 1;
     if( qte && qte >=0 )
@@ -79,28 +79,31 @@ export class BasketService {
       // basket[productId] = qte;
       // localStorage.setItem('basket', JSON.stringify(basket))
       let basketItem = {id:productId,qte:qte};
-      if(basketlist)
-        basketlist = basketlist.filter(myObj => myObj.id !== productId);
-      basketlist.push(basketItem);
+      if(this.basketlist)
+        this.basketlist = this.basketlist.filter(myObj => myObj.id !== productId);
+      this.basketlist.push(basketItem);
 
-      localStorage.setItem('basketlist', JSON.stringify(basketlist))
+      localStorage.setItem('basketlist', JSON.stringify(this.basketlist))
       //console.log(basket)
-      console.log(basketlist);
+      console.log(this.basketlist);
     }
-    return basketlist;
+    return this.basketlist;
   }
 
+  getBasket(){
+    return this.basketlist
+  }
 
   getBasketlistProducts()
   {
-    let basketlist = JSON.parse(localStorage.getItem('basketlist'))
+    this.basketlist = JSON.parse(localStorage.getItem('basketlist'))
     let getBasketUrl = this.baseUrl +"basket/products";
     let params = new URLSearchParams();
     let paramsStr = ""
-    if(basketlist)
+    if(this.basketlist)
     {
       paramsStr = "?productsid=";
-      basketlist.forEach(elem => {
+      this.basketlist.forEach(elem => {
         if(elem.qte>0) paramsStr = paramsStr + elem.id +';';
       })
     }

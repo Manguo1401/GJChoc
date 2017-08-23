@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core'
+import { Component, Input, OnInit, OnChanges, SimpleChanges, Renderer2 } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router'
 import { Fader } from './../../../animations/fader.animation'
 import { TranslaterX } from './../../../animations/translateX.animation'
@@ -18,7 +18,7 @@ import { BasketService } from './../../../services/basket.service'
 
 export class ProductListComponent {
 	@Input() data: any
-	private products: any
+	protected products: any
 	private type : string
 	private category: string
 	private overlay: number
@@ -26,6 +26,8 @@ export class ProductListComponent {
 	private loader= "true"
 	private nbImages: number = 0;
 	private imagesLoaded: boolean = false;
+
+  protected qteListe : number[] = [];
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
@@ -52,7 +54,7 @@ export class ProductListComponent {
 			this.category = category;
 			this.products = this.getProducts(this.data, this.type)
 		})
-		
+
 	}
 
 	getProducts(data, selectedType) {
@@ -61,7 +63,7 @@ export class ProductListComponent {
 		if(data) {
 			data.forEach((e) => {
 				//On cherche le type sélectionné
-				
+
 				if (e.type === selectedType) {
 				//On parcourt les categories pour ajouter tous les produits associés
 					categories = e.categories
@@ -85,10 +87,14 @@ export class ProductListComponent {
 		return products
 	}
 
-	
+
 
     addProduct(productId, qte)
     {
-      this.basketService.addProductBasket(productId,qte);
+      console.log("qte of produitid:"+productId);
+      console.log(qte);
+      console.log(this.products);
+      this.basketService.addProductBasket(productId,1);
+      //$("#"+productId+"qte")
 	}
 }

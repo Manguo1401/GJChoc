@@ -58,74 +58,93 @@ export class BasketService {
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    // let headers = new Headers({ 'Content-Type': 'application/json' });
-    // let options = new RequestOptions({ headers: headers });
   }
 
   addProductBasket(productId, qte)
   {
     //console.log("addProduct("+productId+","+qte+")")
     //let types = this.dataService.getType()
-    let basket;
-    let basketlist: any[] = [];
+    // let basket;
+    // basket = JSON.parse(localStorage.getItem('basket'));
+    // console.log(basket)
+    // if( !basket ) basket=[];
 
-    basket = JSON.parse(localStorage.getItem('basket'));
-    //basketlist =  JSON.parse(localStorage.getItem('basketItem'));
-    console.log(basket)
-    console.log(basketlist)
+    let basketlist = JSON.parse(localStorage.getItem('basketlist'));
+    //console.log(basketlist)
+    if( !basketlist ) basketlist=[];
 
-    if( !basket ) basket=[];
     if( !qte ) qte = 1;
     if( qte && qte >=0 )
     {
-      basket[productId] = qte;
-      localStorage.setItem('basket', JSON.stringify(basket))
-
-
+      // basket[productId] = qte;
+      // localStorage.setItem('basket', JSON.stringify(basket))
       let basketItem = {id:productId,qte:qte};
       if(basketlist)
         basketlist = basketlist.filter(myObj => myObj.id !== productId);
       basketlist.push(basketItem);
 
-      localStorage.setItem('basketItem', JSON.stringify(basketItem))
+      localStorage.setItem('basketlist', JSON.stringify(basketlist))
       //console.log(basket)
       console.log(basketlist);
     }
-    return basket;
+    return basketlist;
   }
 
 
-  getBasketProducts(basketSession)
+  getBasketlistProducts()
   {
+    let basketlist = JSON.parse(localStorage.getItem('basketlist'))
     let getBasketUrl = this.baseUrl +"basket/products";
-    //console.log(basketSession)
-    //let params: URLSearchParams = new URLSearchParams();
-    //let requestOptions = new RequestOptionsArgs();
     let params = new URLSearchParams();
-
-    //let tabPid = Object.keys(basketSession);
     let paramsStr = ""
-    if(basketSession)
+    if(basketlist)
     {
       paramsStr = "?productsid=";
-      basketSession.forEach((val, i) => {
-        if(val) paramsStr = paramsStr + i +';';
+      basketlist.forEach(elem => {
+        if(elem.qte>0) paramsStr = paramsStr + elem.id +';';
       })
     }
-    //console.log(basketSession.toString()+" toString = "+paramsStr)
-    //params.set("productsid", paramsStr)
-    // let options = new RequestOptions({
-    //   search: params
-    // });
-    // console.log(getBasketUrl)
+    //console.log(basketlist.toString()+" toString = "+paramsStr)
+
     return this.http.get(getBasketUrl+paramsStr)
     .map(res => res.json())
     .do(data => {
       this.basketProducts = data;
-      //console.log(data);
     })
     .catch(this.handleServerError);
   }
+
+  // getBasketProducts(basketSession)
+  // {
+  //   let getBasketUrl = this.baseUrl +"basket/products";
+  //   //console.log(basketSession)
+  //   //let params: URLSearchParams = new URLSearchParams();
+  //   //let requestOptions = new RequestOptionsArgs();
+  //   let params = new URLSearchParams();
+
+  //   //let tabPid = Object.keys(basketSession);
+  //   let paramsStr = ""
+  //   if(basketSession)
+  //   {
+  //     paramsStr = "?productsid=";
+  //     basketSession.forEach((val, i) => {
+  //       if(val) paramsStr = paramsStr + i +';';
+  //     })
+  //   }
+  //   //console.log(basketSession.toString()+" toString = "+paramsStr)
+  //   //params.set("productsid", paramsStr)
+  //   // let options = new RequestOptions({
+  //   //   search: params
+  //   // });
+  //   // console.log(getBasketUrl)
+  //   return this.http.get(getBasketUrl+paramsStr)
+  //   .map(res => res.json())
+  //   .do(data => {
+  //     this.basketProducts = data;
+  //     //console.log(data);
+  //   })
+  //   .catch(this.handleServerError);
+  // }
 
 
   private handleServerError(error: Response) {

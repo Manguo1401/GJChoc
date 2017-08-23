@@ -73,6 +73,13 @@ class Product
     /**
      * @var int
      *
+     * @ORM\Column(name="pas", type="integer")
+     */
+    private $pas;
+
+    /**
+     * @var int
+     *
      * @ORM\Column(name="placement", type="integer")
      */
     private $placement = 100;
@@ -255,6 +262,30 @@ class Product
     public function getUnity()
     {
         return $this->unity;
+    }
+
+    /**
+     * Set pas
+     *
+     * @param integer $pas
+     *
+     * @return Product
+     */
+    public function setPas($pas)
+    {
+        $this->pas = $pas;
+
+        return $this;
+    }
+
+    /**
+     * Get pas
+     *
+     * @return int
+     */
+    public function getPas()
+    {
+        return $this->pas;
     }
 
     /**

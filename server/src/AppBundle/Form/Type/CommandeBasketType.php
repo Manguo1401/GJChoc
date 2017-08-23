@@ -6,6 +6,7 @@ use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+//// Permet de vérifier la validité du contenu lors d'un post ou patch rest
 class CommandeBasketType extends AbstractType {
 
     public function buildForm( FormBuilderInterface $builder, array $options )

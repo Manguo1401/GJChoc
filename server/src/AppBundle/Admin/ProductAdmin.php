@@ -14,23 +14,33 @@ class ProductAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('Content', array('class' => 'col-md-9'))
+            ->with('Content', ['class' => 'col-md-9'])
                 ->add('name', 'text')
                 ->add('description', 'textarea')
-                ->add('pricekg','number')
-                ->add('unity','integer')
+                ->add('price','number')
+                ->add('unity','text')
                 ->add('stock','integer')
                 ->add('placement','integer')
                 ->add('imageFile', 'file')
             ->end()
             // NOT Work on edit liste of categories
-            // ->with('Category', array('class' => 'col-md-9'))
-            //     ->add('categories', 'entity', array(
-            //         'class' => 'AppBundle\Entity\Category',
-            //         'choice_label' => 'category',
-            //         'multiple' => true
-            //     ))
-            // ->end()
+            ->with('Category', array('class' => 'col-md-9'))
+                // ->add('categories', 'entity', array(
+                //     'class' => 'AppBundle\Entity\Category',
+                //     'choice_label' => 'category',
+                //     'multiple' => true
+                // ))
+                ->add('categories', 'sonata_type_model', [
+                    'class' => 'AppBundle\Entity\Category',
+                    'property' => 'category',
+                    'multiple' => true,
+                    'btn_add' => false
+                ])
+                // ->add('categories', CollectionType::class, array(
+                //     'entry_type'   => CategoryType::class,
+                //     'allow_add'    => true,
+                // ))
+            ->end()
         ;
     }
 
@@ -40,7 +50,8 @@ class ProductAdmin extends AbstractAdmin
         $listMapper
         ->addIdentifier('id')
             ->addIdentifier('name')
-            ->add('pricekg')
+            ->add('price')
+            ->add('unity')
             ->add('stock')
             ->add('categories', null, array(
                     'associated_property' => 'category')
@@ -57,7 +68,8 @@ class ProductAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('name')
-            ->add('pricekg')
+            ->add('price')
+            ->add('unity')
             ->add('stock')
             // ->add('category', null, array(), 'entity', array(
             //     'class'    => 'AppBundle\Entity\Category',

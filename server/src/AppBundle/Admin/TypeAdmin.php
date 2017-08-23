@@ -10,6 +10,22 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 class TypeAdmin extends AbstractAdmin
 {
+    // public function configureShowFields(ShowMapper $showMapper)
+    // {
+    //     $showMapper
+    //         ->tab('General') // the tab call is optional
+    //             ->with('Addresses', array(
+    //                 'class'       => 'col-md-8',
+    //                 'box_class'   => 'box box-solid box-danger',
+    //                 'description' => 'Lorem ipsum',
+    //             ))
+    //                 ->add('type')
+    //                 // ...
+    //             ->end()
+    //         ->end()
+    //     ;
+    // }
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper

@@ -36,9 +36,9 @@ export class BasketService {
   //     // .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
 
   // }
-  //*************************
+  //************************* NON utilisé
   //Avec une gestion du Panier dans la $Session côté server
-  // EXEMPLE, NOUS OPTONS PLUTOT POUR UNE GESTION DU BASKET COTE CLIENT UNIQUEMENT
+  // c'est un exemple, NOUS OPTONS PLUTOT POUR UNE GESTION DU BASKET COTE CLIENT, qui sera envoyé coté server dans la commande
   postBasket(productid, qte)
   {
     //@Rest\Post("/basket/add/{productid}/{qte}, defaults={"qte" = 1}")
@@ -67,11 +67,12 @@ export class BasketService {
     //console.log("addProduct("+productId+","+qte+")")
     //let types = this.dataService.getType()
     let basket;
-
+    let basketlist: any[] = [];
 
     basket = JSON.parse(localStorage.getItem('basket'));
-
+    //basketlist =  JSON.parse(localStorage.getItem('basketItem'));
     console.log(basket)
+    console.log(basketlist)
 
     if( !basket ) basket=[];
     if( !qte ) qte = 1;
@@ -79,10 +80,20 @@ export class BasketService {
     {
       basket[productId] = qte;
       localStorage.setItem('basket', JSON.stringify(basket))
+
+
+      let basketItem = {id:productId,qte:qte};
+      if(basketlist)
+        basketlist = basketlist.filter(myObj => myObj.id !== productId);
+      basketlist.push(basketItem);
+
+      localStorage.setItem('basketItem', JSON.stringify(basketItem))
       //console.log(basket)
+      console.log(basketlist);
     }
     return basket;
   }
+
 
   getBasketProducts(basketSession)
   {
@@ -115,6 +126,7 @@ export class BasketService {
     })
     .catch(this.handleServerError);
   }
+
 
   private handleServerError(error: Response) {
     console.log('sever error:', error)

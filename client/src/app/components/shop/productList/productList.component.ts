@@ -89,12 +89,20 @@ export class ProductListComponent {
 
 
 
-    addProduct(productId, qte)
-    {
-      console.log("qte of produitid:"+productId);
-      console.log(qte);
-      console.log(this.products);
-      this.basketService.addProductBasket(productId,1);
-      //$("#"+productId+"qte")
+    addQte(product) {
+		if (!product.qte) {
+			product.qte = 0
+		}
+		product.qte = product.qte + product.stock //A changer pour le pas
+		console.log("qte of produitid:"+product);
+		console.log(product.qte);
+		this.basketService.addProductBasket(product.id,product.qte);
+	}
+
+	deleteQte(product) {
+		product.qte = product.qte - product.stock //A changer pour le pas
+		console.log("qte of produitid:"+product);
+		console.log(product.qte);
+		this.basketService.addProductBasket(product.id,product.qte);
 	}
 }

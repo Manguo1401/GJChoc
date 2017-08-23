@@ -123,8 +123,7 @@ export class CommandeComponent {
   }
 
   getBasket() {
-    this.basket = JSON.parse(localStorage.getItem('basket'))
-    this.basketService.getBasketProducts(this.basket)
+    this.basketService.getBasketlistProducts()
       .subscribe(data => {
         if (data) {
           this.products = data;

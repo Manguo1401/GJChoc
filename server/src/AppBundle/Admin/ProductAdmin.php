@@ -19,6 +19,7 @@ class ProductAdmin extends AbstractAdmin
                 ->add('description', 'textarea')
                 ->add('price','number')
                 ->add('unity','text')
+                ->add('pas','integer')
                 ->add('stock','integer')
                 ->add('placement','integer')
                 ->add('imageFile', 'file', array(
@@ -53,6 +54,7 @@ class ProductAdmin extends AbstractAdmin
         ->addIdentifier('id')
             ->addIdentifier('name')
             ->add('price')
+            ->add('pas')
             ->add('unity')
             ->add('stock')
             ->add('categories', null, array(

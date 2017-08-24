@@ -41,6 +41,8 @@ AppBundle\Entity\Product:
             groups: ['product', 'category', 'type']
         unity:
             groups: ['product', 'category', 'type']
+        pas:
+            groups: ['product', 'category', 'type']
         imageName:
             groups: ['product', 'category', 'type']
 

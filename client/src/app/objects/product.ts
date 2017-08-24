@@ -7,5 +7,9 @@ export class Product {
   stock: number;
   description: string;
   imageName: string;
-  categories: Category[]
+  categories: Category[];
+  unity: string;
+  pas: number;
+  placement: number;
+  //updated: datetime;
 }

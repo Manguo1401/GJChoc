@@ -21,7 +21,9 @@ class ProductAdmin extends AbstractAdmin
                 ->add('unity','text')
                 ->add('stock','integer')
                 ->add('placement','integer')
-                ->add('imageFile', 'file')
+                ->add('imageFile', 'file', array(
+                    'required' => false
+                ))
             ->end()
             // NOT Work on edit liste of categories
             ->with('Category', array('class' => 'col-md-9'))
@@ -99,5 +101,37 @@ class ProductAdmin extends AbstractAdmin
             : 'Produit'; // shown in the breadcrumb on the create view
     }
 
+
+    //////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////
+
+    private function manageEmbeddedImageAdmins($page) {
+        // On passe tous les fileds pour chercher le field image
+        foreach ($this->getFormFieldDescriptions() as $fieldName => $fieldDescription) {
+            // On détecte celui qui gère les fichiers et on le cherche dans l'entité
+            if ($fieldDescription->getType() === 'file' &&
+                ($associationMapping = $fieldDescription->getAssociationMapping()) &&
+                $associationMapping['targetEntity'] === 'AppBundle\Entity\Creation'
+            ) {
+                //On récupère les getter et setter de l'image
+                $getter = 'get'.$fieldName;
+                $setter = 'set'.$fieldName;
+
+                /** @var Image $image */
+                $image = $page->$getter();
+
+                //Si jamais une image a été chargée on la met à jour
+                if ($image) {
+                    if ($image->getImageFile()) {
+                        // On gère le file management
+                        $image->refreshUpdated();
+                    } elseif (!$image->getImageFile() && !$image->getImageName()) {
+                        // Sinon on évite que sonata met à jour l'image s'il n'y a pas d'image chargée mais qu'elle existe déjà 
+                        $page->$setter(null);
+                    }
+                }
+            }
+        }
+    }
 
 }

@@ -11,5 +11,5 @@ export class Product {
   unity: string;
   pas: number;
   placement: number;
-  //updated: datetime;
+  qte: number;
 }

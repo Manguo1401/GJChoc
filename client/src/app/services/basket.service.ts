@@ -87,16 +87,17 @@ export class BasketService {
       //console.log(basket)
       console.log(this.basketlist);
     }
-    return this.basketlist;
+    return this.basketlist
   }
 
   getBasket(){
+    if(!this.basketlist) this.basketlist = JSON.parse(localStorage.getItem('basketlist'));
     return this.basketlist
   }
 
   getBasketlistProducts()
   {
-    this.basketlist = JSON.parse(localStorage.getItem('basketlist'))
+    if(!this.basketlist) this.basketlist = JSON.parse(localStorage.getItem('basketlist'))
     let getBasketUrl = this.baseUrl +"basket/products";
     let params = new URLSearchParams();
     let paramsStr = ""

@@ -3,7 +3,7 @@ import { BasketService } from './../../services/basket.service'
 import { NgModule } from '@angular/core';
 // import { BrowserModule } from '@angular/platform-browser';
 // import { FormsModule } from '@angular/forms';
-import { Product } from '../../objects/product'
+import { Product } from '../../objects/product';
 
 import { fadeInAnimation } from './../../animations/routerFader.component';
 import { Fader } from './../../animations/fader.animation'
@@ -18,7 +18,7 @@ import { Fader } from './../../animations/fader.animation'
 export class BasketComponent {
   loader = 'true';
 
-  products;
+  products : any[] = [];
   basket = [];
   //basketItems = [];
   counter = Array;
@@ -63,10 +63,19 @@ export class BasketComponent {
     this.basketService.getBasketlistProducts()//this.basket)
       .subscribe(data => {
         if (data) {
-          this.products = data.products
+          this.products = data
+          console.log(this.products)
           this.basket = this.basketService.getBasket()
           this.refreshTotal()
           this.loader = 'false'
+
+          //Assign product qte from basket
+          this.basket.forEach(basketItem => {
+            this.products.forEach(product => {
+                if(basketItem.id == product.id)
+                  product.qte = basketItem.qte
+            });
+          });
         }
       })
   }
@@ -111,4 +120,21 @@ export class BasketComponent {
     this.refreshTotal();
   }
 
+
+  addQte(product) {
+    if (!product.qte) {
+      product.qte = 0
+    }
+    product.qte = product.qte + product.pas
+    console.log("qte of produitid:" + product);
+    console.log(product.qte);
+    this.basketService.addProductBasket(product.id, product.qte);
+  }
+
+  deleteQte(product) {
+    product.qte = product.qte - product.pas
+    console.log("qte of produitid:" + product);
+    console.log(product.qte);
+    this.basketService.addProductBasket(product.id, product.qte);
+  }
 }

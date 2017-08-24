@@ -19,15 +19,18 @@
       <tr *ngFor="let product of products">
         <td>{{ product.name }}</td>
         <td>
-          <select class="form-control" (change)="quantityChange(product,$event.target.value)">
-            <option *ngFor='let lqte of counter(11) ;let i=index' value="{{i}}" [(ngModel)]="product.qte" ><!-- basket = {id: , qte:}  [selected]="i == basket[product.id]" -->
-              {{ i }}
-            </option>
-          </select>
+          <div class="product-quantity">
+						<button class="button tiny quantity-button" *ngIf="product.qte" (click)="deleteQte(product)"><i class="fa fa-minus" aria-hidden="true"></i></button>
+						<span *ngIf="product.qte" >{{product.qte}}</span>
+						<span *ngIf="!product.qte" >0</span>
+						<span> {{product.unity}}</span>
+						<button class="button tiny quantity-button" (click)="addQte(product)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+					</div>
+
           <a (click)="deleteformbasket(product.id)"><i class="fa fa-trash" aria-hidden="true"></i></a>
         </td>
-        <td>{{ product.price }}</td>
-        <td>{{ basket[product.id] * product.price }} € </td>
+        <td>{{ product.price }}€/{{ product.pas }} {{ product.unity }}</td>
+        <td>{{ product.qte * product.price }} € </td>
       </tr>
 
     </tbody>

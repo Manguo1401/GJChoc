@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, AfterViewInit } from '@angular/core'
 //import { DataService } from './../../services/data.service'
 import { PaymentService } from './../../services/payment.service'
 import { BasketService } from './../../services/basket.service'
@@ -14,6 +14,10 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { Fader } from './../../animations/fader.animation'
 
+import * as $ from 'jquery'
+import { Vicopo } from 'vicopo'
+
+
 @Component({
   selector: 'my-commande',
   templateUrl: 'commande.component.html',
@@ -28,8 +32,9 @@ export class CommandeComponent {
   basketlist = []
   basket = [];
   totalHT = 0;
-  tva = 0.2;
+  tva = 0;
   totalTTC = 0;
+  totalTva = 0;
   public commande: Commande = new Commande();
   //finishchanged;
 
@@ -51,7 +56,65 @@ export class CommandeComponent {
 
     // this.commande.postalcode = 12345
     // this.commande.city = "VILLE"
+    this.getTva();
+  }
 
+
+  ngAfterViewInit() {
+    // var ville = 'Lille';
+    // // var System: any;
+    // // System.import('/assets/js/regular-expresions.js').then(file => {
+    // //   // perform additional interactions after the resource has been asynchronously fetched
+    // //   console.log('we called test');
+    // // });
+    // //var vicopo = require('vicopo');
+    // vicopo(ville, function (err, cities) {
+    // if (err) {
+    //     throw err;
+    // } else {
+    //     console.log(cities);
+    // }
+    // });
+
+    $( document ).ready(function() {
+      $('#ville2').keyup(function (e) {
+        if(e.keyCode == 13) {
+          var $ville = $(this);
+          Vicopo($ville.val(), function (input, cities) {
+            if(input == $ville.val() && cities[0]) {
+              //$ville.val(cities[0].city).vicopoTargets().vicopoClean();
+            }
+          });
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      });
+    })
+
+    // jQuery( document ).ready(function() {
+    //   var ville = 'Lille';
+    //   // var vicopo = require('vicopo');
+    //   // vicopo(ville, function (err, cities) {
+    //   // if (err) {
+    //   //     throw err;
+    //   // } else {
+    //   //     console.log(cities);
+    //   // }
+    //   // });
+
+    //   // $('#ville').keyup(function (e) {
+    //   //   if(e.keyCode == 13) {
+    //   //     var $ville = $(this);
+    //   //     $.vicopo($ville.val(), function (input, cities) {
+    //   //       if(input == $ville.val() && cities[0]) {
+    //   //         $ville.val(cities[0].city).vicopoTargets().vicopoClean();
+    //   //       }
+    //   //     });
+    //   //     e.preventDefault();
+    //   //     e.stopPropagation();
+    //   //   }
+    //   // });
+    // })
   }
 
   onSubmitCommande(value: Commande) {
@@ -120,36 +183,51 @@ export class CommandeComponent {
 
   ngOnInit() {
     this.getBasket();
+    this.getTva()
+  }
+
+  getTva() {
+    this.basketService.getTva()
+      .subscribe(data => {
+        console.log("getTva in comp "+data)
+        if (data) {
+          this.tva = data
+        }
+      },
+      err => {
+        // Log errors if any
+        console.log(err);
+      });
   }
 
   getBasket() {
-    this.basketService.getBasketlistProducts()
+    this.basketService.getBasketlistProducts()//this.basket)
       .subscribe(data => {
         if (data) {
-          this.products = data;
+          this.products = data
+          //console.log(this.products)
+          this.basket = this.basketService.getBasket()
           this.refreshTotal()
           this.loader = 'false'
+
+          //Assign product qte from basket
+          this.basket.forEach(basketItem => {
+            this.products.forEach(product => {
+              if (basketItem.id == product.id)
+                product.qte = basketItem.qte
+            });
+          });
         }
       })
   }
 
   refreshTotal() {
-    this.totalHT = 0;
-    for (var i = this.basket.length - 1; i >= 0; i--) {
-      //console.log("this.basket[i "+i+"]= " + this.basket[i])
-      if (this.basket[i] && this.basket[i] >= 0 && this.products) {
-        for (var p = this.products.length - 1; p >= 0; p--) {
-          //console.log("this.products[p "+p+"].id = " + this.products[p].id + " == i :"+i+" > "+(this.products[p].id == i));
-          if (this.products[p].id == i) {
-            //console.log(this.products[p]);
-            this.totalHT = this.totalHT + (Number(this.products[p].price) * Number(this.basket[i]));
-            //console.log("this.products[p].price "+this.products[p].price+" * this.basket[i] "+this.basket[i]+"="+this.totalHT);
-          }
-        }
-      }
-    }
-    this.totalTTC = this.totalHT + (this.totalHT * this.tva);
-    return this.totalHT;
+    this.totalHT = this.basketService.getBasketPrice();
+    this.totalTva = this.totalHT * this.tva;//.00000001 apparait de temps en temps!?? c'est quoi ce délire
+    //this.totalTva.toFixed(2) //Ne résoud pas le problème
+    this.totalTva = +(Math.round(this.totalTva * 100)  / 100);//résoud le problème
+    //console.log(this.totalTva)
+    this.totalTTC = this.totalHT + this.totalTva;
   }
 
   addclass(element, className) {

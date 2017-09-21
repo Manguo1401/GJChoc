@@ -1,24 +1,29 @@
-<script
-  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
   data-zip-code="true">
+
+
 </script>
+
+<!-- <script src="https://vicopo.selfbuild.fr/api.min.js">
+</script> -->
 
 <div class="content" style="opacity: 0" [@visibilityChanged]="loader == 'false'">
   <div class="formulaire">
-      <h4>Information à saisir</h4>
-    <form #formCommande="ngForm" novalidate class=""><!--  -->
+    <h4>Information à saisir</h4>
+    <form #formCommande="ngForm" novalidate class="">
+      <!--  -->
       <legend>Identification</legend>
       <div class="form-group">
         <div class="d-flex justify-content-between">
           <label for="firstname">Prénom :</label>
-          <input type="text" id="commandefirstname" [(ngModel)]="commande.firstname" name="firstname"
-          minlength="3" placeholder="votre prénom" required #firstname="ngModel" ><!-- (focus)="firstname_finishchanged=false" (focusout)="firstname_finishchanged=true" -->
+          <input type="text" id="commandefirstname" [(ngModel)]="commande.firstname" name="firstname" minlength="3" placeholder="votre prénom"
+            required #firstname="ngModel">
+          <!-- (focus)="firstname_finishchanged=false" (focusout)="firstname_finishchanged=true" -->
         </div>
         <div [hidden]="firstname.valid || firstname.untouched">
-          <div  *ngIf="firstname.errors">
-                Prénom requis (3 caractères minimum)
-            </div>
+          <div *ngIf="firstname.errors">
+            Prénom requis (3 caractères minimum)
+          </div>
         </div>
         <!-- <div *ngIf="!firstname.valid && (firstname.dirty || formCommande.submitted ) && firstname_finishchanged">
           Prénom requis (3 caractères minimum)
@@ -27,13 +32,13 @@
       <div class="form-group">
         <div class="d-flex justify-content-between">
           <label for="lastname">Nom :</label>
-          <input type="text" id="commandelastname" [(ngModel)]="commande.lastname" name="lastname" minlength="3"
-            placeholder="votre nom" required #lastname="ngModel">
+          <input type="text" id="commandelastname" [(ngModel)]="commande.lastname" name="lastname" minlength="3" placeholder="votre nom"
+            required #lastname="ngModel">
         </div>
         <div [hidden]="lastname.valid || lastname.untouched">
-          <div  *ngIf="lastname.errors">
-                Nom requis (3 caractères minimum)
-            </div>
+          <div *ngIf="lastname.errors">
+            Nom requis (3 caractères minimum)
+          </div>
         </div>
         <!-- <div *ngIf="!lastname.valid && (lastname.dirty || formCommande.submitted ) && lastname_finishchanged">
           Nom requis (3 caractères minimum)
@@ -42,17 +47,16 @@
       <div class="form-group">
         <div class="d-flex justify-content-between">
           <label for="email">Email :</label>
-          <input type="email" id="commandeemail" [(ngModel)]="commande.email" name="email" placeholder="votre email"
-            #email="ngModel" (focus)="email_finishchanged=false" (focusout)="email_finishchanged=true"
-            required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+          <input type="email" id="commandeemail" [(ngModel)]="commande.email" name="email" placeholder="votre email" #email="ngModel"
+            (focus)="email_finishchanged=false" (focusout)="email_finishchanged=true" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
         </div>
         <div [hidden]="email.valid || email.untouched">
-          <div  *ngIf="email.errors && email.errors.required">
-                L'email est obligatoire.
-            </div>
-            <div  *ngIf="email.errors && email.errors.pattern">
-                L'email n'est pas valide.
-            </div>
+          <div *ngIf="email.errors && email.errors.required">
+            L'email est obligatoire.
+          </div>
+          <div *ngIf="email.errors && email.errors.pattern">
+            L'email n'est pas valide.
+          </div>
         </div>
         <!-- <div *ngIf="!email.valid && (email.dirty || email.touched || formCommande.submitted ) && email_finishchanged">
           Email incorrect (@ et . obligatoire)
@@ -71,13 +75,12 @@
       <div class="form-group">
         <div class="d-flex justify-content-between">
           <label for="adresse">Adresse :</label>
-          <input type="text" [(ngModel)]="commande.adresse" name="adresse" minlength="3"
-          placeholder="n°, rue" required #adresse="ngModel" >
+          <input type="text" [(ngModel)]="commande.adresse" name="adresse" minlength="3" placeholder="n°, rue" required #adresse="ngModel">
         </div>
         <div [hidden]="adresse.valid || adresse.untouched">
-          <div  *ngIf="adresse.errors">
-                Adresse requise.
-            </div>
+          <div *ngIf="adresse.errors">
+            Adresse requise.
+          </div>
         </div>
         <!-- <div *ngIf="!adresse.valid && (adresse.dirty || formCommande.submitted ) && adresse_finishchanged" class="alert alert-danger">
           Adresse requise.
@@ -86,11 +89,11 @@
       <div class="form-group">
         <div class="d-flex justify-content-between">
           <label for="postalcode">Code postal :</label>
-          <input type="text" [(ngModel)]="commande.postalcode" name="postalcode" minlength="5"
-            placeholder="votre code postal" required #postalcode="ngModel">
+          <input type="text" [(ngModel)]="commande.postalcode" name="postalcode" minlength="5" placeholder="votre code postal" required
+            #postalcode="ngModel">
         </div>
         <div [hidden]="postalcode.valid || postalcode.untouched">
-          <div  *ngIf="postalcode.errors">
+          <div *ngIf="postalcode.errors">
             Code postal requis (5 chiffres).
           </div>
         </div>
@@ -101,13 +104,12 @@
       <div class="form-group">
         <div class="d-flex justify-content-between">
           <label for="city">Ville :</label>
-          <input type="text" [(ngModel)]="commande.city" name="city"
-            placeholder="votre ville" required #city="ngModel">
+          <input type="text" [(ngModel)]="commande.city" name="city" placeholder="votre ville" required #city="ngModel">
         </div>
         <div [hidden]="city.valid || city.untouched">
-          <div  *ngIf="city.errors">
-                Ville requise
-            </div>
+          <div *ngIf="city.errors">
+            Ville requise
+          </div>
         </div>
         <!-- <div *ngIf="!city.valid && (city.dirty || formCommande.submitted ) && city_finishchanged">
           Ville requise dans l'adresse.
@@ -117,32 +119,35 @@
       <div class="form-group">
         <div class="d-flex justify-content-between">
           <label for="comment">Vos commentaires :</label>
-          <input type="text" [(ngModel)]="commande.comment" name="comment"  #comments="ngModel">
+          <input type="text" [(ngModel)]="commande.comment" name="comment" #comments="ngModel">
         </div>
       </div>
-      <button class="button" [disabled]="!formCommande.valid"  (click)="onSubmitCommande(formCommande.value)">Valider la commande</button><!-- [disabled]="!formCommande.valid" -->
+      <button class="button" [disabled]="!formCommande.valid" (click)="onSubmitCommande(formCommande.value)">Valider la commande</button>
+      <!-- [disabled]="!formCommande.valid" -->
     </form>
   </div>
   <div class="table_recap">
     <h4>Recapitulatif</h4>
-    <table >
+    <table>
       <thead>
         <tr>
           <th>Références</th>
-          <th>Quantité (kg)</th>
+          <th>Quantité</th>
           <th>Total HT</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngIf="!products">
-          <td colspan="4"><div>Aucun articles dans votre panier</div></td>
+          <td colspan="4">
+            <div>Aucun articles dans votre panier</div>
+          </td>
         </tr>
         <tr *ngFor="let product of products">
           <td>{{ product.name }}</td>
           <td>
-            {{ basket[product.id] }}
+            {{ product.qte }} {{product.unity}}
           </td>
-          <td>{{ basket[product.id] * product.price }} € </td>
+          <td>{{ (product.qte/product.pas) * product.price }} € </td>
         </tr>
 
         <tr>
@@ -157,22 +162,43 @@
           <td>
 
           </td>
-          <th>{{ tva * totalHT }} €</th>
+          <th>{{ totalTva }} €</th>
         </tr>
         <tr>
           <th>Total TTC :</th>
           <td>
 
           </td>
-          <th>{{ totalHT + (totalHT * tva) }} €</th>
+          <th>{{ totalTTC }} €</th>
         </tr>
       </tbody>
     </table>
+    <div>
+      <input id="ville" placeholder="Entrez un code postal ou une ville">
+      <ul>
+        <li data-vicopo="#ville">
+          <strong data-vicopo-code-postal></strong>
+          <span data-vicopo-ville></span>
+        </li>
+      </ul>
+      <p>
+        <label>
+          Tapez le début d'un nom de ville ou d'un code postal puis appuyez sur <b>Entrée</b>.<br>
+          <input id="ville2" placeholder="Entrez un code postal ou une ville" autocomplete="off" size="50">
+        </label>
+      </p>
+      <ul>
+        <li data-vicopo="#ville2">
+          <strong data-vicopo-code-postal></strong>
+          <span data-vicopo-ville></span>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 
 
 
-<div class="loader" [@visibilityChanged]="loader == 'true'" >
-	<div class="spinner pulse-spinner"></div>
+<div class="loader" [@visibilityChanged]="loader == 'true'">
+  <div class="spinner pulse-spinner"></div>
 </div>

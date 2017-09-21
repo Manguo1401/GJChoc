@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Http, Headers } from '@angular/http'
+import { Http, Headers, RequestOptions } from '@angular/http'
 import { Response } from '@angular/http'
 import { AuthHttp } from 'angular2-jwt'
 
@@ -43,9 +43,10 @@ export class DataService {
 		le serveur soit dans le service si elles sont déjà téléchargées */
 		if (this.data) {
 			return Observable.of(this.data);
-
 		} else {
-			return this.http.get(this.baseUrl+this.urldatatypes)
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+      let options = new RequestOptions({ headers: headers });
+			return this.http.get(this.baseUrl+this.urldatatypes, options)
 			.map((res: Response) =>
 				res.json())
 			.do(data => {
@@ -55,8 +56,8 @@ export class DataService {
 				this.sendData(data)
 			})
       .catch((error:any) => Observable.throw(
-        //console.log(error)
-        error.json().error || 'Server error in loadData() of data service'
+        console.log(error)
+        //error.json().error || 'Server error in loadData() of data service'
         ))
 		}
 	}
@@ -73,9 +74,7 @@ export class DataService {
 
   //On envoie les données à tous les subscribes de l'observer "subject"
   sendData(data) {
-
     this.data$.next(data);
-
   }
 
   getCategorySubscribed(): Observable<any> {

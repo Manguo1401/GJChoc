@@ -102,3 +102,18 @@ body {
 .type-presentation {
 	padding-top: 25px;
 }
+
+.classic-button {
+	color: white;
+	font-family: $text;
+	font-size: 20px;
+	padding: 10px;
+	font-family: $text !important;
+	cursor: pointer;
+	border: solid 2px white;
+	border-radius: 5px;
+}
+
+.classic-button:hover {
+	color: white;
+}

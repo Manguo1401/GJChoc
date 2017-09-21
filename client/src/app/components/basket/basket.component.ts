@@ -7,6 +7,8 @@ import { Product } from '../../objects/product';
 
 import { fadeInAnimation } from './../../animations/routerFader.component';
 import { Fader } from './../../animations/fader.animation'
+import { locale } from '../../../../../server/vendor/sonata-project/core-bundle/Resources/public/vendor/moment/moment';
+import { RouterModule } from '@angular/router'
 
 @Component({
   selector: 'my-basket',
@@ -18,20 +20,35 @@ import { Fader } from './../../animations/fader.animation'
 export class BasketComponent {
   loader = 'true';
 
-  products : any[] = [];
+  products: any[] = [];
   basket = [];
   //basketItems = [];
   counter = Array;
   totalHT = 0;
-  tva = 0.2;
+  tva = 0;
   totalTTC = 0;
+  totalTva = 0;
 
   constructor(
     private basketService: BasketService
   ) {
-    this.getBasket();
+    this.getBasket()
+    this.getTva()
   }
 
+  getTva() {
+    this.basketService.getTva()
+      .subscribe(data => {
+        //console.log("getTva in comp "+data)
+        if (data) {
+          this.tva = data
+        }
+      },
+      err => {
+        // Log errors if any
+        console.log(err);
+      });
+  }
 
   //Function to check storage validity (1day)
   checkValidity() {
@@ -64,7 +81,7 @@ export class BasketComponent {
       .subscribe(data => {
         if (data) {
           this.products = data
-          console.log(this.products)
+          //console.log(this.products)
           this.basket = this.basketService.getBasket()
           this.refreshTotal()
           this.loader = 'false'
@@ -72,8 +89,8 @@ export class BasketComponent {
           //Assign product qte from basket
           this.basket.forEach(basketItem => {
             this.products.forEach(product => {
-                if(basketItem.id == product.id)
-                  product.qte = basketItem.qte
+              if (basketItem.id == product.id)
+                product.qte = basketItem.qte
             });
           });
         }
@@ -87,26 +104,17 @@ export class BasketComponent {
   }
 
   refreshTotal() {
-    this.totalHT = 0;
-    this.basket.forEach(basketItem => {
-      if (basketItem.qte && basketItem.qte >= 0 && this.products) {
-        for (var p = this.products.length - 1; p >= 0; p--) {
-          //console.log("this.products[p "+p+"].id = " + this.products[p].id + " == i :"+i+" > "+(this.products[p].id == i));
-          if (this.products[p].id == basketItem.id) {
-            //console.log(this.products[p]);
-            this.totalHT = this.totalHT + (Number(this.products[p].price) * Number(basketItem.qte));
-            //console.log("this.products[p].price "+this.products[p].price+" * this.basket[i] "+this.basket[i]+"="+this.totalHT);
-          }
-        }
-      }
-    })
-    this.totalTTC = this.totalHT + (this.totalHT * this.tva);
-    return this.totalHT;
+    this.totalHT = this.basketService.getBasketPrice();
+    this.totalTva = this.totalHT * this.tva;//.00000001 apparait de temps en temps!?? c'est quoi ce délire
+    //this.totalTva.toFixed(2) //Ne résoud pas le problème
+    this.totalTva = +(Math.round(this.totalTva * 100)  / 100);//résoud le problème
+    //console.log(this.totalTva)
+    this.totalTTC = this.totalHT + this.totalTva;
   }
 
   deleteformbasket(productId) {
-    if(this.basket)
-        this.basket = this.basket.filter(basketItem => basketItem.id !== productId);
+    if (this.basket)
+      this.basket = this.basket.filter(basketItem => basketItem.id !== productId);
     //delete this.basket[productId];
 
     for (var i = this.products.length - 1; i >= 0; i--) {
@@ -126,15 +134,17 @@ export class BasketComponent {
       product.qte = 0
     }
     product.qte = product.qte + product.pas
-    console.log("qte of produitid:" + product);
-    console.log(product.qte);
+    // console.log("qte of produitid:" + product);
+    // console.log(product.qte);
     this.basketService.addProductBasket(product.id, product.qte);
+    this.refreshTotal();
   }
 
   deleteQte(product) {
     product.qte = product.qte - product.pas
-    console.log("qte of produitid:" + product);
-    console.log(product.qte);
+    // console.log("qte of produitid:" + product);
+    // console.log(product.qte);
     this.basketService.addProductBasket(product.id, product.qte);
+    this.refreshTotal();
   }
 }

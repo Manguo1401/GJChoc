@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 //Import des bibliothèques annexes
 
 import { AgmCoreModule } from '@agm/core'
+//import { ? } from vicopo
 
 //Import des pages
 

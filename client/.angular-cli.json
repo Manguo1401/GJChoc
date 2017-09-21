@@ -25,7 +25,8 @@
       ],
       "scripts": [
         "../node_modules/foundation-sites/vendor/jquery/dist/jquery.js",
-        "../node_modules/foundation-sites/dist/js/foundation.js"
+        "../node_modules/foundation-sites/dist/js/foundation.js",
+        "../node_modules/vicopo/api.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

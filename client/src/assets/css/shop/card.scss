@@ -24,11 +24,11 @@
 }
 
 .product-name {
-	font-family: $text;
+	font-family: $titles;
 }
 
 .product-price {
-	float: right;
+	text-align: right;
 	font-size: 12px;
 	font-family: $text;
 }

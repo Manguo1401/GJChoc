@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Http, Headers, Response, RequestOptions } from '@angular/http'
+import { Http, Headers, Response, RequestOptions, RequestOptionsArgs } from '@angular/http'
 
 import { Product } from './../objects/product'
 
@@ -12,7 +12,7 @@ export class BasketService {
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
 
-  private baseUrl = "http://localhost/gjchoc/server/web/app_dev.php/api/"
+  private baseUrl = "http://127.0.0.1/gjchoc/server/web/app_dev.php/api/"
 
   //private types;
   private basketProducts: Product[];

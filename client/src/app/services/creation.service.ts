@@ -18,7 +18,7 @@ export class CreationService {
 
 	private creations : Creation[];
 	private creations$ = new Subject<any>();
-    private baseUrl = "http://localhost/gjchoc/server/web/app_dev.php/api/"
+    private baseUrl = "http://127.0.0.1/gjchoc/server/web/app_dev.php/api/"
     private urlcreations = "creations"
 
   constructor(private http: Http

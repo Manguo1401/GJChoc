@@ -8,8 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper; //pour configureDatagridFilters
 
-class CreationAdmin extends AbstractAdmin
-{
+class CreationAdmin extends AbstractAdmin {
     //Structure des blocks et définition des champs pour la création, l'affichage de l'element et son édition.
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -18,7 +17,9 @@ class CreationAdmin extends AbstractAdmin
                 ->add('title', 'text')
                 ->add('description', 'textarea')
                 ->add('date', 'datetime')
-                ->add('imageFile', 'file')
+                ->add('imageFile', 'file', array(
+                    'required' => false
+                ))
             ->end()
         ;
     }
@@ -63,5 +64,43 @@ class CreationAdmin extends AbstractAdmin
             : 'Creation'; // shown in the breadcrumb on the create view
     }
 
+    /////////////////////////////////////////////////
+    /////////////////////////////////////////////////
 
+    public function prePersist($page) {
+        $this->manageEmbeddedImageAdmins($page);
+    }
+
+    public function preUpdate($page) {
+        $this->manageEmbeddedImageAdmins($page);
+    }
+
+    private function manageEmbeddedImageAdmins($page) {
+        // On passe tous les fileds pour chercher le field image
+        foreach ($this->getFormFieldDescriptions() as $fieldName => $fieldDescription) {
+            // On détecte celui qui gère les fichiers et on le cherche dans l'entité
+            if ($fieldDescription->getType() === 'file' &&
+                ($associationMapping = $fieldDescription->getAssociationMapping()) &&
+                $associationMapping['targetEntity'] === 'AppBundle\Entity\Creation'
+            ) {
+                //On récupère les getter et setter de l'image
+                $getter = 'get'.$fieldName;
+                $setter = 'set'.$fieldName;
+
+                /** @var Image $image */
+                $image = $page->$getter();
+
+                //Si jamais une image a été chargée on la met à jour
+                if ($image) {
+                    if ($image->getImageFile()) {
+                        // On gère le file management
+                        $image->refreshUpdated();
+                    } elseif (!$image->getImageFile() && !$image->getImageName()) {
+                        // Sinon on évite que sonata met à jour l'image s'il n'y a pas d'image chargée mais qu'elle existe déjà 
+                        $page->$setter(null);
+                    }
+                }
+            }
+        }
+    }
 }

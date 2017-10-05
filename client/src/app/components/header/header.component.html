@@ -1,5 +1,5 @@
 <div class="grid-x align-center align-middle header" [@headerAnimation]="headerImg" style="opacity: 0">
-	<div class="small-4 text-right cell">
+	<div class="auto text-right cell">
 		<a routerLink="/accueil" class="clear button brown large menu-link">Accueil</a>
 		<a routerLink="/shop/chocolats" class="clear button brown large menu-link">Chocolats</a>
 		<a routerLink="/shop/confiseries" class="clear button brown large menu-link">Confiseries</a>
@@ -7,13 +7,39 @@
 	<div class="shrink cell">
 		<img src="assets/img/logo/logo_final.png" alt="Logo" class="logo" (load)="headerImgLoaded()" >
 	</div>
-	<div class="small-4 cell">
-		<a routerLink="/profil" class="clear button brown large menu-link">Profil</a>
+	<div class="auto cell">
+		<a routerLink="/profil" class="clear button brown large menu-link">Mon parcours</a>
 		<a routerLink="/creations" class="clear button brown large menu-link">Mes créations</a>
 		<a routerLink="/contact" class="clear button brown large menu-link">Contact</a>
 		<a routerLink="/panier" class="clear button brown large menu-link"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 	</div>
 </div>
-<!--
-  <a *ngIf="!hasAuthToken()" routerLink="/login" class="clear button brown large">Login</a>
-  <a *ngIf="hasAuthToken()" (click)="logout()" href="#" class="clear button brown large">Logout</a> -->
+
+<div class="title-bar" data-responsive-toggle="example-menu" data-hide-for="medium">
+		<button class="menu-icon" type="button" data-toggle="example-menu"></button>
+		<div class="title-bar-title">Menu</div>
+	  </div>
+	  
+	  <div class="top-bar" id="example-menu">
+		<div class="top-bar-left">
+		  <ul class="dropdown menu" data-dropdown-menu>
+			<li class="menu-text">Site Title</li>
+			<li>
+			  <a href="#">One</a>
+			  <ul class="menu vertical">
+				<li><a href="#">One</a></li>
+				<li><a href="#">Two</a></li>
+				<li><a href="#">Three</a></li>
+			  </ul>
+			</li>
+			<li><a href="#">Two</a></li>
+			<li><a href="#">Three</a></li>
+		  </ul>
+		</div>
+		<div class="top-bar-right">
+		  <ul class="menu">
+			<li><input type="search" placeholder="Search"></li>
+			<li><button type="button" class="button">Search</button></li>
+		  </ul>
+		</div>
+	  </div>

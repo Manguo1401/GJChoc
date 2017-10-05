@@ -46,7 +46,7 @@ export class DataService {
 		} else {
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
-			return this.http.get(this.baseUrl+this.urldatatypes, options)
+			return this.http.get(this.baseUrl+this.urldatatypes)
 			.map((res: Response) =>
 				res.json())
 			.do(data => {

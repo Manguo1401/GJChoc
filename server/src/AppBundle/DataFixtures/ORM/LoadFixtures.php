@@ -7,6 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Type;
 use AppBundle\Entity\Product;
+use AppBundle\Entity\EcommerceConfig;
 
 // commande: php bin/console doctrine:fixtures:load --fixtures=src/AppBundle/DataFixtures/ORM/LoadFixtures.php
 

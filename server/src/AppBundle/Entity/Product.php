@@ -87,7 +87,7 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="imageName", type="string", length=255)
+     * @ORM\Column(name="imageName", type="string", length=255, nullable=true)
      */
     private $imageName;
 
@@ -111,6 +111,8 @@ class Product
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->setUnity("u");
+        $this->setPas(100);
     }
 
     /**

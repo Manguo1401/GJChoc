@@ -33,7 +33,7 @@ export class PaymentService {
     };
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(postPayment, postdata)
+    return this.http.post(postPayment, postdata, options)
       .map(res => res.json())
       .catch(this.handleError);//(error:any) => Observable.throw(error.json().error || 'Server error'));
 

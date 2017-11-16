@@ -14,11 +14,15 @@ import { Creation } from './../objects/creation'
 
 export class CreationService {
 
-	private headers = new Headers({'Content-Type': 'application/json'});
+	private headers = new Headers({'content-type': 'application/json'});
 
 	private creations : Creation[];
 	private creations$ = new Subject<any>();
+<<<<<<< HEAD
     private baseUrl = "http://localhost/gjchoc/server/web/api/"
+=======
+    private baseUrl = "http://127.0.0.1/gjchoc/server/web/api/"
+>>>>>>> refs/remotes/origin/master
     private urlcreations = "creations"
 
   constructor(private http: Http

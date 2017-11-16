@@ -12,10 +12,6 @@ export class BasketService {
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
 
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of e91a5ad... merge master
   private baseUrl = "http://localhost/gjchoc/server/web/api/"
 
   //private types;
@@ -135,8 +131,6 @@ export class BasketService {
       this.basketlist.forEach(elem => {
         if (elem.qte > 0) paramsStr = paramsStr + elem.id + ';';
       })
-<<<<<<< HEAD
-=======
 
       //console.log(basketlist.toString()+" toString = "+paramsStr)
       //console.log(getBasketUrl + paramsStr);
@@ -148,7 +142,6 @@ export class BasketService {
           this.basketProducts = data;
         })
         .catch(this.handleErrorObservable);//this.handleServerError);
->>>>>>> parent of e91a5ad... merge master
     }
     else
       return Observable.of([]);//Observable.empty<Response>();

@@ -12,7 +12,7 @@ export class BasketService {
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
 
-  private baseUrl = "http://localhost/gjchoc/server/web/app_dev.php/api/"
+  private baseUrl = "http://localhost/gjchoc/server/web/api/"
 
   //private types;
   private basketProducts: Product[];
@@ -28,7 +28,7 @@ export class BasketService {
       let getTvaUrl = this.baseUrl + "tva";
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
-      return this.http.get(getTvaUrl)
+      return this.http.get(getTvaUrl, options)
         .map(res => res.json().tva) //Ce qui est retourné
         .do(data => {
           //On enregistre sur une variable locale
@@ -136,7 +136,7 @@ export class BasketService {
       //console.log(getBasketUrl + paramsStr);
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
-      return this.http.get(getBasketUrl + paramsStr)
+      return this.http.get(getBasketUrl + paramsStr, options)
         .map(res => res.json())
         .do(data => {
           this.basketProducts = data;

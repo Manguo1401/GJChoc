@@ -28,14 +28,13 @@ export class ProductDetailsComponent {
 
 	ngOnInit() {
 		this.activatedRoute.params.subscribe((params: Params) => {
-			this.searchedProductID = parseInt(params['id'])
-		})
+        this.searchedProductID = parseInt(params["id"]);
+      }, err => console.log(err));
 
 		this.dataService.getDataSubscribed().subscribe(() => {
-
-			this.product = this.dataService.getProduct(this.searchedProductID)
-			console.log(this.product)
-		})
+        this.product = this.dataService.getProduct(this.searchedProductID);
+        console.log(this.product);
+      }, err => console.log(err));
 
 		this.dataService.initData()
 	}

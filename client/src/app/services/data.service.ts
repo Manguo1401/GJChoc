@@ -27,7 +27,7 @@ export class DataService {
 	private data$ = new Subject<any>();
 	private category$ = new Subject<any>();
 	private product$ = new Subject<any>();
-  private baseUrl = "http://localhost/gjchoc/server/web/app_dev.php/api/"
+  private baseUrl = "http://localhost/gjchoc/server/web/api/"
   private urldatatypes = "types"
   private subject = new Subject<any>();
   //private basketProducts : Product[];

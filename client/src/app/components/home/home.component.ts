@@ -9,7 +9,7 @@ import { DataService } from './../../services/data.service'
 	selector: 'my-accueil',
 	templateUrl: 'home.component.html',
     animations: [
-		fadeInAnimation, 
+		fadeInAnimation,
 		Fader()
 	],
     host: { '[@fadeInAnimation]': '' }
@@ -26,20 +26,19 @@ export class HomeComponent {
 		private dataService: DataService
 		) {
 
-		this.dataService.getDataSubscribed()
-			.subscribe(data => {
-				this.data = data
-				if(this.data) {
-					this.visibility = 'true'
-					this.loader = "false"
-				}
-			});
+		this.dataService.getDataSubscribed().subscribe(data => {
+        this.data = data;
+        if (this.data) {
+          this.visibility = "true";
+          this.loader = "false";
+        }
+      }, err => console.log(err));
 
 		this.dataService.initData();
 	}
 
 		ngOnInit() {
-			
+
 		}
 
 }

@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Rx'
 export class PaymentService {
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
-  private baseUrl = "http://localhost/gjchoc/server/web/app_dev.php/api/"
+  private baseUrl = "http://localhost/gjchoc/server/web/api/"
 
   private types;
   private data;

@@ -21,11 +21,11 @@ export class FooterComponent {
 		private dataService: DataService
 	) {
 		this.dataService.getDataSubscribed().subscribe(data => {
-			if(data) {
-				this.visibility = 'true'
-			}
-		})
+        if (data) {
+          this.visibility = "true";
+        }
+      }, err => console.log(err));
 	}
 
-	
+
 }

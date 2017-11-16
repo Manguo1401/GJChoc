@@ -24,15 +24,15 @@ export class ShopComponent {
 	constructor(
 		private dataService: DataService
 	) {
-		
+
 	}
 
 	ngOnInit() {
 		this.dataService.getDataSubscribed().subscribe(data => {
-			if(data) {
-				this.data = data;
-			}
-		})
+        if (data) {
+          this.data = data;
+        }
+      }, err => console.log(err));
 
 		this.dataService.initData()
 	}

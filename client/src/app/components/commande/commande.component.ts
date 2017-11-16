@@ -239,24 +239,24 @@ export class CommandeComponent {
   }
 
   getBasket() {
-    this.basketService.getBasketlistProducts()//this.basket)
+    this.basketService
+      .getBasketlistProducts() //this.basket)
       .subscribe(data => {
-        if (data) {
-          this.products = data
-          //console.log(this.products)
-          this.basket = this.basketService.getBasket()
-          this.refreshTotal()
-          this.loader = 'false'
+          if (data) {
+            this.products = data;
+            //console.log(this.products)
+            this.basket = this.basketService.getBasket();
+            this.refreshTotal();
+            this.loader = "false";
 
-          //Assign product qte from basket
-          this.basket.forEach(basketItem => {
-            this.products.forEach(product => {
-              if (basketItem.id == product.id)
-                product.qte = basketItem.qte
+            //Assign product qte from basket
+            this.basket.forEach(basketItem => {
+              this.products.forEach(product => {
+                if (basketItem.id == product.id) product.qte = basketItem.qte;
+              });
             });
-          });
-        }
-      })
+          }
+        }, err => console.log(err));
   }
 
   refreshTotal() {

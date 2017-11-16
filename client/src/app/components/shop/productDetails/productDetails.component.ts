@@ -28,20 +28,37 @@ export class ProductDetailsComponent {
 
 	ngOnInit() {
 		this.activatedRoute.params.subscribe((params: Params) => {
-			this.searchedProductID = parseInt(params['id'])
-		})
+        this.searchedProductID = parseInt(params["id"]);
+      }, err => console.log(err));
 
 		this.dataService.getDataSubscribed().subscribe(() => {
-			
-			this.product = this.dataService.getProduct(this.searchedProductID)
-			console.log(this.product)	
-		})
-		
+        this.product = this.dataService.getProduct(this.searchedProductID);
+        console.log(this.product);
+      }, err => console.log(err));
+
 		this.dataService.initData()
 	}
 
-	addProduct(productId, qte) {
-      this.basketService.addProductBasket(productId,qte);
+	// addProduct(productId, qte) {
+  //     this.basketService.addProductBasket(productId,qte);
+	// }
+
+  addQte(product) {
+    if (!product.qte) {
+      product.qte = 0
     }
+    product.qte = product.qte + product.pas
+    console.log("qte of produitid:" + product);
+    console.log(product.qte);
+    this.basketService.addProductBasket(product.id, product.qte);
+  }
+
+  deleteQte(product) {
+    product.qte = product.qte - product.pas
+    console.log("qte of produitid:" + product);
+    console.log(product.qte);
+    this.basketService.addProductBasket(product.id, product.qte);
+  }
+
 
 }

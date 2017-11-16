@@ -17,3 +17,13 @@
 .ng-invalid:not(form)  {
   border-left: 5px solid #a94442; /* red */
 }
+
+
+.vicopo_list{
+  max-height:250px;
+  position: absolute;
+  overflow-y: auto;
+  background-color: #FAFAFA;
+  z-index: 100;
+}
+

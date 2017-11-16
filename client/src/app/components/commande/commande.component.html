@@ -88,10 +88,12 @@
       </div>
       <div class="form-group">
         <div class="d-flex justify-content-between">
-          <label for="postalcode">Code postal :</label>
-          <input type="text" [(ngModel)]="commande.postalcode" name="postalcode" minlength="5" placeholder="votre code postal" required
+          <label for="code">Code postal :</label>
+          <input id="code" type="text" [(ngModel)]="commande.postalcode" name="postalcode" minlength="5" placeholder="votre code postal" required
             #postalcode="ngModel">
+          <div id="outputcode" class="vicopo_list"></div>
         </div>
+
         <div [hidden]="postalcode.valid || postalcode.untouched">
           <div *ngIf="postalcode.errors">
             Code postal requis (5 chiffres).
@@ -104,8 +106,18 @@
       <div class="form-group">
         <div class="d-flex justify-content-between">
           <label for="city">Ville :</label>
-          <input type="text" [(ngModel)]="commande.city" name="city" placeholder="votre ville" required #city="ngModel">
+          <input id="city" type="text" [(ngModel)]="commande.city" name="city" placeholder="votre ville" required #city="ngModel">
+          <div id="outputcity" class="vicopo_list"></div>
         </div>
+
+        <!-- <div id="postalcode_list" class="vicopo_list">
+          <ul>
+            <li data-vicopo="#city">
+              <strong data-vicopo-code-postal></strong>
+              <span data-vicopo-ville></span>
+            </li>
+          </ul>
+        </div> -->
         <div [hidden]="city.valid || city.untouched">
           <div *ngIf="city.errors">
             Ville requise
@@ -173,7 +185,8 @@
         </tr>
       </tbody>
     </table>
-    <div>
+
+    <!-- <div>
       <input id="ville" placeholder="Entrez un code postal ou une ville">
       <ul>
         <li data-vicopo="#ville">
@@ -193,7 +206,21 @@
           <span data-vicopo-ville></span>
         </li>
       </ul>
-    </div>
+    </div> -->
+    <!-- <div>
+        <p>
+            <label>
+              Tapez le début d'un nom de ville ou d'un code postal puis appuyez sur <b>Entrée</b>.<br>
+              <input id="ville3" placeholder="Entrez un code postal ou une ville" autocomplete="off" size="50">
+            </label>
+          </p>
+          <ul>
+            <li data-vicopo="#ville3">
+              <strong data-vicopo-code-postal></strong>
+              <span data-vicopo-ville></span>
+            </li>
+          </ul>
+    </div> -->
   </div>
 </div>
 

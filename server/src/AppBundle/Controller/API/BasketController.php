@@ -58,6 +58,7 @@ class BasketController extends Controller
       //  //$basket = $session->get('basket', array());
 
         $tabIds = explode(";",$request->query->get('productsid'));
+        dump($tabIds);
         $products = $this->getDoctrine()->getRepository('AppBundle:Product')->findArray($tabIds);
       }
       // $products = $this->get('doctrine.orm.entity_manager')

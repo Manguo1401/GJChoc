@@ -12,11 +12,8 @@ export class BasketService {
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
 
-<<<<<<< HEAD
+
   private baseUrl = "http://localhost/gjchoc/server/web/api/"
-=======
-  private baseUrl = "http://127.0.0.1/gjchoc/server/web/api/"
->>>>>>> refs/remotes/origin/master
 
   //private types;
   private basketProducts: Product[];
@@ -129,20 +126,6 @@ export class BasketService {
       this.basketlist.forEach(elem => {
         if (elem.qte > 0) paramsStr = paramsStr + elem.id + ';';
       })
-<<<<<<< HEAD
-
-      //console.log(basketlist.toString()+" toString = "+paramsStr)
-      //console.log(getBasketUrl + paramsStr);
-      let headers = new Headers({ 'Content-Type': 'application/json' });
-      let options = new RequestOptions({ headers: headers });
-      return this.http.get(getBasketUrl + paramsStr, options)
-        .map(res => res.json())
-        .do(data => {
-          this.basketProducts = data;
-        })
-        .catch(this.handleErrorObservable);//this.handleServerError);
-=======
->>>>>>> refs/remotes/origin/master
     }
     //console.log(basketlist.toString()+" toString = "+paramsStr)
     let headers = new Headers({ 'Content-Type': 'application/json' });

@@ -83,6 +83,7 @@ export class BasketComponent {
             //console.log(this.products)
             this.basket = this.basketService.getBasket();
             this.refreshTotal();
+            this.loader = "false";
 
             //Assign product qte from basket
             this.basket.forEach(basketItem => {
@@ -91,7 +92,7 @@ export class BasketComponent {
               });
             });
           }
-          this.loader = "false";
+
         }, error => {
                       // Log errors if any
                       console.log(error);
@@ -138,7 +139,6 @@ export class BasketComponent {
     // console.log("qte of produitid:" + product);
     // console.log(product.qte);
     this.basketService.addProductBasket(product.id, product.qte);
-
     this.refreshTotal();
   }
 

@@ -18,11 +18,7 @@ export class CreationService {
 
 	private creations : Creation[];
 	private creations$ = new Subject<any>();
-<<<<<<< HEAD
     private baseUrl = "http://localhost/gjchoc/server/web/api/"
-=======
-    private baseUrl = "http://127.0.0.1/gjchoc/server/web/api/"
->>>>>>> refs/remotes/origin/master
     private urlcreations = "creations"
 
   constructor(private http: Http

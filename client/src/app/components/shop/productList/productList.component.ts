@@ -59,15 +59,15 @@ export class ProductListComponent {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
-      this.type = params['type']
-      this.category = undefined
-      this.products = this.getProducts(this.data, this.type)
-    });
+        this.type = params["type"];
+        this.category = undefined;
+        this.products = this.getProducts(this.data, this.type);
+      }, err => console.log(err));
 
     this.dataService.getCategorySubscribed().subscribe(category => {
-      this.category = category;
-      this.products = this.getProducts(this.data, this.type)
-    })
+        this.category = category;
+        this.products = this.getProducts(this.data, this.type);
+      }, err => console.log(err));
 
   }
 

@@ -23,8 +23,8 @@ export class TypeBlockComponent implements OnInit {
 
 	ngOnInit() {
 		this.route.params.subscribe((params: any) => {
-			this.type = params['type'];
-			this.visibility = "true"
-		});
+        this.type = params["type"];
+        this.visibility = "true";
+      }, err => console.log(err));
 	}
 }

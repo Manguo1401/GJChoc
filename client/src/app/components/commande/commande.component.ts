@@ -14,9 +14,14 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { Fader } from './../../animations/fader.animation'
 
-import * as $ from 'jquery'
-import { Vicopo } from 'vicopo'
-
+import * as jQuery from 'jquery'
+//import * as $ from 'jquery'
+import * as vicopo from 'vicopo'
+//import {vicopo} from 'vicopo'
+//import {vicopo, vicopoTargets, vicopoClean } from 'vicopo'
+import { element } from 'protractor';
+//declare var jquery:any;
+//declare var vicopo:any;
 
 @Component({
   selector: 'my-commande',
@@ -61,60 +66,92 @@ export class CommandeComponent {
 
 
   ngAfterViewInit() {
-    // var ville = 'Lille';
-    // // var System: any;
-    // // System.import('/assets/js/regular-expresions.js').then(file => {
-    // //   // perform additional interactions after the resource has been asynchronously fetched
-    // //   console.log('we called test');
-    // // });
-    // //var vicopo = require('vicopo');
-    // vicopo(ville, function (err, cities) {
-    // if (err) {
-    //     throw err;
-    // } else {
-    //     console.log(cities);
-    // }
-    // });
-
-    $( document ).ready(function() {
-      $('#ville2').keyup(function (e) {
-        if(e.keyCode == 13) {
-          var $ville = $(this);
-          Vicopo($ville.val(), function (input, cities) {
-            if(input == $ville.val() && cities[0]) {
-              //$ville.val(cities[0].city).vicopoTargets().vicopoClean();
-            }
-          });
-          e.preventDefault();
-          e.stopPropagation();
+    jQuery(function ($) {
+      var _code = $('#code'), _city = $('#city');
+      var _outCode = $('#outputcode'), _outCity = $('#outputcity')
+      var _cache = {};
+      var _host = (~(location.protocol + '').indexOf('s')
+        ? 'https'
+        : 'http'
+      ) + '://vicopo.selfbuild.fr';
+      _code.keyup(function () {
+        var _val = $(this).val().toString();
+        if (/^[^0-9]/.test(_val)) {
+          _code.val('');
+          _city.val(_val).focus().trigger('keyup');
         }
       });
-    })
+      _city.keyup(function () {
+        var _val = $(this).val().toString();
+        if (/^[0-9]/.test(_val)) {
+          _city.val('');
+          _code.val(_val).focus().trigger('keyup');
+        }
+      });
+      function _done(_cities, output) {
+        if (output == 'code')
+          _outCode.html(_cities.map(function (_data) {
+            return '<a href="#"><div>' + _data.code + ' &nbsp; ' + _data.city + '</div></a>';
+          }).join(''));
+        if (output == 'city')
+          _outCity.html(_cities.map(function (_data) {
+            return '<a href="#"><div>' + _data.code + ' &nbsp; ' + _data.city + '</div></a>';
+          }).join(''));
+      }
+      $.each(['code', 'city'], function (i, _name) {
+        var _input = $('#' + _name).on('keyup', function () {
+          var _val = _input.val().toString();
+          if (_val.length > 1) {
+            _cache[_name] = _cache[_name] || {};
+            if (_cache[_name][_val]) {
+              _done(_cache[_name][_val], _name);
+            }
+            var _data = {};
+            _data[_name] = _val;
+            $.getJSON(_host, _data, function (_answear) {
+              _cache[_name][_answear.input] = _answear.cities;
+              if (_input.val() == _answear.input) {
+                _done(_answear.cities, _name);
+              }
+            });
+          }
+        });
+      });
+      $(document).on('click', '#outputcity a', function (e) {
+        clickelem($(this).text(), e);
+      });
+      $(document).on('click', '#outputcode a', function (e) {
+        clickelem($(this).text(), e);
+      });
 
-    // jQuery( document ).ready(function() {
-    //   var ville = 'Lille';
-    //   // var vicopo = require('vicopo');
-    //   // vicopo(ville, function (err, cities) {
-    //   // if (err) {
-    //   //     throw err;
-    //   // } else {
-    //   //     console.log(cities);
-    //   // }
-    //   // });
+      function clickelem(_contents, event) {
+        var _space = _contents.indexOf(' ');
+        if (~_space) {
+          _code.val(_contents.substr(0, _space));
+          _city.val(_contents.substr(_space).trim());
+          _outCode.empty();
+          _outCity.empty();
+        }
+        event.preventDefault();
+        event.stopPropagation();
+        return false;
+      }
 
-    //   // $('#ville').keyup(function (e) {
-    //   //   if(e.keyCode == 13) {
-    //   //     var $ville = $(this);
-    //   //     $.vicopo($ville.val(), function (input, cities) {
-    //   //       if(input == $ville.val() && cities[0]) {
-    //   //         $ville.val(cities[0].city).vicopoTargets().vicopoClean();
-    //   //       }
-    //   //     });
-    //   //     e.preventDefault();
-    //   //     e.stopPropagation();
-    //   //   }
-    //   // });
-    // })
+      $("#outputcity").hover(function () {
+        $(this).addClass("hovered");
+      }, function () {
+        $(this).removeClass("hovered");
+      });
+      $("#outputcode").hover(function () {
+        $(this).addClass("hovered");
+      }, function () {
+        $(this).removeClass("hovered");
+      });
+
+      $("#outputcode").width($("#code").width());
+      $("#outputcity").width($("#city").width());
+
+    });
   }
 
   onSubmitCommande(value: Commande) {
@@ -135,6 +172,7 @@ export class CommandeComponent {
       allowRememberMe: false, //Désactivation de 'se souvenir de moi' puisque nous faisons payer le client en direct.
       name: 'Paiement de votre panier',
       description: 'Sécurisé par Stripe.com',
+      email: 'toto@dede.de', //TRY TO ADD EMAIL
       token: function (token: any) {
         // You can access the token ID with `token.id`.
         // Get the token ID to your server-side code for use.
@@ -153,10 +191,10 @@ export class CommandeComponent {
             let ref = data.reference.substring(20);
             let navigationExtras: NavigationExtras = {
               queryParams: {
-                  "reference": ref
+                "reference": ref
               }
             };
-            _this.router.navigate(['payment'],navigationExtras);
+            _this.router.navigate(['payment'], navigationExtras);
           },
           error => {
             console.log("error :")
@@ -164,7 +202,7 @@ export class CommandeComponent {
             console.log(error.exception.message)
 
             //LOG ERROR
-            _this.errorMessage = "Une erreur est survenue, le paiement est annulé. \nErreur ="+error.exception.message;
+            _this.errorMessage = "Une erreur est survenue, le paiement est annulé. \nErreur =" + error.exception.message;
             _this.loader = 'false'
           }
         )
@@ -189,7 +227,7 @@ export class CommandeComponent {
   getTva() {
     this.basketService.getTva()
       .subscribe(data => {
-        console.log("getTva in comp "+data)
+        console.log("getTva in comp " + data)
         if (data) {
           this.tva = data
         }
@@ -201,31 +239,31 @@ export class CommandeComponent {
   }
 
   getBasket() {
-    this.basketService.getBasketlistProducts()//this.basket)
+    this.basketService
+      .getBasketlistProducts() //this.basket)
       .subscribe(data => {
-        if (data) {
-          this.products = data
-          //console.log(this.products)
-          this.basket = this.basketService.getBasket()
-          this.refreshTotal()
-          this.loader = 'false'
+          if (data) {
+            this.products = data;
+            //console.log(this.products)
+            this.basket = this.basketService.getBasket();
+            this.refreshTotal();
+            this.loader = "false";
 
-          //Assign product qte from basket
-          this.basket.forEach(basketItem => {
-            this.products.forEach(product => {
-              if (basketItem.id == product.id)
-                product.qte = basketItem.qte
+            //Assign product qte from basket
+            this.basket.forEach(basketItem => {
+              this.products.forEach(product => {
+                if (basketItem.id == product.id) product.qte = basketItem.qte;
+              });
             });
-          });
-        }
-      })
+          }
+        }, err => console.log(err));
   }
 
   refreshTotal() {
     this.totalHT = this.basketService.getBasketPrice();
     this.totalTva = this.totalHT * this.tva;//.00000001 apparait de temps en temps!?? c'est quoi ce délire
     //this.totalTva.toFixed(2) //Ne résoud pas le problème
-    this.totalTva = +(Math.round(this.totalTva * 100)  / 100);//résoud le problème
+    this.totalTva = +(Math.round(this.totalTva * 100) / 100);//résoud le problème
     //console.log(this.totalTva)
     this.totalTTC = this.totalHT + this.totalTva;
   }

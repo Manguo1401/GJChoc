@@ -30,10 +30,10 @@ export class CategoryListComponent {
 		private dataService: DataService
 	) {
 		this.activatedRoute.params.subscribe((params: Params) => {
-			this.type = params['type']
-			this.categories = this.getCategories(this.data, this.type)
-			this.anim = 'notVoid'
-		});
+        this.type = params["type"];
+        this.categories = this.getCategories(this.data, this.type);
+        this.anim = "notVoid";
+      }, err => console.log(err));
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
@@ -44,7 +44,7 @@ export class CategoryListComponent {
 
 	getCategories(data, selectedType) {
 		let categories = []
-		
+
 		if(data) {
 			data.forEach((e) => {
 				if (e.type === selectedType) {
@@ -52,7 +52,7 @@ export class CategoryListComponent {
 				}
 			})
 		}
-		
+
 		return categories
 	}
 

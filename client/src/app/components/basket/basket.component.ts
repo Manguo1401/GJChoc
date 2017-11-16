@@ -37,16 +37,14 @@ export class BasketComponent {
   }
 
   getTva() {
-    this.basketService.getTva()
-      .subscribe(data => {
+    this.basketService.getTva().subscribe(data => {
         //console.log("getTva in comp "+data)
         if (data) {
-          this.tva = data
+          this.tva = data;
         }
-      },
-      err => {
+      }, error => {
         // Log errors if any
-        console.log(err);
+        console.log(error);
       });
   }
 
@@ -77,24 +75,28 @@ export class BasketComponent {
   }
 
   getBasket() {
-    this.basketService.getBasketlistProducts()//this.basket)
+    this.basketService
+      .getBasketlistProducts() //this.basket)
       .subscribe(data => {
-        if (data) {
-          this.products = data
-          //console.log(this.products)
-          this.basket = this.basketService.getBasket()
-          this.refreshTotal()
-          this.loader = 'false'
+          if (data) {
+            this.products = data;
+            //console.log(this.products)
+            this.basket = this.basketService.getBasket();
+            this.refreshTotal();
+            this.loader = "false";
 
-          //Assign product qte from basket
-          this.basket.forEach(basketItem => {
-            this.products.forEach(product => {
-              if (basketItem.id == product.id)
-                product.qte = basketItem.qte
+            //Assign product qte from basket
+            this.basket.forEach(basketItem => {
+              this.products.forEach(product => {
+                if (basketItem.id == product.id) product.qte = basketItem.qte;
+              });
             });
-          });
-        }
-      })
+          }
+
+        }, error => {
+                      // Log errors if any
+                      console.log(error);
+                    });
   }
 
 

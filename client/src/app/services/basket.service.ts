@@ -12,7 +12,7 @@ export class BasketService {
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
 
-  private baseUrl = "http://127.0.0.1/gjchoc/server/web/app_dev.php/api/"
+  private baseUrl = "http://127.0.0.1/gjchoc/server/web/api/"
 
   //private types;
   private basketProducts: Product[];

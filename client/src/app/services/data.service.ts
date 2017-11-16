@@ -20,8 +20,6 @@ import { Type } from './../objects/type'
 
 export class DataService {
 
-	private headers = new Headers({'Content-Type': 'application/json'});
-
 	private data : Type[];
 	private data$ = new Subject<any>();
 	private category$ = new Subject<any>();
@@ -43,7 +41,7 @@ export class DataService {
 		if (this.data) {
 			return Observable.of(this.data);
 		} else {
-      let headers = new Headers({ 'Content-Type': 'application/json' });
+      let headers = new Headers({ 'content-type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
 			return this.http.get(this.baseUrl+this.urldatatypes, options)
 			.map((res: Response) =>

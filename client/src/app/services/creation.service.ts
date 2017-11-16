@@ -14,11 +14,11 @@ import { Creation } from './../objects/creation'
 
 export class CreationService {
 
-	private headers = new Headers({'Content-Type': 'application/json'});
+	private headers = new Headers({'content-type': 'application/json'});
 
 	private creations : Creation[];
 	private creations$ = new Subject<any>();
-    private baseUrl = "http://localhost/gjchoc/server/web/app_dev.php/api/"
+    private baseUrl = "http://127.0.0.1/gjchoc/server/web/api/"
     private urlcreations = "creations"
 
   constructor(private http: Http

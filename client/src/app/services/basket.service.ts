@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Http, Headers, Response, RequestOptions } from '@angular/http'
+import { Http, Headers, Response, RequestOptions, RequestOptionsArgs } from '@angular/http'
 
 import { Product } from './../objects/product'
 
@@ -12,7 +12,7 @@ export class BasketService {
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
 
-  private baseUrl = "http://localhost/gjchoc/server/web/app_dev.php/api/"
+  private baseUrl = "http://127.0.0.1/gjchoc/server/web/api/"
 
   //private types;
   private basketProducts: Product[];
@@ -28,7 +28,7 @@ export class BasketService {
       let getTvaUrl = this.baseUrl + "tva";
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
-      return this.http.get(getTvaUrl)
+      return this.http.get(getTvaUrl, options)
         .map(res => res.json().tva) //Ce qui est retourné
         .do(data => {
           //On enregistre sur une variable locale
@@ -36,8 +36,8 @@ export class BasketService {
           this.tva = data.tva
         })
         .catch(this.handleErrorObservable)
-      //(error: any) => Observable.throw(error.json().error || 'Server error'));
-      //console.log(error));
+          //(error: any) => Observable.throw(error.json().error || 'Server error'));
+          //console.log(error));
 
     }
   }
@@ -77,7 +77,7 @@ export class BasketService {
           //console.log(data);
         })
         .catch(this.handleErrorObservable)
-      //(error: any) => Observable.throw(error.json().error || 'Server error'));
+        //(error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
   }
@@ -94,16 +94,14 @@ export class BasketService {
     //console.log(basketlist)
     if (!this.basketlist) this.basketlist = [];
 
-    //if (!qte) qte = 1;
+    if (!qte) qte = 1;
     if (qte && qte >= 0) {
       // basket[productId] = qte;
       // localStorage.setItem('basket', JSON.stringify(basket))
       let basketItem = { id: productId, qte: qte };
       if (this.basketlist)
         this.basketlist = this.basketlist.filter(myObj => myObj.id !== productId);
-
-      if (qte > 0)
-        this.basketlist.push(basketItem);
+      this.basketlist.push(basketItem);
 
       localStorage.setItem('basketlist', JSON.stringify(this.basketlist))
       //console.log(basket)
@@ -118,33 +116,25 @@ export class BasketService {
   }
 
   getBasketlistProducts() {
-    if (!this.basketlist)
-       this.basketlist = JSON.parse(localStorage.getItem('basketlist'));
-
-    if (this.basketlist && this.basketlist.length > 0) {
-      //console.log(this.basketlist);
-      let getBasketUrl = this.baseUrl + "basket/products";
-      let params = new URLSearchParams();
-      let paramsStr = ""
-
+    if (!this.basketlist) this.basketlist = JSON.parse(localStorage.getItem('basketlist'))
+    let getBasketUrl = this.baseUrl + "basket/products";
+    let params = new URLSearchParams();
+    let paramsStr = ""
+    if (this.basketlist) {
       paramsStr = "?productsid=";
       this.basketlist.forEach(elem => {
         if (elem.qte > 0) paramsStr = paramsStr + elem.id + ';';
       })
-
-      //console.log(basketlist.toString()+" toString = "+paramsStr)
-      //console.log(getBasketUrl + paramsStr);
-      let headers = new Headers({ 'Content-Type': 'application/json' });
-      let options = new RequestOptions({ headers: headers });
-      return this.http.get(getBasketUrl + paramsStr)
-        .map(res => res.json())
-        .do(data => {
-          this.basketProducts = data;
-        })
-        .catch(this.handleErrorObservable);//this.handleServerError);
     }
-    else
-      return Observable.of([]);//Observable.empty<Response>();
+    //console.log(basketlist.toString()+" toString = "+paramsStr)
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(getBasketUrl + paramsStr, options)
+      .map(res => res.json())
+      .do(data => {
+        this.basketProducts = data;
+      })
+      .catch(this.handleErrorObservable);//this.handleServerError);
   }
 
   getBasketPrice() {
@@ -165,7 +155,7 @@ export class BasketService {
     return totalHT;
   }
 
-  private handleErrorObservable(error: Response | any) {
+  private handleErrorObservable (error: Response | any) {
     console.error(error.message || error);
     return Observable.throw(error.message || error);
   }

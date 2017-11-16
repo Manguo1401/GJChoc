@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Http, Headers, RequestOptions } from '@angular/http'
-import { Response } from '@angular/http'
+import { Http, Headers, RequestOptions, Response } from '@angular/http'
 import { AuthHttp } from 'angular2-jwt'
 
 import { Observable } from 'rxjs/Rx'
@@ -21,13 +20,11 @@ import { Type } from './../objects/type'
 
 export class DataService {
 
-	private headers = new Headers({'Content-Type': 'application/json'});
-
 	private data : Type[];
 	private data$ = new Subject<any>();
 	private category$ = new Subject<any>();
 	private product$ = new Subject<any>();
-  private baseUrl = "http://localhost/gjchoc/server/web/app_dev.php/api/"
+  private baseUrl = "http://localhost/gjchoc/server/web/api/"
   private urldatatypes = "types"
   private subject = new Subject<any>();
   //private basketProducts : Product[];
@@ -44,9 +41,9 @@ export class DataService {
 		if (this.data) {
 			return Observable.of(this.data);
 		} else {
-      let headers = new Headers({ 'Content-Type': 'application/json' });
+      let headers = new Headers({ 'content-type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
-			return this.http.get(this.baseUrl+this.urldatatypes)
+			return this.http.get(this.baseUrl+this.urldatatypes, options)
 			.map((res: Response) =>
 				res.json())
 			.do(data => {

@@ -32,34 +32,16 @@ export class ProductDetailsComponent {
 		})
 
 		this.dataService.getDataSubscribed().subscribe(() => {
-
+			
 			this.product = this.dataService.getProduct(this.searchedProductID)
-			console.log(this.product)
+			console.log(this.product)	
 		})
-
+		
 		this.dataService.initData()
 	}
 
-	// addProduct(productId, qte) {
-  //     this.basketService.addProductBasket(productId,qte);
-	// }
-
-  addQte(product) {
-    if (!product.qte) {
-      product.qte = 0
+	addProduct(productId, qte) {
+      this.basketService.addProductBasket(productId,qte);
     }
-    product.qte = product.qte + product.pas
-    console.log("qte of produitid:" + product);
-    console.log(product.qte);
-    this.basketService.addProductBasket(product.id, product.qte);
-  }
-
-  deleteQte(product) {
-    product.qte = product.qte - product.pas
-    console.log("qte of produitid:" + product);
-    console.log(product.qte);
-    this.basketService.addProductBasket(product.id, product.qte);
-  }
-
 
 }

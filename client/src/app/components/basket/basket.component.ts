@@ -7,7 +7,7 @@ import { Product } from '../../objects/product';
 
 import { fadeInAnimation } from './../../animations/routerFader.component';
 import { Fader } from './../../animations/fader.animation'
-import { locale } from '../../../../../server/vendor/sonata-project/core-bundle/Resources/public/vendor/moment/moment';
+//import { locale } from '../../../../../server/vendor/sonata-project/core-bundle/Resources/public/vendor/moment/moment';
 import { RouterModule } from '@angular/router'
 
 @Component({

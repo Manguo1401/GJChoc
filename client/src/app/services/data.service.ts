@@ -42,6 +42,9 @@ export class DataService {
 			return Observable.of(this.data);
 		} else {
       let headers = new Headers({ 'content-type': 'application/json' });
+      //l’en-tête CORS « Access-Control-Allow-Origin » est manquant.
+      //let headers = new Headers({ 'content-type': 'application/x-www-form-urlencoded' });
+
       let options = new RequestOptions({ headers: headers });
 			return this.http.get(this.baseUrl+this.urldatatypes, options)
 			.map((res: Response) =>

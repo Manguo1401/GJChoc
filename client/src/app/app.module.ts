@@ -41,6 +41,7 @@ import { CreationsComponent } from './components/creations/creations.component'
 
 // Import des services
 
+import { GlobalsService } from './services/globals.service'
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { DataService } from './services/data.service';
 import { PaymentService } from './services/payment.service';
@@ -102,6 +103,7 @@ import { UniqueValuesPipe } from './pipes/uniqueValues.pipe'
 		ReactiveFormsModule
   ],
   providers: [
+    GlobalsService,
   	{
 			provide: AuthHttp,
 			useFactory: authHttpServiceFactory,

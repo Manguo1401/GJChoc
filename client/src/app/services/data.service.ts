@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core'
 import { Http, Headers, RequestOptions, Response } from '@angular/http'
 import { AuthHttp } from 'angular2-jwt'
 
+import { GlobalsService } from './globals.service'
+
 import { Observable } from 'rxjs/Rx'
 //import 'rxjs/add/observable/throw';
 
@@ -20,19 +22,22 @@ import { Type } from './../objects/type'
 
 export class DataService {
 
-	private data : Type[];
-	private data$ = new Subject<any>();
-	private category$ = new Subject<any>();
-	private product$ = new Subject<any>();
-  private baseUrl = "http://localhost/gjchoc/server/web/api/"
+	private data : Type[]
+	private data$ = new Subject<any>()
+	private category$ = new Subject<any>()
+	private product$ = new Subject<any>()
+  private baseUrl
   private urldatatypes = "types"
-  private subject = new Subject<any>();
+  private subject = new Subject<any>()
   //private basketProducts : Product[];
 
 
-  constructor(private http: Http
+  constructor(private http: Http,
+    private globalsService: GlobalsService
     //, private authHttp: AuthHttp //=> A activer pour l'authentification Client pour accéder aux url server protégés
-    ) { }
+    ) { 
+      this.baseUrl = globalsService.getUrl()
+    }
 
   loadData() : Observable<Type[]> {
 

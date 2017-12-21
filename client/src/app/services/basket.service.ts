@@ -6,21 +6,27 @@ import { Product } from './../objects/product'
 import { Observable } from 'rxjs/Rx'
 import { Subject } from 'rxjs/Subject'
 
+import { GlobalsService } from './globals.service'
+
 @Injectable()
 
 export class BasketService {
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
 
-  private baseUrl = "http://localhost/gjchoc/server/web/api/"
+  private baseUrl
 
-  //private types;
+  // private types;
   private basketProducts: Product[];
   private basketlist: any[];
   private tva: number;
-  constructor(private http: Http) { }
+  constructor(private http: Http,
+    private globals: GlobalsService
+  ) {
+    this.baseUrl = globals.getUrl()
+  }
 
-  //GET Ecommerce Config (TVA)
+  // GET Ecommerce Config (TVA)
   getTva() {
     if (this.tva) {
       return Observable.of(this.tva);

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Rx'
 
 import { Subject } from 'rxjs/Subject'
 
-
+import { GlobalsService } from './globals.service'
 import { Creation } from './../objects/creation'
 
 @Injectable()
@@ -18,12 +18,15 @@ export class CreationService {
 
 	private creations : Creation[];
 	private creations$ = new Subject<any>();
-    private baseUrl = "http://localhost/gjchoc/server/web/api/"
+    private baseUrl;
     private urlcreations = "creations"
 
-  constructor(private http: Http
+		constructor(private http: Http,
+			private globals: GlobalsService
+		) {
+			this.baseUrl = globals.getUrl()
+		}
     //, private authHttp: AuthHttp //=> A activer pour l'authentification Client pour accéder aux url server protégés
-    ) { }
 
   loadCreations() : Observable<Creation[]> {
 

@@ -22,7 +22,7 @@ security:
             memory:
                 users:
                     apiadmin:
-                        password: pass
+                        # password: pass
                         roles: 'ROLE_USER'
 
 

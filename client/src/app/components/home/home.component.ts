@@ -32,7 +32,7 @@ export class HomeComponent {
           this.visibility = "true";
           this.loader = "false";
         }
-      }, err => console.log(err));
+		}, err => /* console.log(err)); */alert('Il y a eu une erreur. Réferrez vous à l\'administrateur'))
 
 		this.dataService.initData();
 	}

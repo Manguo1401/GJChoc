@@ -22,7 +22,7 @@ export class PaymentComponent {
       this.reference = params["reference"];
     });
     if (this.reference) {
-      console.log(this.reference)
+      /* console.log(this.reference) */
     }
   }
 

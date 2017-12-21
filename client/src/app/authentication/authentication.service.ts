@@ -28,7 +28,7 @@ export class AuthenticationService {
   }
 
   loggedIn() {
-    console.log("canActivate: [AuthGuard] Needed, and authentication service loggedIn: " + tokenNotExpired());
+    /* console.log("canActivate: [AuthGuard] Needed, and authentication service loggedIn: " + tokenNotExpired()); */
     return tokenNotExpired();
   }
 }

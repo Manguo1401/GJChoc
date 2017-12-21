@@ -34,7 +34,6 @@ export class ProductDetailsComponent {
 		this.dataService.getDataSubscribed().subscribe(() => {
 			
 			this.product = this.dataService.getProduct(this.searchedProductID)
-			console.log(this.product)	
 		})
 		
 		this.dataService.initData()

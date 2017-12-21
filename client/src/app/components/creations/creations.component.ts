@@ -38,7 +38,7 @@ export class CreationsComponent {
 				}
 			}
 			),
-			err => console.log(err);
+			err => alert('Il y a eu une erreur');
 	}
 
 

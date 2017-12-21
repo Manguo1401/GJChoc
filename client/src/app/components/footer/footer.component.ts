@@ -24,7 +24,7 @@ export class FooterComponent {
         if (data) {
           this.visibility = "true";
         }
-      }, err => console.log(err));
+		}, err => /* console.log(err)); */ alert('Il y a eu une erreur. Réferrez vous à l\'administrateur'))
 	}
 
 

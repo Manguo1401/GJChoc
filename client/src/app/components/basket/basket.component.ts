@@ -44,7 +44,7 @@ export class BasketComponent {
         }
       }, error => {
         // Log errors if any
-        console.log(error);
+        alert('Il y a eu une erreur. Réferrez vous à l\'administrateur')
       });
   }
 
@@ -95,7 +95,7 @@ export class BasketComponent {
 
         }, error => {
                       // Log errors if any
-                      console.log(error);
+            alert('Il y a eu une erreur. Réferrez vous à l\'administrateur')
                     });
   }
 

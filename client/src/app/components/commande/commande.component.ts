@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core'
-//import { DataService } from './../../services/data.service'
+// import { DataService } from './../../services/data.service'
 import { PaymentService } from './../../services/payment.service'
 import { BasketService } from './../../services/basket.service'
 
@@ -15,13 +15,12 @@ import { Subscription } from 'rxjs/Subscription';
 import { Fader } from './../../animations/fader.animation'
 
 import * as jQuery from 'jquery'
-//import * as $ from 'jquery'
-import * as vicopo from 'vicopo'
-//import {vicopo} from 'vicopo'
-//import {vicopo, vicopoTargets, vicopoClean } from 'vicopo'
+// import * as $ from 'jquery'
+// import {vicopo} from 'vicopo'
+// import {vicopo, vicopoTargets, vicopoClean } from 'vicopo'
 import { element } from 'protractor';
-//declare var jquery:any;
-//declare var vicopo:any;
+// declare var jquery:any;
+// declare var vicopo:any;
 
 @Component({
   selector: 'my-commande',
@@ -65,8 +64,13 @@ export class CommandeComponent {
   }
 
 
-  ngAfterViewInit() {
-    jQuery(function ($) {
+ /*  ngAfterViewInit() { */
+
+    //////////////////////////////
+    //VICOPO//
+    //////////
+    
+    /* jQuery(function ($) {
       var _code = $('#code'), _city = $('#city');
       var _outCode = $('#outputcode'), _outCity = $('#outputcity')
       var _cache = {};
@@ -151,68 +155,68 @@ export class CommandeComponent {
       $("#outputcode").width($("#code").width());
       $("#outputcity").width($("#city").width());
 
-    });
-  }
+    }); */
+  /* } */
 
   onSubmitCommande(value: Commande) {
     this.submitted = true;
-    //ici la Commande est enregistrée dans la variable commande via NgModel
+    // ici la Commande est enregistrée dans la variable commande via NgModel
     // Demander le service checkout pour de paiement:
     this.openCheckout();
   }
 
   openCheckout() {
-    let _this = this; //Obligatoire pour avoir accès à notre class courante dans le handler.
+    const _this = this; // Obligatoire pour avoir accès à notre class courante dans le handler.
     // let commandeinfo = this.commande;
     // let functP = this.sendPayment;
-    var handler = (<any>window).StripeCheckout.configure({
-      key: 'pk_test_Y92Alt338tkbbLpXNm0EockN', //Clef définissant la connexion au compte Stripe, à changer pour la PROD
+    const handler = (<any>window).StripeCheckout.configure({
+      key: 'pk_test_oi0sKPJYLGjdvOXOM8tE8cMa', // Clef définissant la connexion au compte Stripe, à changer pour la PROD
       locale: 'auto',
       currency: 'eur',
-      allowRememberMe: false, //Désactivation de 'se souvenir de moi' puisque nous faisons payer le client en direct.
+      allowRememberMe: false, // Désactivation de 'se souvenir de moi' puisque nous faisons payer le client en direct.
       name: 'Paiement de votre panier',
       description: 'Sécurisé par Stripe.com',
-      email: 'toto@dede.de', //TRY TO ADD EMAIL
+      // email: 'toto@dede.de', // TRY TO ADD EMAIL
       token: function (token: any) {
         // You can access the token ID with `token.id`.
         // Get the token ID to your server-side code for use.
 
-        //ICI Enregister la commande, puis rediriger vers le service de paiement.
-        //console.log(token);
+        // ICI Enregister la commande, puis rediriger vers le service de paiement.
+        // console.log(token)
         _this.loader = 'true'
         let resp: Observable<any>
-        //_this.basketService.postBasket(10,3);
+        // _this.basketService.postBasket(10,3);
         resp = _this.paymentService.postPayment(token, _this.commande, _this.basket, _this.totalTTC * 100)
 
         resp.subscribe(
           data => {
-            //console.log("data :")
-            //console.log(data)
-            let ref = data.reference.substring(20);
-            let navigationExtras: NavigationExtras = {
+            // console.log("data :")
+            // console.log(data)
+            const ref = data.reference.substring(20);
+            const navigationExtras: NavigationExtras = {
               queryParams: {
-                "reference": ref
+                'reference': ref
               }
             };
             _this.router.navigate(['payment'], navigationExtras);
           },
           error => {
-            console.log("error :")
-            console.log(error)
-            console.log(error.exception.message)
+            // console.log('error :')
+            // console.log(error)
+            // console.log(error.exception.message)
 
-            //LOG ERROR
+            // LOG ERROR
             _this.errorMessage = "Une erreur est survenue, le paiement est annulé. \nErreur =" + error.exception.message;
             _this.loader = 'false'
           }
         )
-        //_this.sendPayment(token, _this.commande);
+        // _this.sendPayment(token, _this.commande);
 
       }
     });
 
     handler.open({
-      amount: this.totalTTC * 100 //en centimes: 100 = 1€
+      amount: this.totalTTC * 100 // en centimes: 100 = 1€
     });
 
   }
@@ -227,14 +231,15 @@ export class CommandeComponent {
   getTva() {
     this.basketService.getTva()
       .subscribe(data => {
-        console.log("getTva in comp " + data)
+        // console.log("getTva in comp " + data)
         if (data) {
           this.tva = data
         }
       },
       err => {
         // Log errors if any
-        console.log(err);
+        // console.log(err);
+        alert('Il y a eu une erreur. Réferrez vous à l\'administrateur')
       });
   }
 
@@ -256,7 +261,7 @@ export class CommandeComponent {
               });
             });
           }
-        }, err => console.log(err));
+      }, err => /* console.log(err)); */alert('Il y a eu une erreur. Réferrez vous à l\'administrateur'))
   }
 
   refreshTotal() {

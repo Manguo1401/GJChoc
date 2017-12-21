@@ -1,8 +1,8 @@
-<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+<!-- <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
   data-zip-code="true">
 
 
-</script>
+</script> -->
 
 <!-- <script src="https://vicopo.selfbuild.fr/api.min.js">
 </script> -->
@@ -11,7 +11,7 @@
   <div class="formulaire">
     <h4>Information à saisir</h4>
     <form #formCommande="ngForm" novalidate class="">
-      <!--  -->
+      
       <legend>Identification</legend>
       <div class="form-group">
         <div class="d-flex justify-content-between">
@@ -173,27 +173,6 @@
         </tr>
       </tbody>
     </table>
-    <div>
-      <input id="ville" placeholder="Entrez un code postal ou une ville">
-      <ul>
-        <li data-vicopo="#ville">
-          <strong data-vicopo-code-postal></strong>
-          <span data-vicopo-ville></span>
-        </li>
-      </ul>
-      <p>
-        <label>
-          Tapez le début d'un nom de ville ou d'un code postal puis appuyez sur <b>Entrée</b>.<br>
-          <input id="ville2" placeholder="Entrez un code postal ou une ville" autocomplete="off" size="50">
-        </label>
-      </p>
-      <ul>
-        <li data-vicopo="#ville2">
-          <strong data-vicopo-code-postal></strong>
-          <span data-vicopo-ville></span>
-        </li>
-      </ul>
-    </div>
   </div>
 </div>
 

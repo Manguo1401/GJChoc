@@ -32,7 +32,6 @@ export class AuthenticationComponent {
                 data => {
                     localStorage.setItem('token', data.token);
                     this.router.navigate(['accueil']);
-                    console.log("Token recieved = "+data.token);
                 },
                 error => this.error = error.message
             );

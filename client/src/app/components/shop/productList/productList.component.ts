@@ -42,7 +42,8 @@ export class ProductListComponent {
 
       //Get basket
       let basket = this.basketService.getBasket();
-      console.log('basket');console.log(basket)
+      /* console.log('basket');
+      console.log(basket) */
       if(basket)
         basket.forEach(basketItem => {
           this.products.forEach(product => {
@@ -92,7 +93,6 @@ export class ProductListComponent {
               //Sinon on ajoute tous les produits voulus
             } else {
               products = products.concat(e.products)
-              console.log(products)
             }
           })
         }
@@ -108,15 +108,15 @@ export class ProductListComponent {
       product.qte = 0
     }
     product.qte = product.qte + product.pas
-    console.log("qte of produitid:" + product);
-    console.log(product.qte);
+/*     console.log("qte of produitid:" + product);
+    console.log(product.qte); */
     this.basketService.addProductBasket(product.id, product.qte);
   }
 
   deleteQte(product) {
     product.qte = product.qte - product.pas
-    console.log("qte of produitid:" + product);
-    console.log(product.qte);
+    /* console.log("qte of produitid:" + product);
+    console.log(product.qte); */
     this.basketService.addProductBasket(product.id, product.qte);
   }
 }

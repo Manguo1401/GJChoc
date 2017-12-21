@@ -34,7 +34,7 @@ export class AppComponent {
 				this.data = data;
 			}
 			),
-			err => console.log(err);
+			err => alert('il y a eu une erreur');
 	}
 
 	ngOnInit(): void {
